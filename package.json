@@ -1,0 +1,63 @@
+{
+    "name": "login_register",
+    "version": "0.0.0",
+    "scripts": {
+        "start": "vite --mode development",
+        "test": "vite build --mode test",
+        "build": "vite build --mode production",
+        "lint": "eslint --fix \"src/**/*.{js,vue,ts}\"",
+        "lint:error": "eslint --fix --quiet \"src/**/*.{js,vue,ts}\"",
+        "svgo": "svgo -f src/assets/svg --config=src/config/svgo.js"
+    },
+    "dependencies": {
+        "@vueuse/components": "7.5.4",
+        "@vueuse/core": "7.5.4",
+        "vue": "3.2.31",
+        "vue-router": "4.0.12",
+        "pinia": "2.0.11",
+        "nprogress": "0.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "17.0.10",
+        "@types/nprogress": "0.2.0",
+        "@typescript-eslint/eslint-plugin": "5.4.0",
+        "@typescript-eslint/parser": "5.4.0",
+        "@vitejs/plugin-vue": "2.1.0",
+        "@vue/compiler-sfc": "3.2.31",
+        "autoprefixer": "10.4.2",
+        "eslint": "7.32.0",
+        "eslint-config-prettier": "8.3.0",
+        "eslint-define-config": "1.2.0",
+        "eslint-plugin-import": "2.25.4",
+        "eslint-plugin-node": "11.1.0",
+        "eslint-plugin-prettier": "4.0.0",
+        "eslint-plugin-promise": "4.2.1",
+        "eslint-plugin-vue": "7.20.0",
+        "naive-ui": "2.25.2",
+        "prettier": "2.4.1",
+        "sass": "1.26.5",
+        "svgo": "2.8.0",
+        "typescript": "4.5.2",
+        "unplugin-auto-import": "0.5.11",
+        "unplugin-vue-components": "0.17.14",
+        "vfonts": "0.0.3",
+        "vite": "2.7.13",
+        "vite-plugin-optimize-persist": "0.1.2",
+        "vite-plugin-package-config": "0.1.1",
+        "vite-plugin-restart": "0.1.0",
+        "vite-plugin-style-import": "1.4.1",
+        "vite-plugin-svg-icons": "2.0.1",
+        "vite-plugin-compression": "0.4.0",
+        "rollup-plugin-visualizer": "5.5.4"
+    },
+    "vite": {
+        "optimizeDeps": {
+            "include": [
+                "naive-ui",
+                "nprogress",
+                "vue",
+                "vue-router"
+            ]
+        }
+    }
+}

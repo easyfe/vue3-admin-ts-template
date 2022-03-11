@@ -1,0 +1,79 @@
+@import "layout.scss";
+@import "transition.scss";
+@import "element-ui.scss";
+@import "./utils/@theme-color.scss";
+@import "./utils/@util.scss";
+
+// $aside-bg: red;
+// @mixin text-overflow() {
+//     white-space: nowrap;
+//     text-overflow: ellipsis;
+//     overflow: hidden;
+// }
+
+#app,
+.el-container,
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: none;
+    color: #2c3e50;
+    font-size: 14px;
+    margin: 0;
+}
+
+#app {
+    //删除input数字框的上下箭头
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+}
+
+p {
+    margin: 0;
+}
+
+input,
+textarea {
+    border: none;
+    background: none;
+    outline: none !important;
+    font-family: "思源黑体";
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    //box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(#000, 0.12);
+
+    &:hover {
+        background: rgba(#000, 0.28);
+    }
+}
+
+*::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    //box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(#000, 0.05);
+    border-radius: 5px;
+    // background: #EDEDED;
+}

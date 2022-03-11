@@ -1,0 +1,26 @@
+//侧边栏背景
+$aside-bg: #001529;
+//展开栏背景
+$aside-expand-bg: #001529;
+//默认文字颜色
+$aside-text-color: #ffffff;
+//焦点文字颜色
+$aside-text-active-color: #1890ff;
+//鼠标划过背景色
+$aside-item-hover-bg: #032a4f;
+//焦点背景色
+$aside-item-active-bg: #001529;
+//侧边栏宽度
+$aside-min-width: 190px;
+
+/** 主色调*/
+$theme-main-color: #1890ff;
+
+/** 辅助色 */
+$theme-accent-color: transparent;
+
+:export {
+    asideBg: $aside-bg;
+    asideTextColor: $aside-text-color;
+    asideTextActiveColor: $aside-text-active-color;
+}

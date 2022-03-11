@@ -1,0 +1,36 @@
+@mixin border-bottom-1px($color) {
+    position: relative;
+    &::after {
+        position: absolute;
+        box-sizing: border-box;
+        content: " ";
+        pointer-events: none;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-bottom: 1px solid $color;
+        transform: scaleY(0.5);
+    }
+}
+
+@mixin text-overflow() {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@mixin text-overflow-line($line-number: 2) {
+    display: -webkit-box !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $line-number;
+    /*! autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+}
+
+@mixin flex-center($direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+}
