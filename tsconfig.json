@@ -12,10 +12,9 @@
         "allowSyntheticDefaultImports": true,
         "sourceMap": true,
         "baseUrl": ".",
-        "types": ["vite/client"],
+        "types": ["vite/client","src/types"],
         "paths": {
             "@/*": ["src/*"],
-            "/#/*": ["types/*"]
         },
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },

@@ -1,0 +1,60 @@
+/*
+ * @Author: KangZheng.Xiao
+ * @Date: 2020-11-25 10:52:48
+ * @Last Modified by: hanxinxin
+ * @Last Modified time: 2021-12-24 10:03:10
+ * 重置 vant-ui 样式
+*/
+html {
+    .van-list__finished-text,
+    .van-list__loading {
+        width: 100%;
+    }
+
+    .van-dialog {
+        .van-dialog__content--isolated {
+            display: block;
+        }
+        .van-dialog__header {
+            font-size: 30px;
+            padding-top: 30px;
+            font-weight: 400;
+            color: #000000;
+        }
+        .van-dialog__content {
+            text-align: center;
+            .van-dialog__message {
+                text-align: left;
+                display: inline-block;
+                font-size: 28px;
+                padding-top: 60px;
+                padding-bottom: 54px;
+                font-weight: 400;
+                color: #000000;
+                // 特殊符号换行
+                overflow-wrap: break-word;
+                // 字母换行
+                word-break: break-all;
+            }
+        }
+    }
+
+    // .van-dialog {
+    //     text-align: center;
+    //     .van-dialog__header {
+    //         font-size: 30px;
+    //         padding-top: 30px;
+    //         font-weight: 400;
+    //         color: #000000;
+    //     }
+    //     .van-dialog__message {
+    //         text-align: left;
+    //         display: inline-block;
+    //         font-size: 28px;
+    //         padding-top: 60px;
+    //         padding-bottom: 54px;
+    //         font-weight: 400;
+    //         color: #000000;
+    //     }
+    // }
+}

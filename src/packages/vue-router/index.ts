@@ -1,97 +1,67 @@
-// import Vue from "vue";
-// import VueRouter from "vue-router";
-// import routes from "./routes";
-// import NProgress from "nprogress";
-// import "nprogress/nprogress.css";
-// import { logout } from "@/utils/tools/logout";
-// import store from "@/packages/vuex";
-
-// Vue.use(VueRouter);
-// const VueRouterPush = VueRouter.prototype.push;
-// const VueRouterReplace = VueRouter.prototype.replace;
-// VueRouter.prototype.push = function push(location: string): any {
-//     return (VueRouterPush.call(this, location) as any).catch((err: any) => err);
-// };
-
-// VueRouter.prototype.replace = function replace(location: any): any {
-//     return (VueRouterReplace.call(this, location) as any).catch((err: any) => err);
-// };
-
-// //定义路由
-// const router = new VueRouter({
-//     mode: "hash",
-//     base: "admin"
-// });
-
-// //动态加载路由
-// router.addRoutes(routes);
-
-// // 配置NProgress进度条选项 —— 进度环显示隐藏
-// NProgress.configure({ showSpinner: false });
-
-// //路由前置守卫
-// //TODO:此处的to的类型不应该是any，应该是Route，但是和下面的next类型冲突，待优化
-// router.beforeEach((to: any, from, next) => {
-//     NProgress.start();
-//     document.title = (to.meta && to.meta.title) || "";
-//     if (to.name === "logout") {
-//         logout();
-//     } else if (store.state.permissionMenu.length === 0) {
-//         store.commit("SET_ROUTES", routes);
-//         // const base = routes.filter((item) => item.name === "Index")[0].children;
-//         // store.commit("SET_ROUTES", base);
-//         // store.commit("SET_ROUTES", base.concat(permissionRoutes));
-//         next({ ...to, replace: true });
-//     } else {
-//         next();
-//     }
-// });
-
-// router.afterEach((to) => {
-//     NProgress.done();
-//     store.commit("ADD_NAVTAG", to);
-//     if (store.state.isMobile) {
-//         store.commit("SET_COLLAPSE", false);
-//     }
-// });
-
-// export default router;
-
+import env from "@/utils/tools/env";
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
+import piniaRoutes from "@/config/pinia/routes";
+import { RouteConfig } from "@/types";
 
 const router = createRouter({
     history: createWebHistory(),
     routes
 });
 
-// 配置NProgress进度条选项 —— 进度环显示隐藏
-NProgress.configure({ showSpinner: false });
+let timer = 0;
+let start = 0;
+
+/**
+ * 递归处理路由
+ */
+const initRoute = (): void => {
+    const setRoutes = (tmpRoutes: RouteConfig[]): RouteConfig[] => {
+        let cloneData: any = null;
+        tmpRoutes.sort((a, b) => (b.meta?.sort || 1) - (a.meta?.sort || 1));
+        tmpRoutes = tmpRoutes.filter((item) => !item.meta?.hidden);
+        cloneData = [...tmpRoutes];
+        for (const key in tmpRoutes) {
+            if (tmpRoutes[key].children?.length) {
+                cloneData[key].children = setRoutes(tmpRoutes[key].children || []);
+            }
+        }
+        return cloneData;
+    };
+    const res = setRoutes(routes[0].children as unknown as RouteConfig[]);
+    piniaRoutes().SET_ROUTES(res);
+};
 
 //路由前置守卫
-router.beforeEach((to, from, next) => {
-    NProgress.start();
-    document.title = (to.meta?.title as string) || "";
+router.beforeEach(async (to, from, next) => {
+    // console.log("路由前置守卫：", to, from);
+    document.title = <string>to.meta?.title || "";
+    start = new Date().getTime();
+    /** 资源没有加载完成的时候，给loading，为防止资源已加载完毕，加上延迟避免闪屏 */
+    timer = window.setTimeout(() => {
+        if (env.dev()) {
+            console.warn(`执行路由定时器：${timer}`);
+        }
+        if (timer && env.dev()) {
+            document.getElementById("index-loading")?.setAttribute("style", "display:auto");
+        }
+    }, 100);
+    //正常跳转
     next();
-    // if (to.name === "logout") {
-    //     logout();
-    // } else if (store.state.permissionMenu.length === 0) {
-    //     store.commit("SET_ROUTES", routes);
-    //     next({ ...to, replace: true });
-    // } else {
-    //     next();
-    // }
 });
 
-router.afterEach((to) => {
-    console.log("路由：", to);
-    NProgress.done();
-    // store.commit("ADD_NAVTAG", to);
-    // if (store.state.isMobile) {
-    //     store.commit("SET_COLLAPSE", false);
-    // }
+router.afterEach(() => {
+    if (env.dev()) {
+        console.warn(`路由耗时：${new Date().getTime() - start}，定时器：${timer}`);
+    }
+    if (timer) {
+        if (env.dev()) {
+            console.warn(`清除路由定时器：${timer}`);
+        }
+        clearTimeout(timer);
+        timer = 0;
+    }
+    document.getElementById("index-loading")?.setAttribute("style", "display:none");
 });
 
 export default router;

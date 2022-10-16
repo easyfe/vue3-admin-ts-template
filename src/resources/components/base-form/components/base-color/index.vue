@@ -1,0 +1,79 @@
+<template>
+    <m-form-item v-bind="$attrs" content-flex>
+        <div class="base-color-reset"><m-button type="text" @click="reset">重置</m-button></div>
+        <m-trigger position="lt" trigger="click" :popup-offset="10">
+            <div class="base-color-wrapper" :trigger="['click']">
+                <div class="base-color-inner" :style="{ background: model }"></div>
+            </div>
+            <template #content>
+                <color-picker
+                    class="color"
+                    theme="light"
+                    :color="model"
+                    :sucker-hide="true"
+                    :sucker-canvas="suckerCanvas"
+                    :sucker-area="suckerArea"
+                    @changeColor="changeColor"
+                />
+            </template>
+        </m-trigger>
+    </m-form-item>
+</template>
+<script lang="ts" setup name="BaseColor">
+import colorPicker from "@caohenghu/vue-colorpicker";
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: ""
+    },
+    defaultColor: {
+        type: String,
+        default: ""
+    }
+});
+
+onMounted(() => {
+    if (!props.modelValue) reset();
+});
+
+const suckerCanvas = ref(null);
+const suckerArea = ref([]);
+
+const emits = defineEmits<{
+    (e: "update:modelValue", data: any): void;
+}>();
+
+const reset = (): void => {
+    emits("update:modelValue", props.defaultColor);
+};
+
+const model = computed({
+    get: () => {
+        return props.modelValue;
+    },
+    set: (newVal) => {
+        emits("update:modelValue", newVal);
+    }
+});
+
+const changeColor = (color: any): void => {
+    model.value = color.hex;
+};
+</script>
+<style lang="scss" scoped>
+.base-color-reset {
+    margin-right: 10px;
+}
+.base-color-wrapper {
+    cursor: pointer;
+    width: 62px;
+    height: 32px;
+    border-radius: 2px;
+    padding: 2px;
+    border: 1px solid #e9e9e9;
+    .base-color-inner {
+        height: 100%;
+        border-radius: 2px;
+    }
+}
+</style>

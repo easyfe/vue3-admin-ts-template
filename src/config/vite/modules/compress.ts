@@ -5,9 +5,9 @@
 import viteCompression from "vite-plugin-compression";
 import { Plugin } from "vite";
 
-export const ConfigCompressPlugin = (): Plugin => {
+export const ConfigCompressPlugin = (algorithm: "gzip" | "brotliCompress" | "deflate" | "deflateRaw"): Plugin => {
     return viteCompression({
-        ext: ".gz",
+        algorithm,
         verbose: true,
         deleteOriginFile: false
     });

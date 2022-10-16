@@ -1,12 +1,17 @@
-const routers = [
+import { RouteConfig } from "@/types";
+import LayoutMain from "@/layout/main.vue";
+
+const routers: RouteConfig[] = [
     {
         path: "/index",
         name: "index",
         meta: {
-            title: "首页",
-            icon: "dev"
+            title: "功能配置",
+            icon: "left-menu-2",
+            sort: 9
         },
-        component: (): any => import("@/views/index/index.vue")
+        component: LayoutMain,
+        children: []
     }
 ];
 

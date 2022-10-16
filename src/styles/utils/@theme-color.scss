@@ -1,26 +1,62 @@
-//侧边栏背景
-$aside-bg: #001529;
-//展开栏背景
-$aside-expand-bg: #001529;
-//默认文字颜色
-$aside-text-color: #ffffff;
-//焦点文字颜色
-$aside-text-active-color: #1890ff;
-//鼠标划过背景色
-$aside-item-hover-bg: #032a4f;
-//焦点背景色
-$aside-item-active-bg: #001529;
-//侧边栏宽度
-$aside-min-width: 190px;
+// $main-color: #fc7301;
+$main-color: #f2321a;
 
-/** 主色调*/
-$theme-main-color: #1890ff;
+// 辅助色
+$blue: #3593ff;
+$green: #08cb9b;
+$red: #ff5959;
+$teal: #39dcd0;
+$orange: #fc7202;
+$purple: #9c87fd;
+$cyan: #36d0ee;
 
-/** 辅助色 */
-$theme-accent-color: transparent;
+// 中性色
+$primary-color: #333;
+$secondary-color: #666;
+$thirdly-color: #999;
 
-:export {
-    asideBg: $aside-bg;
-    asideTextColor: $aside-text-color;
-    asideTextActiveColor: $aside-text-active-color;
+// 隔断、边框线颜色
+$border-color: #f2f2f2;
+
+// 字体
+$fz-mini: 18px;
+$fz-small: 20px;
+$fz-normal: 24px;
+$fz-large: 28px;
+
+// 边距
+$bw-mini: 10px;
+$bw-small: 15px;
+$bw-normal: 20px;
+$bw-large: 30px;
+
+.syy-main-color {
+    color: $main-color;
+}
+
+// font 字体
+.fz-48 {
+    font-size: 48px;
+}
+.fz-36 {
+    font-size: 36px;
+}
+.fz-30 {
+    font-size: 30px;
+}
+.fz-28 {
+    font-size: 28px;
+}
+.fz-26 {
+    font-size: 26px;
+}
+.fz-24 {
+    font-size: 24px;
+}
+.fz-22 {
+    font-size: 22px;
+}
+
+.fz-20 {
+    font-size: 22px;
 }

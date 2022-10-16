@@ -1,0 +1,192 @@
+.introjs-helperNumberLayer {
+    font-family: tahoma, Arial, verdana, sans-serif;
+    font-size: 14px;
+    text-shadow: none;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    border: 2px solid #ecf0f1;
+    border-radius: 50%;
+    background: #e74c3c;
+}
+
+.introjs-helperLayer {
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 2px;
+    box-shadow: rgb(33 33 33 / 0%) 0px 0px 1px 2px, rgb(33 33 33 / 60%) 0px 0px 0px 5000px !important;
+    &::before {
+        content: "";
+        display: table;
+        width: calc(100% + 12px);
+        height: calc(100% + 10px);
+        border: 1px dashed #fff;
+        transform: translateX(-7px) translateY(-12%);
+        border-radius: 4px;
+    }
+}
+
+.introjs-tooltip {
+    /* letter-spacing: 0.1em; */
+    color: #2c3e50;
+    font-family: tahoma, Arial, verdana, sans-serif;
+    border-radius: 8px;
+    width: 300px;
+    height: 130px;
+}
+
+.introjs-button {
+    padding: 0.6em 0.8em;
+    text-shadow: none;
+    font-weight: bold;
+    color: #2c3e50;
+    font-family: tahoma, Arial, verdana, sans-serif;
+    background: #ecf0f1;
+    background-image: none;
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    -webkit-transition: background 0.3s, border 0.3s;
+    -moz-transition: background 0.3s, border 0.3s;
+    -ms-transition: background 0.3s, border 0.3s;
+    -o-transition: background 0.3s, border 0.3s;
+    transition: background 0.3s, border 0.3s;
+    &:hover,
+    &:focus {
+        background: #2c3e50;
+        color: #fff;
+        box-shadow: none;
+        border-color: #2c3e50;
+        text-decoration: none;
+    }
+}
+
+.introjs-prevbutton {
+    border-radius: 0.2em 0 0 0.2em;
+    &:hover {
+        background-color: #fff !important;
+        color: #55585c;
+        border: 1px solid #edeef0;
+    }
+}
+
+.introjs-nextbutton {
+    border-radius: 0 0.2em 0.2em 0;
+    background: #1966ff !important;
+    border: 1px solid #1966ff !important;
+    color: #fff;
+
+    &:hover {
+        color: #fff !important;
+    }
+}
+
+.introjs-skipbutton {
+    display: none;
+}
+
+.introjs-tooltip-title {
+    color: #12141a;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.introjs-tooltiptext {
+    color: #55585c;
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 18px 20px;
+}
+
+.introjs-tooltipbuttons {
+    border-top: none;
+    position: relative;
+    padding: 0 14px;
+    &::before {
+        content: "\529f\80fd\63d0\793a";
+        display: table;
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        color: #bcbdc0;
+        font-size: 14px;
+    }
+}
+
+.introjs-nextbutton {
+    width: 50px;
+    height: 24px;
+    border-radius: 2px;
+    background: #1966ff;
+    border: 1px solid #1966ff;
+    padding: 0;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    color: rgb(230, 230, 230);
+    &:hover {
+        background: #1966ff;
+        border: 1px solid #1966ff;
+        color: rgb(230, 230, 230);
+    }
+}
+
+.introjs-prevbutton {
+    width: 50px;
+    height: 24px;
+    border-radius: 2px;
+    padding: 0;
+    text-align: center;
+    border: 1px solid #edeef0;
+    color: #55585c;
+    font-size: 12px;
+    line-height: 24px;
+    background-color: #fff;
+    margin-left: 166px;
+}
+
+.introjs-donebutton:hover {
+    background: #1966ff;
+    border: 1px solid #1966ff;
+}
+
+.introjs-left {
+    right: 344px !important;
+    transform: translateY(-30%);
+    .right {
+        top: 62px;
+        right: -39px;
+    }
+    .introjs-arrow {
+        width: 39px;
+        height: 1px;
+        background: #fff;
+        border: 1px solid transparent;
+    }
+}
+
+.introjs-bottom-middle-aligned {
+    top: 82px !important;
+    .top-middle {
+        height: 35px;
+        width: 1px;
+        background: #fff;
+        top: -35px;
+        border: 1px solid transparent;
+        margin-left: 4px;
+    }
+}
+
+.introjs-bottom-right-aligned {
+    top: 82px !important;
+    .top-right {
+        height: 35px;
+        width: 1px;
+        background: #fff;
+        top: -35px;
+        border: 1px solid transparent;
+        right: 34px;
+    }
+}

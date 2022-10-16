@@ -1,79 +1,78 @@
-@import "layout.scss";
-@import "transition.scss";
-@import "element-ui.scss";
-@import "./utils/@theme-color.scss";
-@import "./utils/@util.scss";
+@import "./vant-ui.scss";
 
-// $aside-bg: red;
-// @mixin text-overflow() {
-//     white-space: nowrap;
-//     text-overflow: ellipsis;
-//     overflow: hidden;
-// }
-
-#app,
-.el-container,
-body,
 html {
-    width: 100%;
-    height: 100%;
+    font-size: 10vw;
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    border: none;
-    color: #2c3e50;
-    font-size: 14px;
-    margin: 0;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Segoe UI, Arial, Roboto, "PingFang SC",
+        "miui", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+    text-size-adjust: 100% !important; /** IOS禁止微信调整字体大小 */
 }
 
-#app {
-    //删除input数字框的上下箭头
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-    }
-
-    input[type="number"] {
-        -moz-appearance: textfield;
-    }
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
 }
-
 p {
     margin: 0;
 }
-
-input,
-textarea {
-    border: none;
-    background: none;
-    outline: none !important;
-    font-family: "思源黑体";
+* {
+    box-sizing: border-box;
 }
 
-*::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+    transition: all 0.3s;
 }
 
-*::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    //box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: rgba(#000, 0.12);
+.slide-left-enter,
+.slide-right-leave-active {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}
 
-    &:hover {
-        background: rgba(#000, 0.28);
+.slide-left-leave-active,
+.slide-right-enter {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+.slide-left-leave-to,
+.slide-right-leave-to {
+    width: 100vw;
+    height: 100vh;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+// 颜色选择器
+.hu-color-picker {
+    box-sizing: initial;
+}
+
+.trigg-error {
+    border-width: 1px!important;
+    border-style: solid!important;
+    animation: trigganimation 0.5s ease-out infinite alternate!important;
+}
+@keyframes trigganimation {
+    0% {
+        border-color: rgb(255, 255, 255);
     }
-}
-
-*::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
-    //box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: rgba(#000, 0.05);
-    border-radius: 5px;
-    // background: #EDEDED;
+    100% {
+        border-color: rgb(253, 6, 6);
+    }
 }
