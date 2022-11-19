@@ -1,6 +1,7 @@
 <template>
     <div class="base-editor">
         <div class="title">{{ $attrs.label }}</div>
+        <div class="tip">图片将依据比例自动缩放</div>
         <TinyEditor v-model="model" class="editor" :init="initEditor" />
     </div>
 </template>
@@ -53,6 +54,7 @@ const initEditor = {
     toolbar: [
         "undo redo bold italic underline forecolor backcolor lineheight alignleft aligncenter alignright bullist numlist fontsize customImage"
     ],
+    content_style: "body {font-size: 14px;}",
     font_size_formats: "8px 10px 12px 14px 16px 18px 24px 36px 48px",
     setup: (editor: any): any => {
         editorInstantce.value = editor;
@@ -87,8 +89,18 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .title {
     font-size: 14px;
-    color: #252931;
+    //color: #252931;
     font-weight: Regular;
-    height: 44px;
+    margin-bottom: 16px;
+    color: #898b8f;
+}
+.tip {
+    font-size: 14px;
+    font-weight: 400;
+    color: #898b8f;
+    margin-bottom: 16px;
+}
+:deep(.tox-tinymce) {
+    border-radius: 5px;
 }
 </style>

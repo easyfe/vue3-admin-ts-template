@@ -1,17 +1,19 @@
 <template>
-    <m-form-item v-bind="$attrs">
-        <m-space direction="vertical" size="large">
-            <m-checkbox-group v-model="model" class="checkbox">
-                <m-checkbox
-                    v-for="(item, index) in props.options"
-                    :key="index"
-                    :value="item[props.valueKey]"
-                    :disabled="item.disabled"
-                    >{{ item[props.labelKey] }}</m-checkbox
-                >
-            </m-checkbox-group>
-        </m-space>
-    </m-form-item>
+    <div class="base-check-box">
+        <m-form-item v-bind="$attrs">
+            <m-space direction="vertical" size="large">
+                <m-checkbox-group v-model="model" class="checkbox">
+                    <m-checkbox
+                        v-for="(item, index) in props.options"
+                        :key="index"
+                        :value="item[props.valueKey]"
+                        :disabled="item.disabled"
+                        >{{ item[props.labelKey] }}</m-checkbox
+                    >
+                </m-checkbox-group>
+            </m-space>
+        </m-form-item>
+    </div>
 </template>
 <script lang="ts" setup name="BaseCheckbox">
 const props = withDefaults(
@@ -40,4 +42,28 @@ const model = computed({
     }
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.base-check-box {
+    -webkit-appearance: none !important;
+    :deep(.mo-row) {
+        -webkit-appearance: none !important;
+    }
+    :deep(.mo-checkbox) {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+}
+.mo-form-item {
+    margin-bottom: 12px !important;
+}
+:deep(.mo-form-item-label) {
+    color: #898b8f !important;
+}
+:deep(.mo-checkbox-icon) {
+    width: 16px;
+    height: 16px;
+    .mo-checkbox-icon-check {
+        width: 10px;
+    }
+}
+</style>

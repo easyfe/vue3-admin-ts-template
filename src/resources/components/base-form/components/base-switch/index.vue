@@ -30,5 +30,6 @@ const model = computed({
 <style lang="scss" scoped>
 :deep(.mo-form-item-label) {
     white-space: nowrap;
+    color: #898b8f !important;
 }
 </style>

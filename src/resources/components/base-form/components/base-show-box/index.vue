@@ -1,13 +1,20 @@
 <template>
     <m-form-item v-bind="$attrs">
+        <template #label>
+            {{ label }}
+            <span class="tips">{{ model ? "显示" : "不显示" }}</span>
+        </template>
         <div class="content">
-            <span>{{ model ? "显示" : "不显示" }}</span>
             <m-checkbox v-model="model" class="show-box" v-bind="$attrs"></m-checkbox>
         </div>
     </m-form-item>
 </template>
 <script lang="ts" setup name="BaseShowBox">
 const props = defineProps({
+    label: {
+        type: String,
+        default: ""
+    },
     modelValue: {
         type: Boolean,
         default: true
@@ -31,18 +38,30 @@ const model = computed({
 });
 </script>
 <style lang="scss" scoped>
+.tips {
+    color: #55585c;
+    margin-left: 16px;
+    font-weight: 600;
+    display: inline-block;
+    width: 50px;
+}
 .content {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    color: #55585c;
+    justify-content: flex-end;
     :deep(.mo-checkbox-icon) {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
         .mo-checkbox-icon-check {
             width: 10px;
         }
     }
+}
+.mo-form-item {
+    margin-bottom: 12px !important;
+}
+:deep(.mo-form-item-label) {
+    color: #898b8f !important;
 }
 </style>

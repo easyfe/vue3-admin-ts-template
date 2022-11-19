@@ -1,7 +1,7 @@
 <template>
     <m-form-item v-bind="$attrs">
         <div class="content">
-            <m-input v-model.trim="model" v-bind="$attrs" allow-clear class="input"></m-input>
+            <m-date-picker v-model.trim="model" show-time v-bind="$attrs" allow-clear class="input" />
             <div v-if="defaultValue" class="reset" @click="reset">重置</div>
         </div>
     </m-form-item>
@@ -48,5 +48,11 @@ const reset = (): void => {
 }
 :deep(.mo-form-item-label) {
     color: #898b8f !important;
+}
+.mo-form-item {
+    justify-content: space-between;
+}
+.content {
+    justify-content: flex-end;
 }
 </style>

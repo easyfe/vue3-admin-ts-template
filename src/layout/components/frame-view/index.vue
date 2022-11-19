@@ -1,37 +1,10 @@
 <template>
-    <div class="frame-view">
-        <div v-if="$slots.left" class="frame-view-left">
-            <slot name="left"></slot>
-        </div>
-        <div class="frame-view-main">
-            <div id="homePreviewMain" class="preview">
-                <div v-if="!customNavbar" class="preview-header" :style="getHeaderStyle">
-                    <div class="preview-header-nav-status"></div>
-                    <div class="preview-header-title">{{ props.previewTitle }}</div>
-                </div>
-                <div
-                    class="preview-body"
-                    :style="`height:${customNavbar ? '774px;' : '686px;'}
-                    background-color: ${previewBgColor};`"
-                >
-                    <slot name="preview"></slot>
-                </div>
-                <div v-if="tabbar" class="preview-footer">
-                    <tabbar></tabbar>
-                </div>
-            </div>
-        </div>
-
-        <div class="frame-view-right" :style="`width: ${rightWidth}px`">
-            <slot name="right"></slot>
-        </div>
-    </div>
+    <div class="frame-view"></div>
 </template>
 
 <script lang="ts" setup name="FrameView">
 import getRangeColor from "@/utils/tools/range-color/index";
 import iphoneHeader from "@/assets/images/zx/iphone_header@2x.png";
-import tabbar from "../tabbar/index.vue";
 
 const props = withDefaults(
     defineProps<{

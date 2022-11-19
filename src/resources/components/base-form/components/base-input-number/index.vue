@@ -57,5 +57,12 @@ const model = computed({
     color: #bcbdc0;
     line-height: 17px;
     margin-top: 8px;
+    text-align: right;
+}
+.input-number.mo-input-wrapper {
+    margin-bottom: 0;
+}
+:deep(.mo-form-item-label) {
+    color: #898b8f !important;
 }
 </style>

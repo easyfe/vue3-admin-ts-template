@@ -62,4 +62,7 @@ const model = computed({
 :deep(.mo-form-item-label-col-left) {
     flex: none !important;
 }
+:deep(.mo-form-item-label) {
+    color: #898b8f !important;
+}
 </style>

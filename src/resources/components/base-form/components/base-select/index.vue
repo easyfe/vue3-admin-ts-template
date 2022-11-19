@@ -39,4 +39,8 @@ const model = computed({
     }
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.mo-form-item-label) {
+    color: #898b8f !important;
+}
+</style>

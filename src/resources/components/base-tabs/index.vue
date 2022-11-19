@@ -28,4 +28,8 @@ const model = computed({
     }
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.mo-tabs-content) {
+    padding-top: 0;
+}
+</style>

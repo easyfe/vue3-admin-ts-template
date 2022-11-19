@@ -96,4 +96,7 @@ const model = computed({
     color: #999999;
     margin: 0 6px;
 }
+:deep(.mo-form-item-label) {
+    color: #898b8f !important;
+}
 </style>

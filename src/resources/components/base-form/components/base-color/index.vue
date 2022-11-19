@@ -21,6 +21,7 @@
 </template>
 <script lang="ts" setup name="BaseColor">
 import colorPicker from "@caohenghu/vue-colorpicker";
+import { rgbaToHex } from "./untils";
 const props = defineProps({
     modelValue: {
         type: String,
@@ -57,7 +58,12 @@ const model = computed({
 });
 
 const changeColor = (color: any): void => {
-    model.value = color.hex;
+    console.log(color);
+    // model.value = color.hex;
+    const { r, g, b, a } = color.rgba;
+    const rgba = `rgba(${r},${g},${b},${a})`;
+    console.log(rgba);
+    model.value = rgbaToHex(rgba);
 };
 </script>
 <style lang="scss" scoped>
@@ -75,5 +81,8 @@ const changeColor = (color: any): void => {
         height: 100%;
         border-radius: 2px;
     }
+}
+:deep(.mo-form-item-label) {
+    color: #898b8f !important;
 }
 </style>

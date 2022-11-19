@@ -2,7 +2,7 @@
     <div class="base-table">
         <!-- 顶部筛选器 -->
         <div v-if="props.filterConfig" class="filter">
-            <base-form v-model="privateFilterData" :config="props.filterConfig"></base-form>
+            <base-form v-model="privateFilterData" :config="props.filterConfig" layout="row"></base-form>
         </div>
         <div class="top">
             <!-- table左上角切换tab -->
@@ -56,6 +56,7 @@
                 :expandable="privateTableConfig?.expandable"
                 :stripe="true"
                 :bordered="privateTableConfig?.bordered"
+                v-on="$attrs"
                 @row-click="rowClick"
             >
                 <template #columns>
@@ -154,17 +155,22 @@
                 </template>
             </m-table>
         </div>
-        <div v-if="privateTableConfig?.pageination !== false || enableSelection" class="footer">
+        <div v-if="privateTableConfig?.pagination !== false || enableSelection" class="footer">
             <div class="bat-wrapper">
-                <m-checkbox
-                    v-if="enableSelection"
-                    v-model="footerCheckAllFlag"
-                    class="bat-checkbox"
-                    :indeterminate="footerIndeterminateFlag"
-                    @change="haneleClickChoose"
-                >
-                    {{ footerCheckAllFlag ? "取消全选" : "全选" }}
-                </m-checkbox>
+                <template v-if="enableSelection">
+                    <m-checkbox
+                        v-model="footerCheckAllFlag"
+                        class="bat-checkbox"
+                        :indeterminate="footerIndeterminateFlag"
+                        @change="haneleClickChoose"
+                    >
+                        {{ footerCheckAllFlag ? "取消全选" : "全选" }}
+                    </m-checkbox>
+                    <span class="bats-slot">
+                        已选 {{ selectedKeys?.length
+                        }}<template v-if="props.selectLimit">/ {{ props.selectLimit }}</template> 个
+                    </span>
+                </template>
                 <template v-if="batsShow">
                     <template v-for="(item, index) in privateTableConfig?.bats">
                         <m-button
@@ -179,12 +185,9 @@
                         >
                     </template>
                 </template>
-                <span class="bats-slot">
-                    <slot name="bats-slot"></slot>
-                </span>
             </div>
             <m-pagination
-                v-if="privateTableConfig?.pageination !== false"
+                v-if="privateTableConfig?.pagination !== false"
                 v-model:current="privatePage"
                 v-model:pageSize="privateSize"
                 :page-size-options="privateSizeList"
@@ -213,8 +216,8 @@ const props = withDefaults(
         filterConfig?: _FormConfigColumn[];
         //筛选框值
         filterData?: any;
-        //复选框key集合
-        selectionKeys?: number[] | string[];
+        //复选框默认选中key集合
+        defaultSelectionKeys?: number[] | string[];
         //构造请求
         req?: {
             fn: (params: any) => Promise<any>;
@@ -238,10 +241,13 @@ const props = withDefaults(
         pageKey?: string;
         //分页size变量
         sizeKey?: string;
+        //最大选择数量
+        selectLimit?: number;
     }>(),
     {
-        pageination: true,
-        selectionKeys: () => [],
+        selectLimit: 0,
+        pagination: true,
+        defaultSelectionKeys: () => [],
         req: undefined,
         filterConfig: undefined,
         filterData: {},
@@ -260,12 +266,19 @@ const emits = defineEmits<{
     (e: "update:list", value: any[]): void;
     (e: "export", value: any): void;
     (e: "update:filterData", value: any): void;
-    (e: "update:selectionKeys", value: number[] | string[]): void;
     (e: "selectionChange", value: any[]): void;
+    (e: "rowClick", value: any): void;
 }>();
 
 //内部tableConfig配置文件
 const privateTableConfig = ref<null | _TableConfig>(props.tableConfig);
+// const privateTableConfig = computed(() => {
+//     const cloneTableConfig = lodash.cloneDeep(props.tableConfig);
+//     if (cloneTableConfig?.selection?.showCheckedAll) {
+//         cloneTableConfig.selection.showCheckedAll = false;
+//     }
+//     return cloneTableConfig;
+// });
 //是否结束
 const finished = ref(false);
 //列表加载状态
@@ -371,26 +384,11 @@ watch(
 /** 请求参数修改 */
 watch(
     () => props.req,
-    (newVal: any, oldVal: any) => {
-        // console.log(newVal, new Date());
-        // if (!props.filterConfig?.length) {
-        //     listMore(true);
-        //     return;
-        // }
+    () => {
+        if (loading.value) {
+            return;
+        }
         debounceListMore();
-        // for (const item of props.filterConfig) {
-        //     if (
-        //         JSON.stringify((newVal && newVal[item.prop]) ?? undefined) !==
-        //         JSON.stringify((oldVal && oldVal[item.prop]) ?? undefined)
-        //     ) {
-        //         debounceListMore();
-        //         return;
-        //     }
-        // }
-        // listMore(true);
-    },
-    {
-        deep: true
     }
 );
 
@@ -403,53 +401,34 @@ watch(
         }
     }
 );
-/** 复选框变更监听 */
-watch(
-    selectedKeys,
-    () => {
-        if (!privateTableConfig.value?.selection) {
-            return;
+/**
+ * arr1数组是否包含arr2数组
+ * @param arr1
+ * @param arr2
+ */
+const arrIncludes = (arr1: any[], arr2: any[]): number => {
+    let total = 0;
+    for (let item of arr2) {
+        if (arr1.includes(item)) {
+            total = total + 1;
         }
-        emits("update:selectionKeys", selectedKeys.value);
-        emits(
-            "selectionChange",
-            privateList.value.filter((item) =>
-                selectedKeys.value.includes(item[privateTableConfig.value?.rowKey || ""])
-            )
-        );
-        nextTick(() => {
-            footerCheckAllFlag.value = selectedKeys.value?.length === privateList.value.length;
-            if (!props.selectionKeys) {
-                console.error("请传入selectionKeys");
-                return;
-            }
-            footerIndeterminateFlag.value =
-                selectedKeys.value.length > 0 && selectedKeys.value?.length !== privateList.value.length;
-        });
-    },
-    { deep: true }
-);
-/** 复选框绑定keys变更，检测复选disabled */
-watch(props.selectionKeys, () => {
-    checkSelectedDisabled(false);
-});
+    }
+    return total;
+};
 /** 重新加载之后，检测复选disabled */
 watch(loading, (newVal) => {
     if (!newVal) {
-        checkSelectedDisabled(true);
+        if (props.defaultSelectionKeys.length) {
+            selectedKeys.value = Array.from(new Set([...(selectedKeys.value as any[]), ...props.defaultSelectionKeys]));
+        }
+        checkSelectedDisabled();
     }
 });
-const checkSelectedDisabled = (immediate: boolean): void => {
-    let keys = props?.selectionKeys ? [...props?.selectionKeys] : [];
-    //判断是否相同，如果是相同的，表示本次变更是由表单内部操作引起的，如果是不同的，则表示由外部传入的，防止进入死循环
-    if (keys?.sort().toString() === selectedKeys.value.sort().toString() && !immediate) {
-        return;
-    }
-    selectedKeys.value = props?.selectionKeys || [];
-    //判断是否需要禁用选中行
+/** 判断是否需要禁用选中行 */
+const checkSelectedDisabled = (): void => {
     if (props.tableConfig.disableSelectedRow) {
         privateList.value.forEach((item) => {
-            if (selectedKeys.value.includes(item[props.tableConfig.rowKey])) {
+            if ((props.defaultSelectionKeys as any[]).includes(item[props.tableConfig.rowKey])) {
                 item.disabled = true;
             } else {
                 item.disabled = false;
@@ -466,7 +445,6 @@ const debounceListMore = lodash.debounce(() => {
 const haneleClickChoose = (value: boolean | (string | number | boolean)[]): void => {
     baseTable.value.selectAll(value);
 };
-
 /** 获取key */
 const vnodeKey = computed(() => {
     return getCurrentInstance()?.vnode.key;
@@ -514,7 +492,7 @@ const listMore = async (refresh = false): Promise<void> => {
         }
         const res = await props?.req.fn(params);
         // 仅开启分页的情况才去设置总数
-        if (privateTableConfig.value?.pageination !== false) {
+        if (privateTableConfig.value?.pagination !== false) {
             total.value = res[props.totalKey || "total"];
         }
         loading.value = false;
@@ -665,7 +643,8 @@ const setDictionaryValue = (prop: string, value: string | number): string | numb
     return dictionaryObj.value[prop][value];
 };
 /** 单元格点击事件 */
-const rowClick = (data: any): void => {
+const rowClick = (data: Record<string, any>): void => {
+    emits("rowClick", data);
     if (data.disabled) {
         return;
     }
@@ -674,7 +653,7 @@ const rowClick = (data: any): void => {
         const index = selectedKeys.value?.findIndex((item) => item === clickId);
         if (index !== undefined) {
             if (index === -1) {
-                selectedKeys.value?.push(clickId);
+                (selectedKeys.value as any[])?.push(clickId);
             } else {
                 selectedKeys.value?.splice(index, 1);
             }
@@ -682,9 +661,37 @@ const rowClick = (data: any): void => {
     }
 };
 
+watch(
+    selectedKeys,
+    () => {
+        onSelectionChange();
+    },
+    { deep: true }
+);
+
+/** 复选框变更 */
+const onSelectionChange = (): void => {
+    const selectionData = privateList.value.filter((item) =>
+        (selectedKeys.value as any[]).includes(item[privateTableConfig.value?.rowKey || ""])
+    );
+    emits("selectionChange", selectionData);
+    checkSelectedDisabled();
+    nextTick(() => {
+        const includeLength = arrIncludes(
+            selectedKeys.value,
+            privateList.value.map((item) => item[privateTableConfig.value?.rowKey || ""])
+        );
+        footerCheckAllFlag.value = includeLength > 0 && includeLength === privateList.value.length;
+        //计算部分选中状态的时候，需要过滤已禁用的数据
+        footerIndeterminateFlag.value =
+            includeLength - props.defaultSelectionKeys.length > 0 && includeLength < privateList.value.length;
+    });
+};
+
 /**暴露主动刷新事件 */
 const refresh = (): void => {
-    listMore();
+    selectedKeys.value = [];
+    listMore(true);
 };
 
 defineExpose({
@@ -703,6 +710,7 @@ onMounted(() => {
     if (props.list?.length && !props.req) {
         privateList.value = props.list;
     }
+    selectedKeys.value = [];
     listMore(true);
 });
 onBeforeUnmount(() => {
@@ -748,7 +756,7 @@ onBeforeUnmount(() => {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: 0 15px;
+        padding: 0 15px 0 7px;
         height: 50px;
         background: #fff;
         margin-top: 15px;

@@ -1,13 +1,18 @@
 <template>
     <div class="base-form">
         <m-form ref="formRef" :model="model" label-align="left" size="small" auto-label-width>
-            <m-row :gutter="24">
-                <m-col v-for="(item, index) in props.config" :key="index" class="form-items" :span="item.span || 24">
+            <m-row :gutter="24" :style="getRowStyle">
+                <m-col v-for="(item, index) in props.config" :key="index" class="form-items" :span="getSpan(item)">
                     <base-input
                         v-if="item.inputType === 'input' && handleCheckIf(item.if)"
                         v-model.trim="model[item.field]"
                         v-bind="item"
                     ></base-input>
+                    <base-date
+                        v-if="item.inputType === 'date' && handleCheckIf(item.if)"
+                        v-model.trim="model[item.field]"
+                        v-bind="item"
+                    ></base-date>
                     <base-switch
                         v-if="item.inputType === 'switch' && handleCheckIf(item.if)"
                         v-model="model[item.field]"
@@ -77,8 +82,11 @@ const props = withDefaults(
     defineProps<{
         config: Record<string, any>[];
         modelValue: any;
+        layout?: "column" | "row";
     }>(),
-    {}
+    {
+        layout: "column"
+    }
 );
 const emits = defineEmits<{
     (e: "update:modelValue", value: any): void;
@@ -91,6 +99,19 @@ const model = computed({
     set: (newVal) => {
         emits("update:modelValue", newVal);
     }
+});
+
+const getSpan = computed(() => (item: any): number => {
+    if (!handleCheckIf(item.if)) {
+        return 0;
+    }
+    return item.span || 24;
+});
+
+const getRowStyle = computed(() => {
+    return {
+        flexDirection: props.layout
+    };
 });
 
 /** 检查是否显示 */
@@ -118,11 +139,15 @@ const resetFields = (name?: string | string[]): void => {
 const clearValidate = (): void => {
     return formRef.value?.clearValidate();
 };
+const setFields = (fidlds: Record<string, any>): void => {
+    return formRef.value?.setFields(fidlds);
+};
 defineExpose({
     validateField,
     validate,
     resetFields,
-    clearValidate
+    clearValidate,
+    setFields
 });
 </script>
 <style lang="scss" scoped>
