@@ -1,10 +1,10 @@
 <template>
-    <m-form-item v-bind="$attrs">
+    <n-form-item v-bind="$attrs">
         <div class="content">
-            <m-date-picker v-model.trim="model" show-time v-bind="$attrs" allow-clear class="input" />
+            <n-date-picker v-model.trim="model" show-time v-bind="$attrs" allow-clear class="input" />
             <div v-if="defaultValue" class="reset" @click="reset">重置</div>
         </div>
-    </m-form-item>
+    </n-form-item>
 </template>
 <script lang="ts" setup name="BaseInput">
 const props = defineProps({

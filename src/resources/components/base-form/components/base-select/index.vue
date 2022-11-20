@@ -1,15 +1,15 @@
 <template>
-    <m-form-item v-bind="$attrs">
-        <m-select v-model="model" allow-clear v-bind="$attrs" class="select">
-            <m-option
+    <n-form-item v-bind="$attrs">
+        <n-select v-model="model" allow-clear v-bind="$attrs" class="select" :options="props.options">
+            <!-- <n-option
                 v-for="(item, index) in props.options"
                 :key="index"
                 :value="item[props.valueKey]"
                 :disabled="item.disabled"
-                >{{ item[props.labelKey] }}</m-option
-            >
-        </m-select>
-    </m-form-item>
+                >{{ item[props.labelKey] }}</n-option
+            > -->
+        </n-select>
+    </n-form-item>
 </template>
 <script lang="ts" setup name="BaseSelect">
 const props = withDefaults(

@@ -1,10 +1,10 @@
 <template>
-    <m-form-item v-bind="$attrs">
+    <n-form-item v-bind="$attrs">
         <div>
-            <m-input-number v-model="model" class="input-number" :min="min" :max="max"></m-input-number>
+            <n-input-number v-model="model" class="input-number" :min="min" :max="max"></n-input-number>
             <div v-if="tips" class="tips">{{ tips }}</div>
         </div>
-    </m-form-item>
+    </n-form-item>
 </template>
 
 <script lang="ts" setup name="BaseInput">

@@ -1,18 +1,18 @@
 <template>
-    <m-form-item v-bind="$attrs">
+    <n-form-item v-bind="$attrs">
         <div v-if="pixel" class="pixel">{{ model }}px</div>
-        <m-space direction="vertical" size="large">
-            <m-radio-group v-model="model" class="radio" :type="type" :disabled="disabled" @change="change">
-                <m-radio
+        <n-space direction="vertical" size="large">
+            <n-radio-group v-model="model" class="radio" :type="type" :disabled="disabled" @change="change">
+                <n-radio
                     v-for="(item, index) in props.options"
                     :key="index"
                     :value="item[props.valueKey]"
                     :disabled="item.disabled"
-                    >{{ item[props.labelKey] }}</m-radio
+                    >{{ item[props.labelKey] }}</n-radio
                 >
-            </m-radio-group>
-        </m-space>
-    </m-form-item>
+            </n-radio-group>
+        </n-space>
+    </n-form-item>
 </template>
 <script lang="ts" setup name="BaseRadio">
 const props = withDefaults(

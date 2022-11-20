@@ -101,6 +101,8 @@ export type TypeBaseFormUpload = TypeBaseFormExtra & {
 /** form表单元素基础配置 */
 export type BaseFormExtra = {
     placeholder?: string;
+    clearable?: boolean;
+    rules?: rules[];
     // disabled?: boolean | ((...args: any) => boolean);
     if?: boolean | ((...args: any) => boolean);
     span?: number;

@@ -1,18 +1,18 @@
 <template>
     <div class="base-check-box">
-        <m-form-item v-bind="$attrs">
-            <m-space direction="vertical" size="large">
-                <m-checkbox-group v-model="model" class="checkbox">
-                    <m-checkbox
+        <n-form-item v-bind="$attrs">
+            <n-space direction="vertical" size="large">
+                <n-checkbox-group v-model="model" class="checkbox">
+                    <n-checkbox
                         v-for="(item, index) in props.options"
                         :key="index"
                         :value="item[props.valueKey]"
                         :disabled="item.disabled"
-                        >{{ item[props.labelKey] }}</m-checkbox
+                        >{{ item[props.labelKey] }}</n-checkbox
                     >
-                </m-checkbox-group>
-            </m-space>
-        </m-form-item>
+                </n-checkbox-group>
+            </n-space>
+        </n-form-item>
     </div>
 </template>
 <script lang="ts" setup name="BaseCheckbox">

@@ -1,8 +1,8 @@
 <template>
     <div class="base-form">
-        <m-form ref="formRef" :model="model" label-align="left" size="small" auto-label-width>
-            <m-row :gutter="24" :style="getRowStyle">
-                <m-col v-for="(item, index) in props.config" :key="index" class="form-items" :span="getSpan(item)">
+        <n-form ref="formRef" :model="model" :rules="rules" v-bind="$attrs">
+            <n-row :gutter="24" :style="getRowStyle">
+                <n-col v-for="(item, index) in props.config" :key="index" class="form-items" :span="getSpan(item)">
                     <base-input
                         v-if="item.inputType === 'input' && handleCheckIf(item.if)"
                         v-model.trim="model[item.field]"
@@ -18,16 +18,16 @@
                         v-model="model[item.field]"
                         v-bind="item"
                     ></base-switch>
-                    <base-color
+                    <!-- <base-color
                         v-if="item.inputType === 'color' && handleCheckIf(item.if)"
                         v-model="model[item.field]"
                         v-bind="item"
-                    ></base-color>
-                    <base-color-range
+                    ></base-color> -->
+                    <!-- <base-color-range
                         v-if="item.inputType === 'colorRange' && handleCheckIf(item.if)"
                         v-model="model[item.field]"
                         v-bind="item"
-                    ></base-color-range>
+                    ></base-color-range> -->
                     <base-checkbox
                         v-if="item.inputType === 'checkbox' && handleCheckIf(item.if)"
                         v-model="model[item.field]"
@@ -38,11 +38,11 @@
                         v-model="model[item.field]"
                         v-bind="item"
                     ></base-radio>
-                    <base-select
+                    <!-- <base-select
                         v-if="item.inputType === 'select' && handleCheckIf(item.if)"
                         v-model="model[item.field]"
                         v-bind="item"
-                    ></base-select>
+                    ></base-select> -->
                     <base-editor
                         v-if="item.inputType === 'editor' && handleCheckIf(item.if)"
                         v-model="model[item.field]"
@@ -69,14 +69,15 @@
                         v-bind="item"
                     ></base-show-switch>
                     <slot v-if="item.inputType === 'slot' && handleCheckIf(item.if)" :name="item.field"></slot>
-                </m-col>
-            </m-row>
-        </m-form>
+                </n-col>
+            </n-row>
+        </n-form>
     </div>
 </template>
 <script lang="ts" setup name="BaseForm">
 import typeHelper from "@/utils/helper/type";
-import { FormInstance, ValidatedError } from "@moment-design/web-vue/es/form";
+import lodash from "@/utils/tools/lodash";
+import { FormInst } from "naive-ui";
 
 const props = withDefaults(
     defineProps<{
@@ -99,6 +100,11 @@ const model = computed({
     set: (newVal) => {
         emits("update:modelValue", newVal);
     }
+});
+
+const rules = computed(() => {
+    const ruleList = props.config.map((item) => item.rules);
+    // const ruleMap=props.config.forEach
 });
 
 const getSpan = computed(() => (item: any): number => {
@@ -126,33 +132,43 @@ const handleCheckIf = (e: undefined | boolean | (() => boolean)): boolean => {
     return e as boolean;
 };
 
-const formRef = ref<FormInstance | null>();
-const validate = (): Promise<Record<string, ValidatedError> | undefined> | undefined => {
+//表格实例
+const formRef = ref<FormInst | null>();
+
+/**
+ * 校验数据
+ */
+const validate = (): Promise<void> | undefined => {
     return formRef.value?.validate();
 };
-const validateField = (field: string | string[]): Promise<Record<string, ValidatedError> | undefined> | undefined => {
-    return formRef.value?.validateField(field);
+/**
+ * 重置表单数据
+ */
+const resetFields = (): void => {
+    model.value = restoreValue;
 };
-const resetFields = (name?: string | string[]): void => {
-    return formRef.value?.resetFields(name);
-};
+/**
+ * 清空校验状态
+ */
 const clearValidate = (): void => {
-    return formRef.value?.clearValidate();
+    return formRef.value?.restoreValidation();
 };
-const setFields = (fidlds: Record<string, any>): void => {
-    return formRef.value?.setFields(fidlds);
-};
+
+//保留重置数据
+let restoreValue: any = null;
+
+onMounted(() => {
+    restoreValue = lodash.cloneDeep(model.value);
+});
 defineExpose({
-    validateField,
     validate,
     resetFields,
-    clearValidate,
-    setFields
+    clearValidate
 });
 </script>
 <style lang="scss" scoped>
 .base-form {
-    padding: 0px 12px;
+    // padding: 0px 12px;
     :deep(.mo-collapse-item) {
         margin-top: 16px;
     }

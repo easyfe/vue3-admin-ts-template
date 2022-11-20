@@ -14,7 +14,6 @@ import "tinymce/icons/default";
 import "tinymce/plugins/advlist";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/image";
-import theFileManager from "@/views/components/the-file-manager";
 import env from "@/utils/tools/env";
 const props = defineProps({
     modelValue: {

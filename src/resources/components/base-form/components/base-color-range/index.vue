@@ -1,15 +1,15 @@
 <template>
-    <m-form-item v-bind="$attrs" content-flex>
-        <div class="base-color-reset"><m-button type="text" @click="reset">重置</m-button></div>
-        <m-trigger class="color-range" position="lt" trigger="click" :popup-offset="10">
+    <n-form-item v-bind="$attrs" content-flex>
+        <div class="base-color-reset"><n-button type="text" @click="reset">重置</n-button></div>
+        <n-trigger class="color-range" position="lt" trigger="click" :popup-offset="10">
             <div class="base-color-wrapper" :trigger="['click']">
                 <div class="base-color-inner" :style="'background:' + model"></div>
             </div>
             <template #content>
                 <vue-gpickr v-model="model" />
             </template>
-        </m-trigger>
-    </m-form-item>
+        </n-trigger>
+    </n-form-item>
 </template>
 <script lang="ts" setup name="BaseColor">
 import { VueGpickr, LinearGradient } from "vue-gpickr";

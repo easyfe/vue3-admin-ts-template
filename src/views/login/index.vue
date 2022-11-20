@@ -3,7 +3,9 @@
         <img class="info" src="@/assets/images/login/login.png" />
         <div class="content">
             <h3>管理系统 - 登录</h3>
-            <n-form :model="formState" :auto-label-width="true" @submit="handleSubmit">
+            <base-form ref="form" v-model="formData" :config="formConfig" :show-label="false"></base-form>
+            <n-button type="primary" style="width: 100%" @click="handleSubmit">登录</n-button>
+            <!-- <n-form :model="formState" :auto-label-width="true" @submit="handleSubmit">
                 <n-form-item field="username" :rules="[{ required: true, message: '请输入用户名' }]">
                     <n-input v-model="formState.username" placeholder="请输入用户名" />
                 </n-form-item>
@@ -18,15 +20,16 @@
                         >登录</n-button
                     >
                 </n-form-item>
-            </n-form>
+            </n-form> -->
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from "vue";
 import { login, autoLogin } from "@/config/apis/login";
 import storage from "@/utils/tools/storage";
 import cookie from "@/utils/tools/cookie";
+import formHelper from "@/utils/helper/form";
+import ruleHelper from "@/utils/helper/rule";
 
 const router = useRouter();
 
@@ -36,51 +39,60 @@ cookie.set("X-Token", "");
 
 const loading = ref(false);
 
-interface FormState {
-    username: string;
-    password: string;
-}
-const formState = reactive<FormState>({
+const formData = ref({
     username: "testTshopMaxpre101",
     password: "Zhendao2020"
 });
+const formConfig = computed(() => {
+    return [
+        formHelper.input("", "username", {
+            placeholder: "用户名",
+            rules: [ruleHelper.require("必填")]
+        }),
+        formHelper.input("", "password", {
+            placeholder: "密码"
+        })
+    ];
+});
+const form = ref();
 const handleSubmit = async (res: any): Promise<any> => {
-    if (!res?.errors) {
-        /**
-         * 开发环境调用登录接口
-         */
-        try {
-            loading.value = true;
-            const xToken = await login(formState);
-            if (xToken) {
-                cookie.set("X-Token", xToken);
-                /**
-                 * 手动登录之后
-                 * 换取 acccess_token
-                 */
-                autoLogin({
-                    token: xToken,
-                    isFalse: 1
-                })
-                    .then((res) => {
-                        storage.setToken(res.access_token);
-                        storage.setUserInfo(res.user_info);
-                        useMessage().success("登录成功");
-                        loading.value = false;
-                        router.push({
-                            name: "store-decoration-fine"
-                        });
-                    })
-                    .catch((err) => {
-                        loading.value = false;
-                        console.log(err);
-                    });
-            }
-        } catch (error: any) {
-            loading.value = false;
-            useMessage().error(error.message);
-        }
-    }
+    form.value.validate();
+    // if (!res?.errors) {
+    //     /**
+    //      * 开发环境调用登录接口
+    //      */
+    //     try {
+    //         loading.value = true;
+    //         const xToken = await login(formData);
+    //         if (xToken) {
+    //             cookie.set("X-Token", xToken);
+    //             /**
+    //              * 手动登录之后
+    //              * 换取 acccess_token
+    //              */
+    //             autoLogin({
+    //                 token: xToken,
+    //                 isFalse: 1
+    //             })
+    //                 .then((res) => {
+    //                     storage.setToken(res.access_token);
+    //                     storage.setUserInfo(res.user_info);
+    //                     useMessage().success("登录成功");
+    //                     loading.value = false;
+    //                     router.push({
+    //                         name: "store-decoration-fine"
+    //                     });
+    //                 })
+    //                 .catch((err) => {
+    //                     loading.value = false;
+    //                     console.log(err);
+    //                 });
+    //         }
+    //     } catch (error: any) {
+    //         loading.value = false;
+    //         useMessage().error(error.message);
+    //     }
+    // }
 };
 </script>
 

@@ -24,8 +24,23 @@ const formHelper = {
      * @returns
      */
     input(label: string, field: string, extra?: BaseFormExtra & BaseFormInput): any {
+        extra = { ...extra, clearable: extra?.clearable ?? true };
         return {
             inputType: "input",
+            label,
+            field,
+            ...extra
+        };
+    },
+    /**
+     * 事件输入框
+     * @param label
+     * @param field
+     * @param extra
+     */
+    date(label: string, field: string, extra?: BaseFormExtra & BaseFormInput): any {
+        return {
+            inputType: "date",
             label,
             field,
             ...extra

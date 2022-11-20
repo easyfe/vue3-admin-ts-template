@@ -1,13 +1,13 @@
 <template>
-    <m-form-item v-bind="$attrs">
+    <n-form-item v-bind="$attrs">
         <template #label>
             {{ label }}
             <span class="tips">{{ model ? "显示" : "不显示" }}</span>
         </template>
         <div class="content">
-            <m-checkbox v-model="model" class="show-box" v-bind="$attrs"></m-checkbox>
+            <n-checkbox v-model="model" class="show-box" v-bind="$attrs"></n-checkbox>
         </div>
-    </m-form-item>
+    </n-form-item>
 </template>
 <script lang="ts" setup name="BaseShowBox">
 const props = defineProps({

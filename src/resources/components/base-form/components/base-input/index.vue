@@ -1,10 +1,10 @@
 <template>
-    <m-form-item v-bind="$attrs">
+    <n-form-item v-bind="$attrs">
         <div class="content">
-            <m-input v-model.trim="model" v-bind="$attrs" allow-clear class="input"></m-input>
+            <n-input v-model:value.trim="model" v-bind="$attrs" class="input"></n-input>
             <div v-if="defaultValue" class="reset" @click="reset">重置</div>
         </div>
-    </m-form-item>
+    </n-form-item>
 </template>
 <script lang="ts" setup name="BaseInput">
 const props = defineProps({
@@ -38,6 +38,7 @@ const reset = (): void => {
 .content {
     display: flex;
     align-items: center;
+    width: 100%;
     .reset {
         width: 40px;
         font-size: 14px;
