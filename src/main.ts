@@ -20,8 +20,8 @@ import "@/packages/init/index";
 import directive from "@/resources/directive";
 import VueDOMPurifyHTML from "vue-dompurify-html";
 
-import VuePlyr from "vue-plyr";
-import "vue-plyr/dist/vue-plyr.css";
+import VuePlyr from "@skjnldsv/vue-plyr";
+import "@skjnldsv/vue-plyr/dist/vue-plyr.css";
 
 const App = createApp(app);
 App.use(createPinia());
