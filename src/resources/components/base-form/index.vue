@@ -1,74 +1,83 @@
 <template>
     <div class="base-form">
-        <n-form ref="formRef" :model="model" :rules="rules" v-bind="$attrs">
+        <n-form
+            ref="formRef"
+            :model="model"
+            :rules="rules"
+            show-require-mark
+            require-mark-placement="left"
+            label-placement="left"
+            label-width="auto"
+            v-bind="$attrs"
+        >
             <n-row :gutter="24" :style="getRowStyle">
                 <n-col v-for="(item, index) in props.config" :key="index" class="form-items" :span="getSpan(item)">
                     <base-input
                         v-if="item.inputType === 'input' && handleCheckIf(item.if)"
-                        v-model.trim="model[item.field]"
+                        v-model.trim="model[item.path]"
                         v-bind="item"
                     ></base-input>
                     <base-date
                         v-if="item.inputType === 'date' && handleCheckIf(item.if)"
-                        v-model.trim="model[item.field]"
+                        v-model.trim="model[item.path]"
                         v-bind="item"
                     ></base-date>
                     <base-switch
                         v-if="item.inputType === 'switch' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-switch>
                     <!-- <base-color
                         v-if="item.inputType === 'color' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-color> -->
                     <!-- <base-color-range
                         v-if="item.inputType === 'colorRange' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-color-range> -->
                     <base-checkbox
                         v-if="item.inputType === 'checkbox' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-checkbox>
                     <base-radio
                         v-if="item.inputType === 'radio' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-radio>
                     <!-- <base-select
                         v-if="item.inputType === 'select' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-select> -->
                     <base-editor
                         v-if="item.inputType === 'editor' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-editor>
                     <base-input-number
                         v-if="item.inputType === 'inputNumber' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-input-number>
                     <base-upload
                         v-if="item.inputType === 'uploadPic' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-upload>
                     <base-show-box
                         v-if="item.inputType === 'showBox' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-show-box>
                     <base-show-switch
                         v-if="item.inputType === 'showSwitch' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
+                        v-model="model[item.path]"
                         v-bind="item"
                     ></base-show-switch>
-                    <slot v-if="item.inputType === 'slot' && handleCheckIf(item.if)" :name="item.field"></slot>
+                    <slot v-if="item.inputType === 'slot' && handleCheckIf(item.if)" :name="item.path"></slot>
                 </n-col>
             </n-row>
         </n-form>
@@ -77,7 +86,7 @@
 <script lang="ts" setup name="BaseForm">
 import typeHelper from "@/utils/helper/type";
 import lodash from "@/utils/tools/lodash";
-import { FormInst } from "naive-ui";
+import { FormInst, FormRules } from "naive-ui";
 
 const props = withDefaults(
     defineProps<{
@@ -101,13 +110,18 @@ const model = computed({
         emits("update:modelValue", newVal);
     }
 });
-
+//表单校验规则
 const rules = computed(() => {
-    const ruleList = props.config.map((item) => item.rules);
-    // const ruleMap=props.config.forEach
+    const ruleList: FormRules = {};
+    props.config.forEach((item) => {
+        if (item.rules) {
+            ruleList[item.path] = item.rules;
+        }
+    });
+    return ruleList;
 });
 
-const getSpan = computed(() => (item: any): number => {
+const getSpan = computed(() => (item: any): any => {
     if (!handleCheckIf(item.if)) {
         return 0;
     }

@@ -4,7 +4,9 @@
         <div class="content">
             <h3>管理系统 - 登录</h3>
             <base-form ref="form" v-model="formData" :config="formConfig" :show-label="false"></base-form>
-            <n-button type="primary" style="width: 100%" @click="handleSubmit">登录</n-button>
+            <n-button type="primary" style="width: 100%" :loading="loading" :disabled="loading" @click="handleSubmit"
+                >登录</n-button
+            >
             <!-- <n-form :model="formState" :auto-label-width="true" @submit="handleSubmit">
                 <n-form-item field="username" :rules="[{ required: true, message: '请输入用户名' }]">
                     <n-input v-model="formState.username" placeholder="请输入用户名" />
@@ -30,7 +32,8 @@ import storage from "@/utils/tools/storage";
 import cookie from "@/utils/tools/cookie";
 import formHelper from "@/utils/helper/form";
 import ruleHelper from "@/utils/helper/rule";
-
+import sleep from "@/utils/tools/sleep";
+const message = useMessage();
 const router = useRouter();
 
 // 清空本地存储
@@ -56,7 +59,11 @@ const formConfig = computed(() => {
 });
 const form = ref();
 const handleSubmit = async (res: any): Promise<any> => {
-    form.value.validate();
+    await formHelper.validate(form.value);
+    loading.value = true;
+    await sleep(3000);
+    message.success("登录成功");
+    loading.value = false;
     // if (!res?.errors) {
     //     /**
     //      * 开发环境调用登录接口

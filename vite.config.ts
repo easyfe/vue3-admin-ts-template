@@ -23,18 +23,18 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         plugins: createVitePlugins({ envMap, uploadOption: ossConfig.uploadOption }),
         // 全局样式引用
         css: {
-            // preprocessorOptions: {
-            //     scss: {
-            //         javascriptEnabled: true,
-            //         additionalData: `@import "@/styles/index.scss";`
-            //     }
-            // }
+            preprocessorOptions: {
+                scss: {
+                    javascriptEnabled: true,
+                    additionalData: `@import "@/styles/utils/@util.scss";`
+                }
+            }
         },
         // 开发环境
         server: {
             hmr: { overlay: false }, // 禁用或配置 HMR 连接 设置 server.hmr.overlay 为 false 可以禁用服务器错误遮罩层
             // 服务配置
-            port: 14000, // 类型： number 指定服务器端口;
+            port: 14100, // 类型： number 指定服务器端口;
             open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
             cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
             host: "0.0.0.0", // IP配置，支持从IP启动
@@ -55,6 +55,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             sourcemap: envMap.VITE_APP_MODE === "development",
             outDir: envMap.VITE_APP_OUTPUT_DIR,
             target: "es2015",
+            cssTarget: "chrome80",
             terserOptions: {
                 compress: {
                     keep_infinity: true,

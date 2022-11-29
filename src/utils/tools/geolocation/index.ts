@@ -4,7 +4,7 @@
  */
 import { getLocalByLatitude } from "@/config/apis/common";
 import session from "@/utils/tools/session";
-import { GeoLocationType } from "@/types";
+import { GeoLocationType } from "types";
 export default function geoLocation(): Promise<GeoLocationType> {
     return new Promise((resolve, reject) => {
         const tmpGeoLocation = session.getGeoLocation();

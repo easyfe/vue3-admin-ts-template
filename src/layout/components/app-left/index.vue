@@ -21,7 +21,7 @@
 </template>
 <script setup lang="ts" name="AppLeft">
 import piniaRoutes from "@/config/pinia/routes";
-import { RouteConfig } from "@/types";
+import { RouteConfig } from "types";
 const route = useRoute();
 const router = useRouter();
 const piniaRouteList = piniaRoutes().routes;

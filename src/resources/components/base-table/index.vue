@@ -203,8 +203,8 @@
 
 <script lang="ts" setup name="BaseTable">
 import emptyImage from "@/assets/images//common/no-data.png";
-import { _FormConfigColumn } from "@/types/base-form";
-import { _Btn, _TableConfig } from "@/types/base-table";
+import { _FormConfigColumn } from "types/base-form";
+import { _Btn, _TableConfig } from "types/base-table";
 import { BaseTableColunmBtn } from "@/utils/helper/table";
 import typeHelper from "@/utils/helper/type";
 import dateHelper from "@/utils/helper/date";

@@ -1,14 +1,14 @@
-import { BaseFormColor, BaseFormExtra, BaseFormInput, BaseFormRadio } from "@/types/base-form";
+import { BaseFormColor, BaseFormExtra, BaseFormInput, BaseFormRadio } from "types/base-form";
 
 const formHelper = {
     validate(refValue: any): Promise<boolean> {
         return new Promise((resolve, reject) => {
             try {
-                refValue.validate().then((res: any) => {
-                    if (!res) {
+                refValue.validate((errors: any) => {
+                    if (!errors) {
                         resolve(true);
                     } else {
-                        reject(res);
+                        reject(errors);
                     }
                 });
             } catch (err) {
@@ -19,141 +19,141 @@ const formHelper = {
     /**
      * 普通输入框
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    input(label: string, field: string, extra?: BaseFormExtra & BaseFormInput): any {
+    input(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
         extra = { ...extra, clearable: extra?.clearable ?? true };
         return {
             inputType: "input",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 事件输入框
      * @param label
-     * @param field
+     * @param path
      * @param extra
      */
-    date(label: string, field: string, extra?: BaseFormExtra & BaseFormInput): any {
+    date(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
         return {
             inputType: "date",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 颜色选择器
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    color(label: string, field: string, extra?: BaseFormExtra & BaseFormColor): any {
+    color(label: string, path: string, extra?: BaseFormExtra & BaseFormColor): any {
         return {
             inputType: "color",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 渐变颜色选择器
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    colorRange(label: string, field: string, extra?: BaseFormExtra): any {
+    colorRange(label: string, path: string, extra?: BaseFormExtra): any {
         return {
             inputType: "colorRange",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 复选框
      * @param label
-     * @param field
+     * @param path
      * @param options
      * @param extra
      * @returns
      */
-    checkbox(label: string, field: string, options: Record<string, any>[], extra?: BaseFormExtra): any {
+    checkbox(label: string, path: string, options: Record<string, any>[], extra?: BaseFormExtra): any {
         return {
             inputType: "checkbox",
             label,
             options,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 单选框
      * @param label
-     * @param field
+     * @param path
      * @param options
      * @param extra
      * @returns
      */
-    radio(label: string, field: string, options: Record<string, any>[], extra?: BaseFormExtra & BaseFormRadio): any {
+    radio(label: string, path: string, options: Record<string, any>[], extra?: BaseFormExtra & BaseFormRadio): any {
         return {
             inputType: "radio",
             label,
             options,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 选择器
      * @param label
-     * @param field
+     * @param path
      * @param options
      * @param extra
      * @returns
      */
-    select(label: string, field: string, options: Record<string, any>[], extra?: BaseFormExtra): any {
+    select(label: string, path: string, options: Record<string, any>[], extra?: BaseFormExtra): any {
         return {
             inputType: "select",
             label,
             options,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 切换器
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    switch(label: string, field: string, extra?: BaseFormExtra): any {
+    switch(label: string, path: string, extra?: BaseFormExtra): any {
         return {
             inputType: "switch",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 富文本
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    editor(label: string, field: string, extra?: BaseFormExtra): any {
+    editor(label: string, path: string, extra?: BaseFormExtra): any {
         return {
             inputType: "editor",
             label,
-            field,
+            path,
             ...extra
         };
     },
@@ -164,70 +164,70 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    slot(field: string, extra?: BaseFormExtra): any {
+    slot(path: string, extra?: BaseFormExtra): any {
         return {
             inputType: "slot",
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 数字输入框
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    inputNumber(label: string, field: string, extra?: BaseFormExtra): any {
+    inputNumber(label: string, path: string, extra?: BaseFormExtra): any {
         return {
             inputType: "inputNumber",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 上传图片
      * @param label
-     * @param field 绑定值key
+     * @param path 绑定值key
      * @param extra
      * @returns
      */
-    uploadPic(label: string, field: string, extra?: BaseFormExtra): any {
+    uploadPic(label: string, path: string, extra?: BaseFormExtra): any {
         return {
             inputType: "uploadPic",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 单选checkbox(显示/不显示)
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    showBox(label: string, field: string, extra?: BaseFormExtra & BaseFormInput): any {
+    showBox(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
         return {
             inputType: "showBox",
             label,
-            field,
+            path,
             ...extra
         };
     },
     /**
      * 单选switch(显示/不显示)
      * @param label
-     * @param field
+     * @param path
      * @param extra
      * @returns
      */
-    showSwitch(label: string, field: string, extra?: BaseFormExtra & BaseFormInput): any {
+    showSwitch(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
         return {
             inputType: "showSwitch",
             label,
-            field,
+            path,
             ...extra
         };
     }

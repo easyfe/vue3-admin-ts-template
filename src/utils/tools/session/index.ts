@@ -5,7 +5,7 @@
  * @Last Modified time: 2021-09-26 17:54:43
  */
 import validatorHelper from "@/utils/helper/validator";
-import { GeoLocationType } from "@/types";
+import { GeoLocationType } from "types";
 const FROM = "SYY_AGENT_FROM";
 const WX_SDK_URL_KEY = "SYY_AGENT_WXSDKURL";
 const WX_CODE = "SYY_WX_CODE";

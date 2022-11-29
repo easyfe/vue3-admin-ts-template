@@ -1,4 +1,4 @@
-import { RouteConfig } from "@/types";
+import { RouteConfig } from "types";
 import LayoutMain from "@/layout/main.vue";
 
 const routers: RouteConfig[] = [

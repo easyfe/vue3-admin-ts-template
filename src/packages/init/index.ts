@@ -1,4 +1,4 @@
-// import { _TouchEvent } from "@/types";
+// import { _TouchEvent } from "types";
 // import storeDecoration from "@/config/pinia/store-decoration";
 // import VConsole from "vconsole";
 // import env from "@/utils/tools/env";

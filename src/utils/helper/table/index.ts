@@ -1,4 +1,4 @@
-import { _TableConfig } from "@/types/base-table";
+import { _TableConfig } from "types/base-table";
 
 export type BaseTableColunmExtra = {
     enable?: boolean;
