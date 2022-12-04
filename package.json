@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@caohenghu/vue-colorpicker": "^1.2.4",
-        "@skjnldsv/vue-plyr": "^7.3.0",
+        "vue-plyr": "^7.0.0",
         "@syyfe/request": "1.0.7",
         "@tinymce/tinymce-vue": "^4",
         "@types/dush": "^3.0.1",

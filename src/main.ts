@@ -19,9 +19,9 @@ import "@/packages/init/index";
 //引入全局自定义指令
 import directive from "@/resources/directive";
 import VueDOMPurifyHTML from "vue-dompurify-html";
-
-import VuePlyr from "@skjnldsv/vue-plyr";
-import "@skjnldsv/vue-plyr/dist/vue-plyr.css";
+//加载视频播放器
+import VuePlyr from "vue-plyr";
+import "vue-plyr/dist/vue-plyr.css";
 
 const App = createApp(app);
 App.use(createPinia());

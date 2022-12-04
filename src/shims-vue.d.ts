@@ -15,4 +15,4 @@ declare module "*.json" {
     export default value;
 }
 
-declare module "@skjnldsv/vue-plyr";
+declare module "vue-plyr";
