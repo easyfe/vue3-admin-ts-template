@@ -171,13 +171,15 @@ const clearValidate = (): void => {
 //保留重置数据
 let restoreValue: any = null;
 
-onMounted(() => {
-    restoreValue = lodash.cloneDeep(model.value);
-});
+//暴露事件
 defineExpose({
     validate,
     resetFields,
     clearValidate
+});
+
+onMounted(() => {
+    restoreValue = lodash.cloneDeep(model.value);
 });
 </script>
 <style lang="scss" scoped>

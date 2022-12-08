@@ -3,26 +3,10 @@
         <img class="info" src="@/assets/images/login/login.png" />
         <div class="content">
             <h3>管理系统 - 登录</h3>
-            <base-form ref="form" v-model="formData" :config="formConfig" :show-label="false"></base-form>
+            <base-form ref="baseForm1" v-model="formData" :config="formConfig" :show-label="false"></base-form>
             <n-button type="primary" style="width: 100%" :loading="loading" :disabled="loading" @click="handleSubmit"
                 >登录</n-button
             >
-            <!-- <n-form :model="formState" :auto-label-width="true" @submit="handleSubmit">
-                <n-form-item field="username" :rules="[{ required: true, message: '请输入用户名' }]">
-                    <n-input v-model="formState.username" placeholder="请输入用户名" />
-                </n-form-item>
-                <n-form-item field="password" :rules="[{ required: true, message: '请输入密码' }]">
-                    <n-input v-model="formState.password" placeholder="请输入密码" />
-                </n-form-item>
-                <n-form-item style="margin-top: 10px; line-height: 20px">
-                    登录页面可根据项目具体的需求，进行自定义配置
-                </n-form-item>
-                <n-form-item>
-                    <n-button type="primary" long html-type="submit" :loading="loading" :disabled="loading"
-                        >登录</n-button
-                    >
-                </n-form-item>
-            </n-form> -->
         </div>
     </div>
 </template>
@@ -50,20 +34,21 @@ const formConfig = computed(() => {
     return [
         formHelper.input("", "username", {
             placeholder: "用户名",
-            rules: [ruleHelper.require("必填")]
+            rules: [ruleHelper.require("用户名必填", ["input", "blur"])]
         }),
         formHelper.input("", "password", {
             placeholder: "密码"
         })
     ];
 });
-const form = ref();
-const handleSubmit = async (res: any): Promise<any> => {
-    await formHelper.validate(form.value);
+const baseForm1 = ref();
+const handleSubmit = async (): Promise<any> => {
+    await formHelper.validate(baseForm1.value);
     loading.value = true;
     await sleep(3000);
     message.success("登录成功");
     loading.value = false;
+
     // if (!res?.errors) {
     //     /**
     //      * 开发环境调用登录接口
@@ -138,9 +123,6 @@ const handleSubmit = async (res: any): Promise<any> => {
         input {
             width: 100%;
         }
-    }
-    :deep(.mo-form-item-label-col.mo-form-item-label-col-flex) {
-        display: none;
     }
 }
 @keyframes turn {

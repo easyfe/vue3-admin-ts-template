@@ -1,8 +1,9 @@
 const ruleHelper = {
-    require(message: string): any {
+    require(message: string, trigger?: string[]): any {
         return {
             required: true,
-            message
+            message,
+            trigger
         };
     },
     price(message: string): any {

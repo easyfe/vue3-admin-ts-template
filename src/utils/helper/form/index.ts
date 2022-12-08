@@ -3,17 +3,14 @@ import { BaseFormColor, BaseFormExtra, BaseFormInput, BaseFormRadio } from "type
 const formHelper = {
     validate(refValue: any): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            try {
-                refValue.validate((errors: any) => {
-                    if (!errors) {
-                        resolve(true);
-                    } else {
-                        reject(errors);
-                    }
+            refValue
+                .validate()
+                .then(() => {
+                    resolve(true);
+                })
+                .catch((err: any) => {
+                    reject(err);
                 });
-            } catch (err) {
-                reject(err);
-            }
         });
     },
     /**

@@ -3,20 +3,7 @@
         <n-dialog-provider>
             <n-notification-provider>
                 <n-message-provider>
-                    <div class="root">
-                        <router-view v-if="route.meta.keepAlive" v-slot="{ Component }">
-                            <transition>
-                                <keep-alive>
-                                    <component :is="Component" />
-                                </keep-alive>
-                            </transition>
-                        </router-view>
-                        <router-view v-else v-slot="{ Component }">
-                            <transition>
-                                <component :is="Component" />
-                            </transition>
-                        </router-view>
-                    </div>
+                    <RouterView />
                 </n-message-provider>
             </n-notification-provider> </n-dialog-provider
     ></n-loading-bar-provider>
@@ -35,10 +22,4 @@ watch(
     }
 );
 </script>
-<style lang="scss" scoped>
-.root {
-    background-color: #ffffff;
-    height: 100%;
-    overflow-y: auto;
-}
-</style>
+<style lang="scss" scoped></style>

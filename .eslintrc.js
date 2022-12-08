@@ -35,7 +35,7 @@ module.exports = {
         //允许使用any类型
         "@typescript-eslint/no-explicit-any": "off",
         //函数必须添加返回类型
-        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-function-return-type": "off",
         //perttier错误
         "prettier/prettier": "error"
     }
