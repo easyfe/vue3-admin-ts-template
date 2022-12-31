@@ -1,5 +1,4 @@
 import { RouteConfig } from "types";
-import LayoutMain from "@/layout/main.vue";
 
 const routers: RouteConfig[] = [
     {
@@ -10,8 +9,7 @@ const routers: RouteConfig[] = [
             icon: "zx-1-1",
             sort: 9
         },
-        component: LayoutMain,
-        children: []
+        component: () => import("@/views/index/index.vue")
     }
 ];
 

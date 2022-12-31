@@ -1,70 +1,28 @@
 <template>
-    <div class="app-header"></div>
+    <div class="app-header">
+        <n-breadcrumb>
+            <n-breadcrumb-item v-for="item in breadList" :key="item.name" @click="onClick(item)">{{
+                item.meta.title
+            }}</n-breadcrumb-item>
+        </n-breadcrumb>
+    </div>
 </template>
-<script setup lang="ts" name="AppHeader"></script>
+<script lang="ts" setup name="AppHeader">
+import { RouteLocationMatched } from "vue-router";
+const router = useRouter();
+const route = useRoute();
+const breadList = computed(() => {
+    return route.matched.filter((item) => item.path !== "/" && item.meta.title);
+});
+const onClick = (item: RouteLocationMatched) => {
+    router.push(item);
+};
+</script>
 <style lang="scss" scoped>
 .app-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 24px;
-    border-bottom: 1px solid #eeeeee;
-    .app-header-left {
-        cursor: pointer;
-        font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #898b8f;
-        display: flex;
-        align-items: center;
-        div {
-            margin-left: 8px;
-        }
-        &:hover {
-            color: #1966ff;
-            .item-svg-class {
-                color: #1966ff !important;
-            }
-        }
-    }
-    .app-header-menu {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        .app-header-menu-item {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            user-select: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: #55585c;
-            margin-right: 32px;
-        }
-        .app-header-menu-item__active {
-            color: #1966ff;
-            font-weight: 600;
-            position: relative;
-            &::after {
-                position: absolute;
-                content: "";
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 64px;
-                height: 3px;
-                background: #1966ff;
-                border-radius: 2px;
-            }
-        }
-    }
-    .app-header-right {
-        width: 200px;
-    }
-    :deep(.mo-space-align-center) {
-        justify-content: flex-end;
-    }
+    height: 100%;
 }
 </style>

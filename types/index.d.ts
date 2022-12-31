@@ -5,6 +5,7 @@ interface RouteMetaAll extends RouteMeta {
     hidden?: boolean;
     title?: string;
     icon?: string;
+    keepAliveName?: string;
 }
 
 interface RouteConfig {

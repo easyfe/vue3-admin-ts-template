@@ -5,4 +5,8 @@
 </template>
 
 <script lang="ts" setup name="FrameView"></script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.frame-view {
+    background-color: #fff;
+}
+</style>

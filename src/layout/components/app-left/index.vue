@@ -1,5 +1,6 @@
 <template>
     <n-menu
+        :value="getSelectedKeys"
         :options="menuOptions"
         :collapsed="props.collapsed"
         :collapsed-width="64"
@@ -9,11 +10,13 @@
         @update-expanded-keys="menuExpanded"
     />
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="AppLeft">
 import routes from "@/config/pinia/routes";
 import { MenuOption } from "naive-ui";
 import { RouteConfig } from "types";
 import BaseSvg from "@/resources/components/base-svg/index.vue";
+const router = useRouter();
+const route = useRoute();
 const props = withDefaults(
     defineProps<{
         collapsed: boolean;
@@ -23,11 +26,16 @@ const props = withDefaults(
 const emits = defineEmits<{
     (e: "update:collapsed", value: boolean): void;
 }>();
+const getSelectedKeys = computed(() => {
+    return route.name?.toString() || "";
+});
 const menuOptions = computed(() => {
     return initMenus();
 });
 const clickMenuItem = (key: string) => {
-    console.log("clickMenuItem", key);
+    router.push({
+        name: key
+    });
 };
 const menuExpanded = (key: string[]) => {
     console.log("menuExpanded", key);
