@@ -4,6 +4,7 @@ interface RouteMetaAll extends RouteMeta {
     sort?: number;
     hidden?: boolean;
     title?: string;
+    icon?: string;
 }
 
 interface RouteConfig {

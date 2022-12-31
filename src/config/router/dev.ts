@@ -7,7 +7,7 @@ const routers: RouteConfig[] = [
         name: "dev",
         meta: {
             title: "开发者工具",
-            icon: "left-menu-2",
+            icon: "zx-1-2",
             sort: 9
         },
         component: LayoutMain,

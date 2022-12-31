@@ -17,9 +17,9 @@ for (const key in modulesFiles) {
 
 const routers = [
     {
-        path: "",
+        path: "/",
         name: "",
-        redirect: "/store-decoration",
+        redirect: "/index",
         component: Layout,
         children: [] as any[]
     }

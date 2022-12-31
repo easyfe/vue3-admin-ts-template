@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import piniaRoutes from "@/config/pinia/routes";
 import { RouteConfig } from "types";
+import { Component } from "vue";
+import { NIcon } from "naive-ui";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -16,8 +18,8 @@ let start = 0;
  * 递归处理路由
  */
 const initRoute = (): void => {
-    const setRoutes = (tmpRoutes: RouteConfig[]): RouteConfig[] => {
-        let cloneData: any = null;
+    const setRoutes = (tmpRoutes: RouteConfig[]) => {
+        let cloneData: RouteConfig[] = [];
         tmpRoutes.sort((a, b) => (b.meta?.sort || 1) - (a.meta?.sort || 1));
         tmpRoutes = tmpRoutes.filter((item) => !item.meta?.hidden);
         cloneData = [...tmpRoutes];
@@ -36,7 +38,6 @@ const initRoute = (): void => {
 router.beforeEach(async (to, from, next) => {
     if (!piniaRoutes().routes.length) {
         initRoute();
-        console.log(piniaRoutes().routes);
     }
     // console.log("路由前置守卫：", to, from);
     document.title = <string>to.meta?.title || "";

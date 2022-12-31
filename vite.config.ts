@@ -59,7 +59,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             terserOptions: {
                 compress: {
                     keep_infinity: true,
-                    drop_console: true
+                    drop_console: false
                 }
             },
             rollupOptions: {
