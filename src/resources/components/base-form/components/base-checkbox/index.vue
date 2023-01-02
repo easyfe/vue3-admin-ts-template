@@ -21,12 +21,13 @@ const props = withDefaults(
         labelKey?: string;
         valueKey?: string;
         modelValue: number[] | string[];
-        options: Record<string, any>[];
+        options?: Record<string, any>[];
     }>(),
     {
         labelKey: "label",
         valueKey: "value",
-        modelValue: [] as any
+        modelValue: [] as any,
+        options: [] as any
     }
 );
 const emits = defineEmits<{

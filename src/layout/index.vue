@@ -32,7 +32,7 @@ const collapsed = ref(false);
 .layout-content {
     :deep(.n-scrollbar-content) {
         background-color: #f5f7f9;
-        height: 100%;
+        min-height: 100%;
         padding: 10px;
     }
 }

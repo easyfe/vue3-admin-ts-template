@@ -21,7 +21,7 @@ const formHelper = {
      * @returns
      */
     input(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
-        extra = { ...extra, clearable: extra?.clearable ?? true };
+        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
         return {
             inputType: "input",
             label,
@@ -36,6 +36,7 @@ const formHelper = {
      * @param extra
      */
     date(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
+        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
         return {
             inputType: "date",
             label,
@@ -116,6 +117,7 @@ const formHelper = {
      * @returns
      */
     select(label: string, path: string, options: Record<string, any>[], extra?: BaseFormExtra): any {
+        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
         return {
             inputType: "select",
             label,
@@ -176,6 +178,7 @@ const formHelper = {
      * @returns
      */
     inputNumber(label: string, path: string, extra?: BaseFormExtra): any {
+        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
         return {
             inputType: "inputNumber",
             label,
@@ -193,36 +196,6 @@ const formHelper = {
     uploadPic(label: string, path: string, extra?: BaseFormExtra): any {
         return {
             inputType: "uploadPic",
-            label,
-            path,
-            ...extra
-        };
-    },
-    /**
-     * 单选checkbox(显示/不显示)
-     * @param label
-     * @param path
-     * @param extra
-     * @returns
-     */
-    showBox(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
-        return {
-            inputType: "showBox",
-            label,
-            path,
-            ...extra
-        };
-    },
-    /**
-     * 单选switch(显示/不显示)
-     * @param label
-     * @param path
-     * @param extra
-     * @returns
-     */
-    showSwitch(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
-        return {
-            inputType: "showSwitch",
             label,
             path,
             ...extra

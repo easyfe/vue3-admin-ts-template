@@ -1,7 +1,13 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <div>
-            <n-input-number v-model="model" class="input-number" :min="min" :max="max"></n-input-number>
+        <div class="content">
+            <n-input-number
+                v-model:value="model"
+                v-bind="$attrs"
+                class="input-number"
+                :min="min"
+                :max="max"
+            ></n-input-number>
             <div v-if="tips" class="tips">{{ tips }}</div>
         </div>
     </n-form-item>
@@ -45,6 +51,21 @@ const model = computed({
 });
 </script>
 <style lang="scss" scoped>
+.content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    :deep(.n-input-number) {
+        width: 100%;
+    }
+    .reset {
+        width: 40px;
+        font-size: 14px;
+        color: #1966ff;
+        margin-left: 16px;
+        cursor: pointer;
+    }
+}
 :deep(.mo-form-item-wrapper-col) {
     width: 100px;
     flex-grow: 0 !important;

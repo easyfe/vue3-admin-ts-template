@@ -1,6 +1,6 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <n-switch v-model="model" class="switch" />
+        <n-switch v-model:value="model" class="switch" />
     </n-form-item>
 </template>
 <script lang="ts" setup name="BaseSwitch">
@@ -15,7 +15,7 @@ const props = defineProps({
     }
 });
 const emits = defineEmits<{
-    (e: "update:modelValue", data: any): void;
+    (e: "update:modelValue", data: boolean): void;
 }>();
 
 const model = computed({

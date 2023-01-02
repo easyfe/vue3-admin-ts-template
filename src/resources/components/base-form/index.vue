@@ -47,11 +47,11 @@
                         v-model="model[item.path]"
                         v-bind="item"
                     ></base-radio>
-                    <!-- <base-select
+                    <base-select
                         v-if="item.inputType === 'select' && handleCheckIf(item.if)"
                         v-model="model[item.path]"
                         v-bind="item"
-                    ></base-select> -->
+                    ></base-select>
                     <base-editor
                         v-if="item.inputType === 'editor' && handleCheckIf(item.if)"
                         v-model="model[item.path]"
@@ -67,19 +67,10 @@
                         v-model="model[item.path]"
                         v-bind="item"
                     ></base-upload>
-                    <base-show-box
-                        v-if="item.inputType === 'showBox' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-show-box>
-                    <base-show-switch
-                        v-if="item.inputType === 'showSwitch' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-show-switch>
                     <slot v-if="item.inputType === 'slot' && handleCheckIf(item.if)" :name="item.path"></slot>
                 </n-col>
             </n-row>
+            <n-button>test</n-button>
         </n-form>
     </div>
 </template>

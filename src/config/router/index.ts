@@ -5,7 +5,7 @@ const routers: RouteConfig[] = [
         path: "/index",
         name: "index",
         meta: {
-            title: "功能配置",
+            title: "首页",
             icon: "zx-1-1",
             sort: 9
         },

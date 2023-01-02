@@ -1,9 +1,3 @@
-/** 表单配置定义 */
-export type _FormConfig = {
-    title?: string;
-    columns: _FormConfigColumn[];
-};
-
 export type _FormConfigColumn = {
     type:
         | "slot"

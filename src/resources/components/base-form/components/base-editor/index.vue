@@ -1,9 +1,7 @@
 <template>
-    <div class="base-editor">
-        <div class="title">{{ $attrs.label }}</div>
-        <div class="tip">图片将依据比例自动缩放</div>
+    <n-form-item v-bind="$attrs">
         <TinyEditor v-model="model" class="editor" :init="initEditor" />
-    </div>
+    </n-form-item>
 </template>
 <script lang="ts" setup name="BaseEditor">
 import tinymce from "tinymce/tinymce";

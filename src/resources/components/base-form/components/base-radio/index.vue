@@ -1,15 +1,25 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <div v-if="pixel" class="pixel">{{ model }}px</div>
         <n-space direction="vertical" size="large">
-            <n-radio-group v-model="model" class="radio" :type="type" :disabled="disabled" @change="change">
-                <n-radio
-                    v-for="(item, index) in props.options"
-                    :key="index"
-                    :value="item[props.valueKey]"
-                    :disabled="item.disabled"
-                    >{{ item[props.labelKey] }}</n-radio
+            <n-radio-group v-model:value="model" class="radio" :type="type" :disabled="disabled" @change="change">
+                <template v-if="props.type === 'button'">
+                    <n-radio-button
+                        v-for="(item, index) in props.options"
+                        :key="index"
+                        :value="item[props.valueKey]"
+                        :disabled="item.disabled"
+                        >{{ item[props.labelKey] }}</n-radio-button
+                    ></template
                 >
+                <template v-else>
+                    <n-radio
+                        v-for="(item, index) in props.options"
+                        :key="index"
+                        :value="item[props.valueKey]"
+                        :disabled="item.disabled"
+                        >{{ item[props.labelKey] }}</n-radio
+                    >
+                </template>
             </n-radio-group>
         </n-space>
     </n-form-item>
@@ -21,9 +31,8 @@ const props = withDefaults(
         valueKey?: string;
         show?: boolean;
         modelValue: number | string | boolean;
-        options: Record<string, any>[];
-        type: "button" | "radio";
-        pixel?: boolean;
+        options?: Record<string, any>[];
+        type?: "button" | "radio";
         disabled?: boolean;
         change?: (value: string | number | boolean, ev: Event) => any;
     }>(),
@@ -32,8 +41,9 @@ const props = withDefaults(
         labelKey: "label",
         valueKey: "value",
         show: true,
-        pixel: false,
         disabled: false,
+        type: "radio",
+        options: [] as any,
         change: (value, ev) => undefined
     }
 );

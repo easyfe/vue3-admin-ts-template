@@ -1,14 +1,6 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <n-select v-model="model" allow-clear v-bind="$attrs" class="select" :options="props.options">
-            <!-- <n-option
-                v-for="(item, index) in props.options"
-                :key="index"
-                :value="item[props.valueKey]"
-                :disabled="item.disabled"
-                >{{ item[props.labelKey] }}</n-option
-            > -->
-        </n-select>
+        <n-select v-model:value="model" allow-clear v-bind="$attrs" class="select" :options="props.options"> </n-select>
     </n-form-item>
 </template>
 <script lang="ts" setup name="BaseSelect">
@@ -18,11 +10,12 @@ const props = withDefaults(
         valueKey?: string;
         show?: boolean;
         modelValue: string | number | number[] | string[];
-        options: Record<string, any>[];
+        options?: Record<string, any>[];
     }>(),
     {
         labelKey: "label",
         valueKey: "value",
+        options: [] as any,
         show: true
     }
 );
