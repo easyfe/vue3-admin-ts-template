@@ -1,6 +1,6 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <n-switch v-model:value="model" class="switch" />
+        <n-switch v-model:value="model" v-bind="$attrs" class="switch" />
     </n-form-item>
 </template>
 <script lang="ts" setup name="BaseSwitch">

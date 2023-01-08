@@ -28,7 +28,7 @@
     <!-- <the-file-manager v-model="fileMangerVisiable" :limit="limit" @confirm="onFileConfirm"></the-file-manager> -->
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="BaseUpload">
 const props = defineProps({
     modelValue: {
         type: String,

@@ -1,10 +1,11 @@
 <template>
     <n-form-item v-bind="$attrs">
         <n-space direction="vertical" size="large">
-            <n-radio-group v-model:value="model" class="radio" :type="type" :disabled="disabled" @change="change">
+            <n-radio-group v-model:value="model" class="radio" :type="type" v-bind="$attrs">
                 <template v-if="props.type === 'button'">
                     <n-radio-button
                         v-for="(item, index) in props.options"
+                        v-bind="item"
                         :key="index"
                         :value="item[props.valueKey]"
                         :disabled="item.disabled"
@@ -14,6 +15,7 @@
                 <template v-else>
                     <n-radio
                         v-for="(item, index) in props.options"
+                        v-bind="item"
                         :key="index"
                         :value="item[props.valueKey]"
                         :disabled="item.disabled"
@@ -29,22 +31,16 @@ const props = withDefaults(
     defineProps<{
         labelKey?: string;
         valueKey?: string;
-        show?: boolean;
         modelValue: number | string | boolean;
         options?: Record<string, any>[];
         type?: "button" | "radio";
-        disabled?: boolean;
-        change?: (value: string | number | boolean, ev: Event) => any;
     }>(),
     {
         modelValue: "",
         labelKey: "label",
         valueKey: "value",
-        show: true,
-        disabled: false,
         type: "radio",
-        options: [] as any,
-        change: (value, ev) => undefined
+        options: [] as any
     }
 );
 const emits = defineEmits<{

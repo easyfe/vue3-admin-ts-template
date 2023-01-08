@@ -1,9 +1,9 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <n-date-picker v-model:value="model" v-bind="$attrs" />
+        <n-time-picker v-model:value="model" v-bind="$attrs" />
     </n-form-item>
 </template>
-<script lang="ts" setup name="BaseDate">
+<script lang="ts" setup name="BaseTime">
 const props = withDefaults(
     defineProps<{
         modelValue?: any;
@@ -26,7 +26,7 @@ const model = computed({
 });
 </script>
 <style lang="scss" scoped>
-.n-date-picker {
+.n-time-picker {
     width: 100%;
 }
 </style>

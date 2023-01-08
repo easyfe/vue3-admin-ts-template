@@ -203,7 +203,6 @@
 
 <script lang="ts" setup name="BaseTable">
 import emptyImage from "@/assets/images//common/no-data.png";
-import { _FormConfigColumn } from "types/base-form";
 import { _Btn, _TableConfig } from "types/base-table";
 import { BaseTableColunmBtn } from "@/utils/helper/table";
 import typeHelper from "@/utils/helper/type";
@@ -213,7 +212,7 @@ import lodash from "@/utils/tools/lodash";
 const props = withDefaults(
     defineProps<{
         //筛选框配置
-        filterConfig?: _FormConfigColumn[];
+        filterConfig?: any[];
         //筛选框值
         filterData?: any;
         //复选框默认选中key集合

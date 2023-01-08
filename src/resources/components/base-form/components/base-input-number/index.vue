@@ -13,7 +13,7 @@
     </n-form-item>
 </template>
 
-<script lang="ts" setup name="BaseInput">
+<script lang="ts" setup name="BaseInputNumber">
 const props = defineProps({
     modelValue: {
         type: Number,

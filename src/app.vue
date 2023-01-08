@@ -1,16 +1,25 @@
 <template>
-    <n-loading-bar-provider>
-        <n-dialog-provider>
-            <n-notification-provider>
-                <n-message-provider>
-                    <RouterView />
-                </n-message-provider>
-            </n-notification-provider> </n-dialog-provider
-    ></n-loading-bar-provider>
+    <n-config-provider :locale="zhCN" :date-locale="dateZhCN">
+        <n-loading-bar-provider>
+            <n-dialog-provider>
+                <n-notification-provider>
+                    <n-message-provider>
+                        <RouterView />
+                    </n-message-provider>
+                </n-notification-provider> </n-dialog-provider
+        ></n-loading-bar-provider>
+    </n-config-provider>
 </template>
 <script lang="ts" setup>
 import { clearRequest } from "@/packages/request";
-import { NDialogProvider, NNotificationProvider, NMessageProvider, NLoadingBarProvider } from "naive-ui";
+import {
+    NDialogProvider,
+    NNotificationProvider,
+    NMessageProvider,
+    NLoadingBarProvider,
+    NConfigProvider
+} from "naive-ui";
+import { zhCN, dateZhCN } from "naive-ui";
 const route = useRoute();
 
 watch(

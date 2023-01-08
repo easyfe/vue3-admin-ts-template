@@ -17,11 +17,21 @@
                         v-model.trim="model[item.path]"
                         v-bind="item"
                     ></base-input>
-                    <base-date
-                        v-if="item.inputType === 'date' && handleCheckIf(item.if)"
+                    <base-input-number
+                        v-if="item.inputType === 'inputNumber' && handleCheckIf(item.if)"
                         v-model.trim="model[item.path]"
                         v-bind="item"
+                    ></base-input-number>
+                    <base-date
+                        v-if="item.inputType === 'date' && handleCheckIf(item.if)"
+                        v-model="model[item.path]"
+                        v-bind="item"
                     ></base-date>
+                    <base-time
+                        v-if="item.inputType === 'time' && handleCheckIf(item.if)"
+                        v-model="model[item.path]"
+                        v-bind="item"
+                    ></base-time>
                     <base-switch
                         v-if="item.inputType === 'switch' && handleCheckIf(item.if)"
                         v-model="model[item.path]"
@@ -57,11 +67,6 @@
                         v-model="model[item.path]"
                         v-bind="item"
                     ></base-editor>
-                    <base-input-number
-                        v-if="item.inputType === 'inputNumber' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-input-number>
                     <base-upload
                         v-if="item.inputType === 'uploadPic' && handleCheckIf(item.if)"
                         v-model="model[item.path]"

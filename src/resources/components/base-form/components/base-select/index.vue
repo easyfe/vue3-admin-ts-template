@@ -1,6 +1,6 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <n-select v-model:value="model" allow-clear v-bind="$attrs" class="select" :options="props.options"> </n-select>
+        <n-select v-model:value="model" allow-clear v-bind="$attrs" class="select"> </n-select>
     </n-form-item>
 </template>
 <script lang="ts" setup name="BaseSelect">
@@ -8,15 +8,12 @@ const props = withDefaults(
     defineProps<{
         labelKey?: string;
         valueKey?: string;
-        show?: boolean;
         modelValue: string | number | number[] | string[];
-        options?: Record<string, any>[];
     }>(),
     {
         labelKey: "label",
         valueKey: "value",
-        options: [] as any,
-        show: true
+        options: [] as any
     }
 );
 const emits = defineEmits<{

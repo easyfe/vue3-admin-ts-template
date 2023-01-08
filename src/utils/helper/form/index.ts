@@ -1,4 +1,18 @@
-import { BaseFormColor, BaseFormExtra, BaseFormInput, BaseFormRadio } from "types/base-form";
+import {
+    BaseFormCheckbox,
+    BaseFormCheckboxGroup,
+    BaseFormColor,
+    BaseFormDate,
+    BaseFormExtra,
+    BaseFormInput,
+    BaseFormInputNumber,
+    BaseFormRadio,
+    BaseFormRadioGroup,
+    BaseFormSelect,
+    BaseFormSelectOptions,
+    BaseFormSwitch,
+    BaseFormTime
+} from "types/base-form";
 
 const formHelper = {
     validate(refValue: any): Promise<boolean> {
@@ -20,8 +34,13 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    input(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
-        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
+    input(label: string, path: string, extra?: BaseFormInput) {
+        extra = {
+            ...extra,
+            clearable: extra?.clearable ?? true,
+            span: extra?.span ?? 8,
+            placeholder: extra?.placeholder ?? "请输入"
+        };
         return {
             inputType: "input",
             label,
@@ -35,10 +54,35 @@ const formHelper = {
      * @param path
      * @param extra
      */
-    date(label: string, path: string, extra?: BaseFormExtra & BaseFormInput): any {
-        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
+    date(label: string, path: string, extra?: BaseFormDate) {
+        extra = {
+            ...extra,
+            placeholder: extra?.placeholder ?? "请选择",
+            clearable: extra?.clearable ?? true,
+            span: extra?.span ?? 4
+        };
         return {
             inputType: "date",
+            label,
+            path,
+            ...extra
+        };
+    },
+    /**
+     * 时间输入框
+     * @param label
+     * @param path
+     * @param extra
+     */
+    time(label: string, path: string, extra?: BaseFormTime) {
+        extra = {
+            ...extra,
+            placeholder: extra?.placeholder ?? "请选择",
+            clearable: extra?.clearable ?? true,
+            span: extra?.span ?? 4
+        };
+        return {
+            inputType: "time",
             label,
             path,
             ...extra
@@ -51,7 +95,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    color(label: string, path: string, extra?: BaseFormExtra & BaseFormColor): any {
+    color(label: string, path: string, extra?: BaseFormExtra & BaseFormColor) {
         return {
             inputType: "color",
             label,
@@ -66,7 +110,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    colorRange(label: string, path: string, extra?: BaseFormExtra): any {
+    colorRange(label: string, path: string, extra?: BaseFormExtra) {
         return {
             inputType: "colorRange",
             label,
@@ -82,7 +126,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    checkbox(label: string, path: string, options: Record<string, any>[], extra?: BaseFormExtra): any {
+    checkbox(label: string, path: string, options: BaseFormCheckbox[], extra?: BaseFormCheckboxGroup) {
         return {
             inputType: "checkbox",
             label,
@@ -99,7 +143,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    radio(label: string, path: string, options: Record<string, any>[], extra?: BaseFormExtra & BaseFormRadio): any {
+    radio(label: string, path: string, options: BaseFormRadio[], extra?: BaseFormRadioGroup) {
         return {
             inputType: "radio",
             label,
@@ -116,8 +160,13 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    select(label: string, path: string, options: Record<string, any>[], extra?: BaseFormExtra): any {
-        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
+    select(label: string, path: string, options: BaseFormSelectOptions[], extra?: BaseFormSelect) {
+        extra = {
+            ...extra,
+            placeholder: extra?.placeholder ?? "请选择",
+            clearable: extra?.clearable ?? true,
+            span: extra?.span ?? 8
+        };
         return {
             inputType: "select",
             label,
@@ -133,7 +182,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    switch(label: string, path: string, extra?: BaseFormExtra): any {
+    switch(label: string, path: string, extra?: BaseFormSwitch) {
         return {
             inputType: "switch",
             label,
@@ -148,7 +197,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    editor(label: string, path: string, extra?: BaseFormExtra): any {
+    editor(label: string, path: string, extra?: BaseFormExtra) {
         return {
             inputType: "editor",
             label,
@@ -163,7 +212,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    slot(path: string, extra?: BaseFormExtra): any {
+    slot(path: string, extra?: BaseFormExtra) {
         return {
             inputType: "slot",
             path,
@@ -177,7 +226,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    inputNumber(label: string, path: string, extra?: BaseFormExtra): any {
+    inputNumber(label: string, path: string, extra?: BaseFormInputNumber) {
         extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
         return {
             inputType: "inputNumber",
@@ -193,7 +242,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    uploadPic(label: string, path: string, extra?: BaseFormExtra): any {
+    uploadPic(label: string, path: string, extra?: BaseFormExtra) {
         return {
             inputType: "uploadPic",
             label,

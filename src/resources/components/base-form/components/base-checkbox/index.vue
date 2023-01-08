@@ -2,14 +2,10 @@
     <div class="base-check-box">
         <n-form-item v-bind="$attrs">
             <n-space direction="vertical" size="large">
-                <n-checkbox-group v-model="model" class="checkbox">
-                    <n-checkbox
-                        v-for="(item, index) in props.options"
-                        :key="index"
-                        :value="item[props.valueKey]"
-                        :disabled="item.disabled"
-                        >{{ item[props.labelKey] }}</n-checkbox
-                    >
+                <n-checkbox-group v-model:value="model" class="checkbox" v-bind="$attrs">
+                    <n-checkbox v-for="(item, index) in props.options" :key="index" v-bind="item">{{
+                        item[props.labelKey]
+                    }}</n-checkbox>
                 </n-checkbox-group>
             </n-space>
         </n-form-item>
@@ -21,13 +17,13 @@ const props = withDefaults(
         labelKey?: string;
         valueKey?: string;
         modelValue: number[] | string[];
-        options?: Record<string, any>[];
+        options?: any[];
     }>(),
     {
         labelKey: "label",
         valueKey: "value",
-        modelValue: [] as any,
-        options: [] as any
+        modelValue: () => [],
+        options: () => []
     }
 );
 const emits = defineEmits<{
