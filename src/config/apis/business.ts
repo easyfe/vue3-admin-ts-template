@@ -4,7 +4,7 @@ import storage from "@/utils/tools/storage";
 const baseURL = storage.getBaseUrl();
 
 // 获取素材列表
-export const getMaterialList = (data: Record<string, any>): Promise<any> => {
+export const getMaterialList = (data: Record<string, any>) => {
     return request({
         url: "/business/platform/material/index",
         method: "GET",

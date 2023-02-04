@@ -229,6 +229,23 @@
   resolved "https://registry.npmjs.org/@ctrl/tinycolor/-/tinycolor-3.4.1.tgz"
   integrity sha512-ej5oVy6lykXsvieQtqZxCOaLT+xD4+QNarq78cIYISHmZXshCvROLudpQN3lfL8G0NL7plMSSK+zlyvCaIJ4Iw==
 
+"@easyfe/eslint-config-vue3ts@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@easyfe/eslint-config-vue3ts/-/eslint-config-vue3ts-0.0.2.tgz#1c3f7026bb83b5fcaa8ea7f6051fd3e2b6bdb36e"
+  integrity sha512-t1UIaRw+TJ/RAvueyz6HpJETr3H+iluOFKD8XNTzZyr8HFMgFXm2/AjrjIU5gsCiQrhwunRH3oaVX/7wB7JktQ==
+  dependencies:
+    "@typescript-eslint/eslint-plugin" "5.4.0"
+    "@typescript-eslint/parser" "5.4.0"
+    eslint "7.32.0"
+    eslint-config-prettier "8.3.0"
+    eslint-define-config "1.2.0"
+    eslint-plugin-import "2.25.4"
+    eslint-plugin-node "11.1.0"
+    eslint-plugin-prettier "4.0.0"
+    eslint-plugin-promise "4.2.1"
+    eslint-plugin-vue "7.20.0"
+    prettier "2.4.1"
+
 "@emotion/hash@~0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
@@ -2066,10 +2083,10 @@ eslint-config-prettier@8.3.0:
   resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
-eslint-define-config@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-define-config/-/eslint-define-config-1.7.0.tgz#64690da6261b2fcf298e11c5f6da77e05fdd50dc"
-  integrity sha512-13zk8z8eKO4tpPMvAGV0sa6ok0XuMeu7Zhcizu2bLwcLy1fbNt7/h8PU1wbp9IoIgQETggZJozU0nPXUXOao2g==
+eslint-define-config@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-define-config/-/eslint-define-config-1.2.0.tgz#f1cae3580ff678acd0f6c26ecfe8aba1b96093df"
+  integrity sha512-EQ8d9F9LmJVRfkZW9WgSa5VBAVZialrLZKy0k1062zlhM8KFUyFoAC8xRI+mdp5m81FNMPnpKZfyq0AfJDyNTg==
 
 eslint-import-resolver-node@^0.3.6:
   version "0.3.6"
