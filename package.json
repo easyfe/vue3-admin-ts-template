@@ -53,7 +53,7 @@
     "devDependencies": {
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
-        "@easyfe/eslint-config-vue3ts": "^0.0.2",
+        "@easyfe/eslint-config-vue3ts": "^0.0.3",
         "@syyfe/eslint-plugin": "0.0.1",
         "@syyfe/vite-plugin-cos": "0.0.7",
         "@types/big.js": "6.1.5",

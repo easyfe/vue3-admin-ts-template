@@ -5,12 +5,15 @@
 </template>
 <script lang="ts" setup>
 import formHelper from "@/utils/helper/form";
+import ruleHelper from "@/utils/helper/rule";
 
 const formConfig = computed(() => {
     return [
         formHelper.input("文本", "key1", {
             maxlength: 20,
-            showCount: true
+            showCount: true,
+            rules: [ruleHelper.require("必填")],
+            tips: "这是提示文案这是提示文案这是提示文案这是提示文案"
         }),
         formHelper.checkbox("多选框", "key2", [
             {
@@ -38,7 +41,7 @@ const formConfig = computed(() => {
         formHelper.switch("切换", "key7"),
         formHelper.date("日期", "key10", {
             type: "daterange",
-            span: 8
+            span: 12
         }),
         formHelper.time("时间", "key11"),
         formHelper.editor("富文本", "key6")

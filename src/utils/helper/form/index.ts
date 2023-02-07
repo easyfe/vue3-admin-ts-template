@@ -59,7 +59,7 @@ const formHelper = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
             clearable: extra?.clearable ?? true,
-            span: extra?.span ?? 4
+            span: extra?.span ?? 8
         };
         return {
             inputType: "date",
@@ -79,7 +79,7 @@ const formHelper = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
             clearable: extra?.clearable ?? true,
-            span: extra?.span ?? 4
+            span: extra?.span ?? 8
         };
         return {
             inputType: "time",

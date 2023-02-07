@@ -1,15 +1,3 @@
-// /** form表单元素基础配置 */
-// export type TypeBaseFormExtra = {
-//     disabled?: boolean | ((...args: any) => boolean);
-//     if?: boolean | ((...args: any) => boolean);
-//     icon?: string;
-//     placeholder?: string;
-//     clearable?: boolean;
-//     width?: string | number;
-//     tips?: string;
-//     rules?: rules;
-// };
-
 /** 校验规则 */
 type rules = {
     validator?: (rule: unknown, value: any, callback: <T>(data?: T) => T) => void;
@@ -22,56 +10,6 @@ type rules = {
     type?: "date" | "array";
 };
 
-// /** 文本框 */
-// export type TypeBaseFormExtraInput = TypeBaseFormExtra & {
-//     maxlength?: number;
-//     minlength?: number;
-//     inputType?: "text" | "textarea" | "number";
-//     rows?: number;
-//     autosize?: boolean;
-//     append?: string;
-//     prepend?: string;
-// };
-
-// /** 数字输入框 */
-// export type TypeBaseFormExtraNumber = TypeBaseFormExtra & {
-//     range?: number[];
-// };
-
-// /** 日期选择器 */
-// export type TypeBaseFormExtraDate = TypeBaseFormExtra & {
-//     range?: number[];
-//     valueFormat?: "timestamp" | "yyyy-MM-dd" | "yyyy-MM-dd HH-mm-ss" | string;
-//     format?: "yyyy-MM-dd" | "yyyy-MM-dd HH-mm-ss" | string;
-//     placeholderRange?: string[];
-//     shortcuts?: boolean;
-//     disabled?: (date: Date) => boolean;
-// };
-
-// /** 下拉选择 */
-// export type TypeBaseFormExtraSelect = TypeBaseFormExtra & {
-//     labelKey?: string;
-//     valueKey?: string;
-//     multiple?: boolean;
-// };
-
-// /** 上传控件 */
-// export type TypeBaseFormUpload = TypeBaseFormExtra & {
-//     uploadType?: "image|video";
-//     /** 批量上传 */
-//     multiple?: boolean;
-//     /** 最大数量 */
-//     max?: number;
-//     /** 后缀，例：jpg、jpeg、png等 */
-//     ext?: string[];
-//     /** 大小，单位（MB） */
-//     size?: number;
-//     /** 回调函数，处理图片数据 */
-//     callback?: () => string[];
-//     /** 格式化数据源 */
-//     format?: (data: string[]) => void;
-// };
-
 import type {
     CheckboxProps,
     InputProps,
@@ -83,15 +21,16 @@ import type {
     SelectOption,
     SwitchProps,
     DatePickerProps,
-    TimePickerProps
+    TimePickerProps,
+    FormItemRule,
+    FormItemRule
 } from "naive-ui";
 
 /** form表单元素基础配置 */
 export type BaseFormExtra = {
     placeholder?: string;
     clearable?: boolean;
-    rules?: rules[];
-    // disabled?: boolean | ((...args: any) => boolean);
+    rules?: FormItemRule[];
     if?: boolean | ((...args: any) => boolean);
     span?: number;
     tips?: string;

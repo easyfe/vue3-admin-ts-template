@@ -3,7 +3,7 @@
         <img class="info" src="@/assets/images/login/login.png" />
         <div class="content">
             <h3>管理系统 - 登录</h3>
-            <base-form ref="baseForm1" v-model="formData" :config="formConfig" :show-label="false"></base-form>
+            <base-form ref="baseForm1" v-model="formData" :config="formConfig" :show-label="true"></base-form>
             <n-button type="primary" style="width: 100%" :loading="loading" :disabled="loading" @click="handleSubmit"
                 >登录</n-button
             >
@@ -34,9 +34,11 @@ const formConfig = computed(() => {
     return [
         formHelper.input("", "username", {
             placeholder: "用户名",
+            span: 24,
             rules: [ruleHelper.require("用户名必填", ["input", "blur"])]
         }),
         formHelper.input("", "password", {
+            span: 24,
             placeholder: "密码"
         })
     ];

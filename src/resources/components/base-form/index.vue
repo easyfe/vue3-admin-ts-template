@@ -4,7 +4,6 @@
             ref="formRef"
             :model="model"
             :rules="rules"
-            show-require-mark
             require-mark-placement="left"
             label-placement="left"
             label-width="auto"
@@ -72,10 +71,12 @@
                         v-model="model[item.path]"
                         v-bind="item"
                     ></base-upload>
+                    <div class="form-extra">
+                        <p v-if="item.tips">{{ item.tips }}</p>
+                    </div>
                     <slot v-if="item.inputType === 'slot' && handleCheckIf(item.if)" :name="item.path"></slot>
                 </n-col>
             </n-row>
-            <n-button>test</n-button>
         </n-form>
     </div>
 </template>
@@ -180,30 +181,14 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .base-form {
-    // padding: 0px 12px;
-    :deep(.mo-collapse-item) {
-        margin-top: 16px;
+    :deep(.n-form-item .n-form-item-label) {
+        padding-right: 16px;
     }
-    :deep(.mo-collapse-item-header) {
-        width: 336px;
-        height: 52px;
-        background: #f9f9fa;
-        border-radius: 2px;
-        border: 0px;
-    }
-    :deep(.mo-collapse-item-content) {
-        background-color: #ffffff;
-        padding: 0;
-    }
-    :deep(.mo-form-item-content) {
-        justify-content: flex-end;
-        .content {
-            width: 100%;
+    .form-extra {
+        p {
+            font-size: 12px;
+            color: #c0c4cc;
         }
-    }
-    :deep(.mo-form-item-label) {
-        color: #898b8f;
-        font-size: 14px;
     }
 }
 </style>

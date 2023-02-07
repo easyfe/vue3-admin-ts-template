@@ -1,6 +1,8 @@
 <template>
     <div class="frame-view">
-        <slot></slot>
+        <div class="frame-content">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -8,5 +10,8 @@
 <style lang="scss" scoped>
 .frame-view {
     background-color: #fff;
+    .frame-content {
+        padding: 24px 48px;
+    }
 }
 </style>
