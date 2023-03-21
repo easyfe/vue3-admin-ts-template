@@ -1,29 +1,15 @@
 <template>
     <n-form-item v-bind="$attrs">
-        <n-input-number v-model:value="model" v-bind="$attrs" :min="min" :max="max"></n-input-number>
+        <base-rich-text :content="model"></base-rich-text>
     </n-form-item>
 </template>
-
-<script lang="ts" setup name="BaseInputNumber">
+<script lang="ts" setup name="BaseInput">
 const props = defineProps({
     modelValue: {
-        type: Number,
-        default: 0,
-        min: Number
-    },
-    placeholder: {
         type: String,
-        default: "请输入"
+        default: ""
     },
-    min: {
-        type: Number,
-        default: 0
-    },
-    max: {
-        type: Number,
-        default: 99999
-    },
-    tips: {
+    defaultValue: {
         type: String,
         default: ""
     }
@@ -41,4 +27,8 @@ const model = computed({
     }
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// :deep(.n-form-item-blank) {
+//     flex-direction: column;
+// }
+</style>

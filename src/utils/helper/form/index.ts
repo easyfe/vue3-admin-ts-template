@@ -27,6 +27,32 @@ const formHelper = {
                 });
         });
     },
+    //段落文案
+    section(value: string) {
+        return {
+            inputType: "section",
+            value
+        };
+    },
+    /**
+     * 普通文本
+     * @param label
+     * @param path
+     * @param extra
+     * @returns
+     */
+    span(label: string, path: string, extra?: BaseFormInput) {
+        extra = {
+            ...extra,
+            span: extra?.span ?? 12
+        };
+        return {
+            inputType: "span",
+            label,
+            path,
+            ...extra
+        };
+    },
     /**
      * 普通输入框
      * @param label

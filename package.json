@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@caohenghu/vue-colorpicker": "^1.2.4",
-        "@syyfe/request": "1.0.7",
+        "@syyfe/web-request": "^1.0.2",
         "@tinymce/tinymce-vue": "^4",
         "@types/dush": "^3.0.1",
         "@vant/touch-emulator": "^1.3.2",
@@ -44,7 +44,7 @@
         "vue": "^3.2.25",
         "vue-awesome-swiper": "^5.0.1",
         "vue-clipboard3": "^2.0.0",
-        "vue-dompurify-html": "^3.1.0",
+        "vue-dompurify-html": "^4.0.0",
         "vue-gpickr": "^1.0.0",
         "vue-plyr": "^7.0.0",
         "vue-router": "^4.0.14",

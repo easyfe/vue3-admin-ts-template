@@ -9,11 +9,13 @@ import ruleHelper from "@/utils/helper/rule";
 
 const formConfig = computed(() => {
     return [
+        formHelper.section("基础信息"),
+        formHelper.span("介绍", "text"),
         formHelper.input("文本", "key1", {
             maxlength: 20,
             showCount: true,
-            rules: [ruleHelper.require("必填")],
-            tips: "这是提示文案这是提示文案这是提示文案这是提示文案"
+            rules: [ruleHelper.require("必填", "blur")],
+            tips: `示文案这是示文案是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案`
         }),
         formHelper.checkbox("多选框", "key2", [
             {
@@ -41,11 +43,13 @@ const formConfig = computed(() => {
         formHelper.switch("切换", "key7"),
         formHelper.date("日期", "key10", {
             type: "daterange",
-            span: 12
+            span: 8
         }),
         formHelper.time("时间", "key11"),
         formHelper.editor("富文本", "key6")
     ];
 });
-const formData = ref({});
+const formData = ref({
+    text: `这是一段介绍文字<font style='color:red;padding-left:10px;font-weight:bold'>支持HTML</font>`
+});
 </script>

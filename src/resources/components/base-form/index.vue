@@ -7,74 +7,80 @@
             require-mark-placement="left"
             label-placement="left"
             label-width="auto"
+            :show-feedback="true"
             v-bind="$attrs"
         >
             <n-row :gutter="24" :style="getRowStyle">
                 <n-col v-for="(item, index) in props.config" :key="index" class="form-items" :span="getSpan(item)">
-                    <base-input
-                        v-if="item.inputType === 'input' && handleCheckIf(item.if)"
-                        v-model.trim="model[item.path]"
-                        v-bind="item"
-                    ></base-input>
-                    <base-input-number
-                        v-if="item.inputType === 'inputNumber' && handleCheckIf(item.if)"
-                        v-model.trim="model[item.path]"
-                        v-bind="item"
-                    ></base-input-number>
-                    <base-date
-                        v-if="item.inputType === 'date' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-date>
-                    <base-time
-                        v-if="item.inputType === 'time' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-time>
-                    <base-switch
-                        v-if="item.inputType === 'switch' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-switch>
-                    <!-- <base-color
+                    <template v-if="handleCheckIf(item.if)">
+                        <div v-if="item.inputType === 'section'" class="section">{{ item.value }}</div>
+                        <base-span
+                            v-if="item.inputType === 'span'"
+                            v-model.trim="model[item.path]"
+                            v-bind="item"
+                        ></base-span>
+                        <base-input
+                            v-if="item.inputType === 'input'"
+                            v-model.trim="model[item.path]"
+                            v-bind="item"
+                        ></base-input>
+                        <base-input-number
+                            v-if="item.inputType === 'inputNumber'"
+                            v-model.trim="model[item.path]"
+                            v-bind="item"
+                        ></base-input-number>
+                        <base-date
+                            v-if="item.inputType === 'date'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-date>
+                        <base-time
+                            v-if="item.inputType === 'time'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-time>
+                        <base-switch
+                            v-if="item.inputType === 'switch'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-switch>
+                        <!-- <base-color
                         v-if="item.inputType === 'color' && handleCheckIf(item.if)"
                         v-model="model[item.path]"
                         v-bind="item"
                     ></base-color> -->
-                    <!-- <base-color-range
+                        <!-- <base-color-range
                         v-if="item.inputType === 'colorRange' && handleCheckIf(item.if)"
                         v-model="model[item.path]"
                         v-bind="item"
                     ></base-color-range> -->
-                    <base-checkbox
-                        v-if="item.inputType === 'checkbox' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-checkbox>
-                    <base-radio
-                        v-if="item.inputType === 'radio' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-radio>
-                    <base-select
-                        v-if="item.inputType === 'select' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-select>
-                    <base-editor
-                        v-if="item.inputType === 'editor' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-editor>
-                    <base-upload
-                        v-if="item.inputType === 'uploadPic' && handleCheckIf(item.if)"
-                        v-model="model[item.path]"
-                        v-bind="item"
-                    ></base-upload>
-                    <div class="form-extra">
-                        <p v-if="item.tips">{{ item.tips }}</p>
-                    </div>
-                    <slot v-if="item.inputType === 'slot' && handleCheckIf(item.if)" :name="item.path"></slot>
+                        <base-checkbox
+                            v-if="item.inputType === 'checkbox'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-checkbox>
+                        <base-radio
+                            v-if="item.inputType === 'radio'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-radio>
+                        <base-select
+                            v-if="item.inputType === 'select'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-select>
+                        <base-editor
+                            v-if="item.inputType === 'editor'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-editor>
+                        <base-upload
+                            v-if="item.inputType === 'uploadPic'"
+                            v-model="model[item.path]"
+                            v-bind="item"
+                        ></base-upload>
+                        <slot v-if="item.inputType === 'slot'" :name="item.path"></slot>
+                    </template>
                 </n-col>
             </n-row>
         </n-form>
@@ -118,6 +124,7 @@ const rules = computed(() => {
     return ruleList;
 });
 
+//获取宽度
 const getSpan = computed(() => (item: any): any => {
     if (!handleCheckIf(item.if)) {
         return 0;
@@ -184,10 +191,15 @@ onMounted(() => {
     :deep(.n-form-item .n-form-item-label) {
         padding-right: 16px;
     }
-    .form-extra {
-        p {
-            font-size: 12px;
-            color: #c0c4cc;
+    .form-items {
+        .section {
+            height: 42px;
+            background-color: #f7f8fa;
+            display: flex;
+            align-items: center;
+            padding-left: 24px;
+            margin-bottom: 24px;
+            color: rgb(29, 33, 41);
         }
     }
 }

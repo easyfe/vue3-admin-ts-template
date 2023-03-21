@@ -1,5 +1,7 @@
+import { ValidationTrigger } from "naive-ui/es/form/src/interface";
+
 const ruleHelper = {
-    require(message: string, trigger?: string[]): any {
+    require(message: string, trigger?: ValidationTrigger | ValidationTrigger[]): any {
         return {
             required: true,
             message,

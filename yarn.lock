@@ -343,13 +343,6 @@
   dependencies:
     requireindex "1.2.0"
 
-"@syyfe/request@1.0.7":
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/@syyfe/request/-/request-1.0.7.tgz"
-  integrity sha512-/91PaVkxy7vK1YeLrRRtXJvSjQ30muVFyTOmCg1QVqJ4UJq9nXjjSpY8M5h1ESTcX4AIW3ZBmDem8qRYcaJXeg==
-  dependencies:
-    axios "^0.24.0"
-
 "@syyfe/vite-plugin-cos@0.0.7":
   version "0.0.7"
   resolved "https://registry.npmjs.org/@syyfe/vite-plugin-cos/-/vite-plugin-cos-0.0.7.tgz"
@@ -357,6 +350,13 @@
   dependencies:
     cos-nodejs-sdk-v5 "2.11.6"
     glob "7.2.0"
+
+"@syyfe/web-request@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@syyfe/web-request/-/web-request-1.0.2.tgz#5a653640e837709ea73af2102d863231b049de54"
+  integrity sha512-ss1siichZaVY4LobJS6ylUpsCKzJuKHzjXNFZrLBPB2zH2DaCDZmUBmR+HL3Ht8u5C2rwAXnMq5y9RT7uHXz/A==
+  dependencies:
+    axios "^0.24.0"
 
 "@tinymce/tinymce-vue@^4":
   version "4.0.7"
@@ -987,7 +987,7 @@ aws4@^1.8.0:
 
 axios@^0.24.0:
   version "0.24.0"
-  resolved "https://registry.npmjs.org/axios/-/axios-0.24.0.tgz"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
   integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
   dependencies:
     follow-redirects "^1.14.4"
@@ -1769,10 +1769,10 @@ domhandler@^4.2.0, domhandler@^4.3.1:
   dependencies:
     domelementtype "^2.2.0"
 
-dompurify@^2.3.4:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/dompurify/-/dompurify-2.4.0.tgz"
-  integrity sha512-Be9tbQMZds4a3C6xTmz68NlMfeONA//4dOavl/1rNw50E+/QO0KVpbcU0PcaW0nsQxurXls9ZocqFxk8R2mWEA==
+dompurify@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.0.1.tgz#a0933f38931b3238934dd632043b727e53004289"
+  integrity sha512-60tsgvPKwItxZZdfLmamp0MTcecCta3avOhsLgPZ0qcWt96OasFfhkeIRbJ6br5i0fQawT1/RBGB5L58/Jpwuw==
 
 domutils@^1.5.1:
   version "1.7.0"
@@ -2489,9 +2489,9 @@ flatted@^3.1.0:
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
 follow-redirects@^1.14.4:
-  version "1.15.1"
-  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.1.tgz"
-  integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
+  integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -5502,12 +5502,12 @@ vue-demi@*, vue-demi@^0.13.2:
   resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.13.11.tgz"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
 
-vue-dompurify-html@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/vue-dompurify-html/-/vue-dompurify-html-3.1.0.tgz"
-  integrity sha512-Q721U3WP7a6j/aznsP1Z8kv3rwNfv2dm30bGQAJnbwAUtUkHuYnj3vZPKiveytuA1gwJ0acAIbLjxpzN4HnGcQ==
+vue-dompurify-html@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/vue-dompurify-html/-/vue-dompurify-html-4.0.0.tgz#8abf75cfaf6087acfa6c7928094ab2ffbe2117b1"
+  integrity sha512-yLxmZSoVNM+ZpRXwbrq6mwY7xidRd6W4P2/W8zLBdXSQckpmPVvmDaJALYH0jm0CgibNJbe4+E5j6wzOKwRKvg==
   dependencies:
-    dompurify "^2.3.4"
+    dompurify "^3.0.0"
     vue-demi "^0.13.2"
 
 vue-eslint-parser@^7.10.0:
