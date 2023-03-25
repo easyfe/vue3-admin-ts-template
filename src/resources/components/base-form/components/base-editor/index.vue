@@ -58,22 +58,23 @@ const initEditor = {
         editor.ui.registry.addToggleButton("customImage", {
             icon: "image",
             onAction: () => {
-                theFileManager({ limit: 0, confirm: onFileConfirm });
+                console.log("拉起图片弹窗");
+                // theFileManager({ limit: 0, confirm: onFileConfirm });
             }
         });
     }
 };
 
-const onFileConfirm = (fileList: any): void => {
-    for (const file of fileList) {
-        const filePath = file?.filePath || false;
-        if (filePath) {
-            tinymce.activeEditor.execCommand("mceInsertContent", false, `<img src="${filePath}" />`);
-        } else {
-            MMessage.error("添加图片失败！");
-        }
-    }
-};
+// const onFileConfirm = (fileList: any): void => {
+//     for (const file of fileList) {
+//         const filePath = file?.filePath || false;
+//         if (filePath) {
+//             tinymce.activeEditor.execCommand("mceInsertContent", false, `<img src="${filePath}" />`);
+//         } else {
+//             MMessage.error("添加图片失败！");
+//         }
+//     }
+// };
 
 onMounted(() => {
     tinymce.init({});

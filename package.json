@@ -55,7 +55,7 @@
         "@commitlint/config-conventional": "^17.0.3",
         "@easyfe/eslint-config-vue3ts": "^0.0.3",
         "@syyfe/eslint-plugin": "0.0.1",
-        "@syyfe/vite-plugin-cos": "0.0.7",
+        "@syyfe/vite-plugin-cos": "^0.0.9",
         "@types/big.js": "6.1.5",
         "@types/intro.js": "^5.1.0",
         "@types/js-cookie": "^3.0.2",

@@ -8,25 +8,21 @@
             label-placement="left"
             label-width="auto"
             :show-feedback="true"
+            size="medium"
             v-bind="$attrs"
         >
             <n-row :gutter="24" :style="getRowStyle">
-                <n-col v-for="(item, index) in props.config" :key="index" class="form-items" :span="getSpan(item)">
-                    <template v-if="handleCheckIf(item.if)">
+                <template v-for="(item, index) in props.config" :key="index">
+                    <n-col v-if="handleCheckIf(item.if)" class="form-items" :span="getSpan(item)">
                         <div v-if="item.inputType === 'section'" class="section">{{ item.value }}</div>
-                        <base-span
-                            v-if="item.inputType === 'span'"
-                            v-model.trim="model[item.path]"
-                            v-bind="item"
-                        ></base-span>
-                        <base-input
-                            v-if="item.inputType === 'input'"
-                            v-model.trim="model[item.path]"
-                            v-bind="item"
+                        <base-span v-if="item.inputType === 'span'" v-model="model[item.path]" v-bind="item">
+                        </base-span>
+                        <base-input v-if="item.inputType === 'input'" v-model.trim="model[item.path]" v-bind="item">
+                            <template #extra> <form-extra :config="item"></form-extra> </template
                         ></base-input>
                         <base-input-number
                             v-if="item.inputType === 'inputNumber'"
-                            v-model.trim="model[item.path]"
+                            v-model="model[item.path]"
                             v-bind="item"
                         ></base-input-number>
                         <base-date
@@ -80,8 +76,8 @@
                             v-bind="item"
                         ></base-upload>
                         <slot v-if="item.inputType === 'slot'" :name="item.path"></slot>
-                    </template>
-                </n-col>
+                    </n-col>
+                </template>
             </n-row>
         </n-form>
     </div>
@@ -190,6 +186,9 @@ onMounted(() => {
 .base-form {
     :deep(.n-form-item .n-form-item-label) {
         padding-right: 16px;
+    }
+    :deep(.n-form-item-blank) {
+        flex-wrap: wrap;
     }
     .form-items {
         .section {

@@ -2,7 +2,6 @@
     <n-form-item v-bind="$attrs">
         <n-input v-model:value.trim="model" v-bind="$attrs" class="input"></n-input>
         <slot name="extra"></slot>
-        <!-- <p v-if="$attrs.tips" class="tips">{{ $attrs.tips }}</p> -->
     </n-form-item>
 </template>
 <script lang="ts" setup name="BaseInput">
@@ -29,15 +28,4 @@ const model = computed({
     }
 });
 </script>
-<style lang="scss" scoped>
-// :deep(.n-form-item-blank) {
-//     flex-direction: column;
-// }
-// .tips {
-//     width: 100%;
-//     font-size: 12px;
-//     color: #c0c4cc;
-//     text-align: left;
-//     margin-top: 4px;
-// }
-</style>
+<style lang="scss" scoped></style>

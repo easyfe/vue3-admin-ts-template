@@ -343,10 +343,10 @@
   dependencies:
     requireindex "1.2.0"
 
-"@syyfe/vite-plugin-cos@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.npmjs.org/@syyfe/vite-plugin-cos/-/vite-plugin-cos-0.0.7.tgz"
-  integrity sha512-9II58Z135JE2Ff30OwbrPcxzrSLrReioK1sLkoZLyqd60rO0H46pWLRTxDaCcEWKG+POA8b+ezAYPWrpfCOM9w==
+"@syyfe/vite-plugin-cos@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.npmjs.org/@syyfe/vite-plugin-cos/-/vite-plugin-cos-0.0.9.tgz#d522a06ab83ff2efa8eb2caa22c53c79e8d493cd"
+  integrity sha512-JzNrPfwC6u3Ko84ib68YSzQn5SJurwVJlBqgRpMncTbuVoyy+IysaxMlYWpG410vWBC5NHgb0R+s3TnIVHuufA==
   dependencies:
     cos-nodejs-sdk-v5 "2.11.6"
     glob "7.2.0"

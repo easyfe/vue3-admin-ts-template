@@ -50,6 +50,8 @@ const formConfig = computed(() => {
     ];
 });
 const formData = ref({
+    key5: [],
+    key6: "",
     text: `这是一段介绍文字<font style='color:red;padding-left:10px;font-weight:bold'>支持HTML</font>`
 });
 </script>
