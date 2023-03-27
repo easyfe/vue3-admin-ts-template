@@ -358,12 +358,12 @@
   dependencies:
     axios "^0.24.0"
 
-"@tinymce/tinymce-vue@^4":
-  version "4.0.7"
-  resolved "https://registry.npmjs.org/@tinymce/tinymce-vue/-/tinymce-vue-4.0.7.tgz"
-  integrity sha512-1esB8wGWrjPCY+rK8vy3QB1cxwXo7HLJWuNrcyPl6LOVR+QJjub0OiV/C+TUEsLN6OpCtRv+QnIqMC5vXz783Q==
+"@tinymce/tinymce-vue@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/@tinymce/tinymce-vue/-/tinymce-vue-5.0.1.tgz#7092fb7f5ce9b407796dde791857a69b1deac719"
+  integrity sha512-RzJflpf06VimGQNgCYMasS5+gEKTOs5ddOgrBuTGOMsHOeKBhMTim9ePjiwYpCpilyZgR5ZDyo5NfZgrKOHHEA==
   dependencies:
-    tinymce "^5.5.0"
+    tinymce "^6.0.0 || ^5.5.1"
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
@@ -558,11 +558,6 @@
   dependencies:
     "@typescript-eslint/types" "5.4.0"
     eslint-visitor-keys "^3.0.0"
-
-"@vant/touch-emulator@^1.3.2":
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/@vant/touch-emulator/-/touch-emulator-1.4.0.tgz"
-  integrity sha512-Zt+zISV0+wpOew2S1siOJ3G22y+hapHAKmXM+FhpvWzsRc4qahaYXatCAITuuXt0EcDp7WvEeTO4F7p9AtX/pw==
 
 "@vitejs/plugin-vue@2.1.0":
   version "2.1.0"
@@ -5063,15 +5058,10 @@ tinycolor2@^1.4.2:
   resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.4.2.tgz"
   integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==
 
-tinymce@^5.5.0:
-  version "5.10.5"
-  resolved "https://registry.npmjs.org/tinymce/-/tinymce-5.10.5.tgz"
-  integrity sha512-nFKtLhmoRtExBxUfv06JlkbQWux5D+d115vxSRAqUmccZdrtpFvOIYwZmikvulLdM9pfEpvO0B+RQ2qFV/+R7w==
-
-tinymce@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.npmjs.org/tinymce/-/tinymce-6.1.2.tgz"
-  integrity sha512-tl4KbEKdPzyPTatJkblN2AqzRj9jaRGyATnwaSnsLFGKb4AI6B+4e0Gc8dUDXuqAjgSnHokhzamrQJLbSn4CmQ==
+"tinymce@^6.0.0 || ^5.5.1", tinymce@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.npmjs.org/tinymce/-/tinymce-6.4.0.tgz#311658bdc74bc983db410c58270ef957c4f48652"
+  integrity sha512-A1IZKhEM7sS/je7M+SjKqa1UM59GzOxi2M5me8sYx9/VoSzCaAXOgTo1M1wQsu8dFbThbBgz9vZqBFqukhYyhg==
 
 to-object-path@^0.3.0:
   version "0.3.0"

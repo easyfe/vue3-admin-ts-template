@@ -10,8 +10,6 @@ import "vfonts/Lato.css";
 import "vfonts/FiraCode.css";
 //引入全局样式
 import "@/styles/index.scss";
-//vant组件样式注册
-import "@vant/touch-emulator";
 
 /***************** vue相关 ***************/
 //导入布局相关初始化处理
