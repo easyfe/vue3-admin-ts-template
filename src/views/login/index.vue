@@ -3,20 +3,20 @@
         <img class="info" src="@/assets/images/login/login.png" />
         <div class="content">
             <h3>管理系统 - 登录</h3>
-            <base-form ref="baseForm1" v-model="formData" :config="formConfig" :show-label="true"></base-form>
+            <base-form ref="baseForm1" v-model="formData" :config="formConfig" size="medium"></base-form>
             <a-button type="primary" long :loading="loading" :disabled="loading" @click="handleSubmit">登录</a-button>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { login, autoLogin } from "@/config/apis/login";
+// import { login, autoLogin } from "@/config/apis/login";
 import storage from "@/utils/tools/storage";
 import cookie from "@/utils/tools/cookie";
 import formHelper from "@/utils/helper/form";
 import ruleHelper from "@/utils/helper/rule";
 import sleep from "@/utils/tools/sleep";
 import { Message } from "@arco-design/web-vue";
-const router = useRouter();
+// const router = useRouter();
 
 // 清空本地存储
 storage.clear();
@@ -30,20 +30,25 @@ const formData = ref({
 });
 const formConfig = computed(() => {
     return [
-        formHelper.input("", "username", {
+        formHelper.input("11", "username", {
             placeholder: "用户名",
             span: 24,
-            rules: [ruleHelper.require("用户名必填", ["input", "blur"])]
+            rules: [ruleHelper.require("用户名必填", "blur")],
+            hideLabel: true,
+            hideAsterisk: true
         }),
         formHelper.input("", "password", {
             span: 24,
-            placeholder: "密码"
+            placeholder: "密码",
+            hideLabel: true,
+            hideAsterisk: true
         })
     ];
 });
 const baseForm1 = ref();
 const handleSubmit = async (): Promise<any> => {
-    await formHelper.validate(baseForm1.value);
+    const v = await baseForm1.value.validate();
+    if (v) return;
     loading.value = true;
     await sleep(3000);
     Message.success("登录成功");

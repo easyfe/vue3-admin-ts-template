@@ -22,14 +22,14 @@ import type {
     SwitchProps,
     DatePickerProps,
     TimePickerProps,
-    FormItemRule
+    FieldRule
 } from "@arco-design/web-vue";
 
 /** form表单元素基础配置 */
 export type BaseFormExtra = {
     placeholder?: string;
     clearable?: boolean;
-    rules?: FormItemRule[];
+    rules?: FieldRule | FieldRule[];
     if?: boolean | ((...args: any) => boolean);
     span?: number;
     tips?: string;

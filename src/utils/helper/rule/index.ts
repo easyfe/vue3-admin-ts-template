@@ -1,7 +1,7 @@
-import { ValidationTrigger } from "naive-ui/es/form/src/interface";
+import { ValidateTrigger } from "@arco-design/web-vue";
 
 const ruleHelper = {
-    require(message: string, trigger?: ValidationTrigger | ValidationTrigger[]): any {
+    require(message: string, trigger?: ValidateTrigger): any {
         return {
             required: true,
             message,

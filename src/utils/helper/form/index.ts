@@ -15,18 +15,6 @@ import {
 } from "types/base-form";
 
 const formHelper = {
-    validate(refValue: any): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            refValue
-                .validate()
-                .then(() => {
-                    resolve(true);
-                })
-                .catch((err: any) => {
-                    reject(err);
-                });
-        });
-    },
     //段落文案
     section(value: string) {
         return {
@@ -63,7 +51,7 @@ const formHelper = {
     input(label: string, field: string, extra?: BaseFormInput) {
         extra = {
             ...extra,
-            clearable: extra?.clearable ?? true,
+            allowClear: extra?.clearable ?? true,
             span: extra?.span ?? 8,
             placeholder: extra?.placeholder ?? "请输入"
         };
@@ -84,7 +72,7 @@ const formHelper = {
         extra = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
-            clearable: extra?.clearable ?? true,
+            allowClear: extra?.clearable ?? true,
             span: extra?.span ?? 8
         };
         return {
@@ -104,7 +92,7 @@ const formHelper = {
         extra = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
-            clearable: extra?.clearable ?? true,
+            allowClear: extra?.clearable ?? true,
             span: extra?.span ?? 8
         };
         return {
@@ -190,7 +178,7 @@ const formHelper = {
         extra = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
-            clearable: extra?.clearable ?? true,
+            allowClear: extra?.clearable ?? true,
             span: extra?.span ?? 8
         };
         return {
@@ -253,7 +241,7 @@ const formHelper = {
      * @returns
      */
     inputNumber(label: string, field: string, extra?: BaseFormInputNumber) {
-        extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
+        extra = { ...extra, allowClear: extra?.clearable ?? true, span: extra?.span ?? 8 };
         return {
             inputType: "inputNumber",
             label,

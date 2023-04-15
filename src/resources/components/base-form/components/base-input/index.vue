@@ -1,7 +1,9 @@
 <template>
     <a-form-item v-bind="$attrs">
-        <a-input v-model:value.trim="model" v-bind="$attrs" class="input"></a-input>
-        <slot name="extra"></slot>
+        <a-input v-model.trim="model" v-bind="$attrs" class="input"></a-input>
+        <template v-if="$attrs.extra" #extra>
+            <form-extra :config="$attrs"></form-extra>
+        </template>
     </a-form-item>
 </template>
 <script lang="ts" setup name="BaseInput">
