@@ -1,6 +1,6 @@
 <template>
-    <n-layout position="absolute" style="top: 0; bottom: 0" has-sider>
-        <n-layout-sider
+    <a-layout position="absolute" style="top: 0; bottom: 0" has-sider>
+        <a-layout-sider
             content-style="max-width:200px;"
             :native-scrollbar="false"
             :bordered="false"
@@ -14,16 +14,16 @@
             @expand="collapsed = false"
         >
             <app-left v-model:collapsed="collapsed"></app-left>
-        </n-layout-sider>
-        <n-layout :native-scrollbar="false">
-            <n-layout-header style="height: 64px" bordered position="absolute">
+        </a-layout-sider>
+        <a-layout :native-scrollbar="false">
+            <a-layout-header style="height: 64px" bordered position="absolute">
                 <app-header></app-header>
-            </n-layout-header>
-            <n-layout-content class="layout-content" position="absolute" style="top: 64px" :native-scrollbar="false">
+            </a-layout-header>
+            <a-layout-content class="layout-content" position="absolute" style="top: 64px" :native-scrollbar="false">
                 <app-main></app-main>
-            </n-layout-content>
-        </n-layout>
-    </n-layout>
+            </a-layout-content>
+        </a-layout>
+    </a-layout>
 </template>
 <script lang="ts" setup name="Layout">
 const collapsed = ref(false);

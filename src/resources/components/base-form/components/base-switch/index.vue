@@ -1,7 +1,7 @@
 <template>
-    <n-form-item v-bind="$attrs">
-        <n-switch v-model:value="model" v-bind="$attrs" class="switch" />
-    </n-form-item>
+    <a-form-item v-bind="$attrs">
+        <a-switch v-model:value="model" v-bind="$attrs" class="switch" />
+    </a-form-item>
 </template>
 <script lang="ts" setup name="BaseSwitch">
 const props = defineProps({

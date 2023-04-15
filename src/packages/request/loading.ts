@@ -1,7 +1,7 @@
 let reqNum = 0;
 const loading = {
-    showToast(message: string): void {
-        MMessage.error(message);
+    showToast(err: any): void {
+        MMessage.error(err.message || err.msg || err);
     },
     showLoading(): void {
         if (reqNum === 0) {

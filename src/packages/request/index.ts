@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import SyyRequest from "@syyfe/request";
+import SyyRequest from "@syyfe/web-request";
 import loading from "./loading";
 import cookie from "@/utils/tools/cookie";
 import storage from "@/utils/tools/storage";

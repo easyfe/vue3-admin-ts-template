@@ -1,10 +1,10 @@
 <template>
     <div class="app-header">
-        <n-breadcrumb>
-            <n-breadcrumb-item v-for="item in breadList" :key="item.name" @click="onClick(item)">{{
+        <a-breadcrumb>
+            <a-breadcrumb-item v-for="item in breadList" :key="item.name" @click="onClick(item)">{{
                 item.meta.title
-            }}</n-breadcrumb-item>
-        </n-breadcrumb>
+            }}</a-breadcrumb-item>
+        </a-breadcrumb>
     </div>
 </template>
 <script lang="ts" setup name="AppHeader">

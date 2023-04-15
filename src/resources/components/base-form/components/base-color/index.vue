@@ -1,7 +1,7 @@
 <template>
-    <n-form-item v-bind="$attrs" content-flex>
-        <div class="base-color-reset"><n-button type="text" @click="reset">重置</n-button></div>
-        <n-trigger position="lt" trigger="click" :popup-offset="10">
+    <a-form-item v-bind="$attrs" content-flex>
+        <div class="base-color-reset"><a-button type="text" @click="reset">重置</a-button></div>
+        <a-trigger position="lt" trigger="click" :popup-offset="10">
             <div class="base-color-wrapper" :trigger="['click']">
                 <div class="base-color-inner" :style="{ background: model }"></div>
             </div>
@@ -16,8 +16,8 @@
                     @changeColor="changeColor"
                 />
             </template>
-        </n-trigger>
-    </n-form-item>
+        </a-trigger>
+    </a-form-item>
 </template>
 <script lang="ts" setup name="BaseColor">
 import colorPicker from "@caohenghu/vue-colorpicker";

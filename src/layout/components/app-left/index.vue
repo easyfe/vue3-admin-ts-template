@@ -1,5 +1,5 @@
 <template>
-    <n-menu
+    <a-menu
         :value="getSelectedKeys"
         :options="menuOptions"
         :collapsed="props.collapsed"

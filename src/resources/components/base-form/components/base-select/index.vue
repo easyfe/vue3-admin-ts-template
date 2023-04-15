@@ -1,7 +1,7 @@
 <template>
-    <n-form-item v-bind="$attrs">
-        <n-select v-model:value="model" allow-clear v-bind="$attrs" class="select"> </n-select>
-    </n-form-item>
+    <a-form-item v-bind="$attrs">
+        <a-select v-model:value="model" allow-clear v-bind="$attrs" class="select"> </a-select>
+    </a-form-item>
 </template>
 <script lang="ts" setup name="BaseSelect">
 const props = withDefaults(

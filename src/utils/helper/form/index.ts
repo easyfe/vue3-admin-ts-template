@@ -37,11 +37,11 @@ const formHelper = {
     /**
      * 普通文本
      * @param label
-     * @param path
+     * @param field
      * @param extra
      * @returns
      */
-    span(label: string, path: string, extra?: BaseFormInput) {
+    span(label: string, field: string, extra?: BaseFormInput) {
         extra = {
             ...extra,
             span: extra?.span ?? 12
@@ -49,18 +49,18 @@ const formHelper = {
         return {
             inputType: "span",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 普通输入框
      * @param label
-     * @param path
+     * @param field
      * @param extra
      * @returns
      */
-    input(label: string, path: string, extra?: BaseFormInput) {
+    input(label: string, field: string, extra?: BaseFormInput) {
         extra = {
             ...extra,
             clearable: extra?.clearable ?? true,
@@ -70,17 +70,17 @@ const formHelper = {
         return {
             inputType: "input",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 事件输入框
      * @param label
-     * @param path
+     * @param field
      * @param extra
      */
-    date(label: string, path: string, extra?: BaseFormDate) {
+    date(label: string, field: string, extra?: BaseFormDate) {
         extra = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
@@ -90,17 +90,17 @@ const formHelper = {
         return {
             inputType: "date",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 时间输入框
      * @param label
-     * @param path
+     * @param field
      * @param extra
      */
-    time(label: string, path: string, extra?: BaseFormTime) {
+    time(label: string, field: string, extra?: BaseFormTime) {
         extra = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
@@ -110,83 +110,83 @@ const formHelper = {
         return {
             inputType: "time",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 颜色选择器
      * @param label
-     * @param path
+     * @param field
      * @param extra
      * @returns
      */
-    color(label: string, path: string, extra?: BaseFormExtra & BaseFormColor) {
+    color(label: string, field: string, extra?: BaseFormExtra & BaseFormColor) {
         return {
             inputType: "color",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 渐变颜色选择器
      * @param label
-     * @param path
+     * @param field
      * @param extra
      * @returns
      */
-    colorRange(label: string, path: string, extra?: BaseFormExtra) {
+    colorRange(label: string, field: string, extra?: BaseFormExtra) {
         return {
             inputType: "colorRange",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 复选框
      * @param label
-     * @param path
+     * @param field
      * @param options
      * @param extra
      * @returns
      */
-    checkbox(label: string, path: string, options: BaseFormCheckbox[], extra?: BaseFormCheckboxGroup) {
+    checkbox(label: string, field: string, options: BaseFormCheckbox[], extra?: BaseFormCheckboxGroup) {
         return {
             inputType: "checkbox",
             label,
             options,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 单选框
      * @param label
-     * @param path
+     * @param field
      * @param options
      * @param extra
      * @returns
      */
-    radio(label: string, path: string, options: BaseFormRadio[], extra?: BaseFormRadioGroup) {
+    radio(label: string, field: string, options: BaseFormRadio[], extra?: BaseFormRadioGroup) {
         return {
             inputType: "radio",
             label,
             options,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 选择器
      * @param label
-     * @param path
+     * @param field
      * @param options
      * @param extra
      * @returns
      */
-    select(label: string, path: string, options: BaseFormSelectOptions[], extra?: BaseFormSelect) {
+    select(label: string, field: string, options: BaseFormSelectOptions[], extra?: BaseFormSelect) {
         extra = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
@@ -197,37 +197,37 @@ const formHelper = {
             inputType: "select",
             label,
             options,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 切换器
      * @param label
-     * @param path
+     * @param field
      * @param extra
      * @returns
      */
-    switch(label: string, path: string, extra?: BaseFormSwitch) {
+    switch(label: string, field: string, extra?: BaseFormSwitch) {
         return {
             inputType: "switch",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 富文本
      * @param label
-     * @param path
+     * @param field
      * @param extra
      * @returns
      */
-    editor(label: string, path: string, extra?: BaseFormExtra) {
+    editor(label: string, field: string, extra?: BaseFormExtra) {
         return {
             inputType: "editor",
             label,
-            path,
+            field,
             ...extra
         };
     },
@@ -238,41 +238,41 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    slot(path: string, extra?: BaseFormExtra) {
+    slot(field: string, extra?: BaseFormExtra) {
         return {
             inputType: "slot",
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 数字输入框
      * @param label
-     * @param path
+     * @param field
      * @param extra
      * @returns
      */
-    inputNumber(label: string, path: string, extra?: BaseFormInputNumber) {
+    inputNumber(label: string, field: string, extra?: BaseFormInputNumber) {
         extra = { ...extra, clearable: extra?.clearable ?? true, span: extra?.span ?? 8 };
         return {
             inputType: "inputNumber",
             label,
-            path,
+            field,
             ...extra
         };
     },
     /**
      * 上传图片
      * @param label
-     * @param path 绑定值key
+     * @param field 绑定值key
      * @param extra
      * @returns
      */
-    uploadPic(label: string, path: string, extra?: BaseFormExtra) {
+    uploadPic(label: string, field: string, extra?: BaseFormExtra) {
         return {
             inputType: "uploadPic",
             label,
-            path,
+            field,
             ...extra
         };
     }

@@ -1,16 +1,16 @@
 <template>
-    <n-form-item v-bind="$attrs" :class="indepClass">
+    <a-form-item v-bind="$attrs" :class="indepClass">
         <div class="upload-pic">
             <div class="pic-box">
                 <div class="pic">
-                    <n-image
+                    <a-image
                         v-if="modelValue"
                         class="pic-image"
                         show-loader
                         fit="contain"
                         :preview="false"
                         :src="modelValue"
-                    ></n-image>
+                    ></a-image>
                     <div v-if="!modelValue" class="img-seat upload" @click="showUpload">+</div>
                     <div v-if="modelValue" class="label" @click="showUpload">更换图片</div>
                     <img
@@ -24,7 +24,7 @@
                 <div class="tips">{{ tips }}</div>
             </div>
         </div>
-    </n-form-item>
+    </a-form-item>
     <!-- <the-file-manager v-model="fileMangerVisiable" :limit="limit" @confirm="onFileConfirm"></the-file-manager> -->
 </template>
 

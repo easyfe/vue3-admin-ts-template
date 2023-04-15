@@ -22,9 +22,8 @@ import type {
     SwitchProps,
     DatePickerProps,
     TimePickerProps,
-    FormItemRule,
     FormItemRule
-} from "naive-ui";
+} from "@arco-design/web-vue";
 
 /** form表单元素基础配置 */
 export type BaseFormExtra = {

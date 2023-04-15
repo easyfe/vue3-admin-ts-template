@@ -3,7 +3,7 @@
  * @description 按需加载，自动引入组件
  */
 import Components from "unplugin-vue-components/vite";
-import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
+import { ArcoResolver } from "unplugin-vue-components/resolvers";
 import { Plugin } from "vite";
 
 export const AutoRegistryComponents = (): Plugin => {
@@ -20,6 +20,6 @@ export const AutoRegistryComponents = (): Plugin => {
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
         exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
         // 解析的 UI 组件库
-        resolvers: [NaiveUiResolver()]
+        resolvers: [ArcoResolver({ sideEffect: true, resolveIcons: true })]
     });
 };

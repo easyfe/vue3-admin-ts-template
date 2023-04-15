@@ -1,7 +1,7 @@
 <template>
-    <n-form-item v-bind="$attrs">
-        <n-time-picker v-model:value="model" v-bind="$attrs" />
-    </n-form-item>
+    <a-form-item v-bind="$attrs">
+        <a-time-picker v-model:value="model" v-bind="$attrs" />
+    </a-form-item>
 </template>
 <script lang="ts" setup name="BaseTime">
 const props = withDefaults(

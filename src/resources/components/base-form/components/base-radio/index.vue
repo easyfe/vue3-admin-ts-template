@@ -1,46 +1,40 @@
 <template>
-    <n-form-item v-bind="$attrs">
-        <n-space direction="vertical" size="large">
-            <n-radio-group v-model:value="model" class="radio" :type="type" v-bind="$attrs">
-                <template v-if="props.type === 'button'">
-                    <n-radio-button
-                        v-for="(item, index) in props.options"
-                        v-bind="item"
-                        :key="index"
-                        :value="item[props.valueKey]"
-                        :disabled="item.disabled"
-                        >{{ item[props.labelKey] }}</n-radio-button
-                    ></template
+    <a-form-item v-bind="$attrs">
+        <div v-if="pixel" class="pixel">{{ model }}px</div>
+        <a-space direction="vertical" size="large">
+            <a-radio-group v-model="model" class="radio" :type="type" :disabled="disabled" @change="change">
+                <a-radio
+                    v-for="(item, index) in props.options"
+                    :key="index"
+                    :value="item[props.valueKey]"
+                    :disabled="item.disabled"
+                    >{{ item[props.labelKey] }}</a-radio
                 >
-                <template v-else>
-                    <n-radio
-                        v-for="(item, index) in props.options"
-                        v-bind="item"
-                        :key="index"
-                        :value="item[props.valueKey]"
-                        :disabled="item.disabled"
-                        >{{ item[props.labelKey] }}</n-radio
-                    >
-                </template>
-            </n-radio-group>
-        </n-space>
-    </n-form-item>
+            </a-radio-group>
+        </a-space>
+    </a-form-item>
 </template>
 <script lang="ts" setup name="BaseRadio">
 const props = withDefaults(
     defineProps<{
         labelKey?: string;
         valueKey?: string;
+        show?: boolean;
         modelValue: number | string | boolean;
-        options?: Record<string, any>[];
-        type?: "button" | "radio";
+        options: Record<string, any>[];
+        type: "button" | "radio";
+        pixel?: boolean;
+        disabled?: boolean;
+        change?: (value: string | number | boolean, ev: Event) => any;
     }>(),
     {
         modelValue: "",
         labelKey: "label",
         valueKey: "value",
-        type: "radio",
-        options: [] as any
+        show: true,
+        pixel: false,
+        disabled: false,
+        change: (value, ev) => undefined
     }
 );
 const emits = defineEmits<{

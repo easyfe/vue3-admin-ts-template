@@ -4,9 +4,7 @@
         <div class="content">
             <h3>管理系统 - 登录</h3>
             <base-form ref="baseForm1" v-model="formData" :config="formConfig" :show-label="true"></base-form>
-            <n-button type="primary" style="width: 100%" :loading="loading" :disabled="loading" @click="handleSubmit"
-                >登录</n-button
-            >
+            <a-button type="primary" long :loading="loading" :disabled="loading" @click="handleSubmit">登录</a-button>
         </div>
     </div>
 </template>
@@ -17,7 +15,7 @@ import cookie from "@/utils/tools/cookie";
 import formHelper from "@/utils/helper/form";
 import ruleHelper from "@/utils/helper/rule";
 import sleep from "@/utils/tools/sleep";
-const message = useMessage();
+import { Message } from "@arco-design/web-vue";
 const router = useRouter();
 
 // 清空本地存储
@@ -48,7 +46,7 @@ const handleSubmit = async (): Promise<any> => {
     await formHelper.validate(baseForm1.value);
     loading.value = true;
     await sleep(3000);
-    message.success("登录成功");
+    Message.success("登录成功");
     loading.value = false;
 
     // if (!res?.errors) {

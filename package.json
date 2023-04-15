@@ -1,6 +1,6 @@
 {
-    "name": "login_register",
-    "version": "0.0.0",
+    "name": "efe-vue3-admin-ts-template",
+    "version": "0.0.1",
     "scripts": {
         "start": "vite --mode development",
         "build": "npm run build:prod",
@@ -50,6 +50,7 @@
         "vuedraggable": "^4.1.0"
     },
     "devDependencies": {
+        "@arco-design/web-vue": "^2.45.1",
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
         "@easyfe/eslint-config-vue3ts": "^0.0.3",
@@ -68,7 +69,6 @@
         "autoprefixer": "10.4.2",
         "husky": "^8.0.1",
         "lint-staged": "^13.0.3",
-        "naive-ui": "^2.33.5",
         "postcss": "8.4.7",
         "postcss-pxtorem": "5.1.1",
         "rollup-plugin-visualizer": "5.8.2",
@@ -90,7 +90,6 @@
     "vite": {
         "optimizeDeps": {
             "include": [
-                "naive-ui",
                 "vue",
                 "vue-router"
             ]

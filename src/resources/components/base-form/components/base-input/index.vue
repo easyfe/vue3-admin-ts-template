@@ -1,8 +1,8 @@
 <template>
-    <n-form-item v-bind="$attrs">
-        <n-input v-model:value.trim="model" v-bind="$attrs" class="input"></n-input>
+    <a-form-item v-bind="$attrs">
+        <a-input v-model:value.trim="model" v-bind="$attrs" class="input"></a-input>
         <slot name="extra"></slot>
-    </n-form-item>
+    </a-form-item>
 </template>
 <script lang="ts" setup name="BaseInput">
 const props = defineProps({

@@ -1,6 +1,6 @@
 <template>
     <div class="base-form">
-        <n-form
+        <a-form
             ref="formRef"
             :model="model"
             :rules="rules"
@@ -11,9 +11,9 @@
             size="medium"
             v-bind="$attrs"
         >
-            <n-row :gutter="24" :style="getRowStyle">
+            <a-row :gutter="24" :style="getRowStyle">
                 <template v-for="(item, index) in props.config" :key="index">
-                    <n-col v-if="handleCheckIf(item.if)" class="form-items" :span="getSpan(item)">
+                    <a-col v-if="handleCheckIf(item.if)" class="form-items" :span="getSpan(item)">
                         <div v-if="item.inputType === 'section'" class="section">{{ item.value }}</div>
                         <base-span v-if="item.inputType === 'span'" v-model="model[item.path]" v-bind="item">
                         </base-span>
@@ -76,10 +76,10 @@
                             v-bind="item"
                         ></base-upload>
                         <slot v-if="item.inputType === 'slot'" :name="item.path"></slot>
-                    </n-col>
+                    </a-col>
                 </template>
-            </n-row>
-        </n-form>
+            </a-row>
+        </a-form>
     </div>
 </template>
 <script lang="ts" setup name="BaseForm">

@@ -1,7 +1,7 @@
 <template>
-    <n-form-item v-bind="$attrs">
-        <n-input-number v-model:value="model" v-bind="$attrs" :min="min" :max="max"></n-input-number>
-    </n-form-item>
+    <a-form-item v-bind="$attrs">
+        <a-input-number v-model:value="model" v-bind="$attrs" :min="min" :max="max"></a-input-number>
+    </a-form-item>
 </template>
 
 <script lang="ts" setup name="BaseInputNumber">
