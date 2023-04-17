@@ -15,6 +15,7 @@ import { ConfigCompressPlugin } from "./modules/compress";
 import { ConfigOssPlugin } from "./modules/oss";
 import { CosConfig } from "@syyfe/vite-plugin-cos";
 import VueSetupExtend from "vite-plugin-vue-setup-extend-plus";
+import { vitePluginForArco } from "@arco-plugins/vite-vue";
 
 /**
  * 创建vite插件
@@ -43,7 +44,10 @@ export function createVitePlugins(params: {
          * 扩展setup插件，支持在script标签中使用name属性
          * usage: <script setup name="MyComp"></script>
          */
-        VueSetupExtend()
+        VueSetupExtend(),
+        vitePluginForArco({
+            theme: "@arco-themes/vue-easyfe"
+        })
     ];
     // 上传oss
     if (params.envMap.VITE_APP_MODE !== "development" && params.uploadOption?.SecretId) {
