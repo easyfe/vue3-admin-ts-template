@@ -16,7 +16,7 @@
     flex-direction: column;
     height: calc(100vh - 64px);
     position: relative;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     .frame-view-content {
         background-color: #fff;
         flex: 1;
