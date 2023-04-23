@@ -93,3 +93,32 @@
     bottom: calc(constant(safe-area-inset-bottom) + $height);
     bottom: calc(env(safe-area-inset-bottom) + $height);
 }
+
+@mixin scroll-y() {
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: #ccc;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f2f2f2;
+    }
+}
+
+@mixin scroll-x() {
+    &::-webkit-scrollbar {
+        height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: #ccc;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f2f2f2;
+    }
+}
