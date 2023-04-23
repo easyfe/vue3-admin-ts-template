@@ -4,10 +4,10 @@
             <app-left v-model:collapsed="collapsed"></app-left>
         </a-layout-sider>
         <a-layout>
-            <a-layout-header style="height: 64px" bordered>
+            <a-layout-header style="height: 64px">
                 <app-header></app-header>
             </a-layout-header>
-            <a-layout-content class="layout-content" style="top: 64px" :native-scrollbar="false">
+            <a-layout-content class="layout-content" :native-scrollbar="false">
                 <app-main></app-main>
             </a-layout-content>
         </a-layout>
@@ -18,6 +18,6 @@ const collapsed = ref(false);
 </script>
 <style lang="scss" scoped>
 .app-layout {
-    min-height: 100%;
+    height: 100%;
 }
 </style>

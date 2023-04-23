@@ -1,5 +1,5 @@
 <template>
-    <a-menu v-model:open-keys="openKeys" v-model:selected-keys="selectedKeys">
+    <a-menu v-model:open-keys="openKeys" v-model:selected-keys="selectedKeys" class="app-menu">
         <menu-item v-for="item in routeList" :key="item.path" :route="item" />
     </a-menu>
 </template>
@@ -20,4 +20,8 @@ onMounted(() => {
     selectedKeys.value = matched;
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.app-menu {
+    height: 100%;
+}
+</style>

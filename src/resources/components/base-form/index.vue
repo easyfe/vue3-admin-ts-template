@@ -174,6 +174,9 @@ onMounted(() => {
             margin-bottom: 24px;
             color: rgb(29, 33, 41);
         }
+        :deep(.arco-form-item-content > div) {
+            width: 100%;
+        }
     }
 }
 </style>

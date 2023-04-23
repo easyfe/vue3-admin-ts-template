@@ -1,3 +1,4 @@
+import { FormInstance } from "@arco-design/web-vue";
 import {
     BaseFormCheckbox,
     BaseFormCheckboxGroup,
@@ -15,6 +16,17 @@ import {
 } from "types/base-form";
 
 const formHelper = {
+    validate(value: FormInstance) {
+        return new Promise((resolve, reject) => {
+            value.validate().then((res) => {
+                if (!res) {
+                    resolve(true);
+                } else {
+                    reject(res);
+                }
+            });
+        });
+    },
     //段落文案
     section(value: string) {
         return {
@@ -52,7 +64,7 @@ const formHelper = {
         extra = {
             ...extra,
             allowClear: extra?.clearable ?? true,
-            span: extra?.span ?? 8,
+            span: extra?.span ?? 12,
             placeholder: extra?.placeholder ?? "请输入"
         };
         return {
@@ -73,7 +85,7 @@ const formHelper = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
             allowClear: extra?.clearable ?? true,
-            span: extra?.span ?? 8
+            span: extra?.span ?? 12
         };
         return {
             inputType: "date",
@@ -93,7 +105,7 @@ const formHelper = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
             allowClear: extra?.clearable ?? true,
-            span: extra?.span ?? 8
+            span: extra?.span ?? 12
         };
         return {
             inputType: "time",
@@ -179,7 +191,7 @@ const formHelper = {
             ...extra,
             placeholder: extra?.placeholder ?? "请选择",
             allowClear: extra?.clearable ?? true,
-            span: extra?.span ?? 8
+            span: extra?.span ?? 12
         };
         return {
             inputType: "select",
@@ -241,7 +253,12 @@ const formHelper = {
      * @returns
      */
     inputNumber(label: string, field: string, extra?: BaseFormInputNumber) {
-        extra = { ...extra, allowClear: extra?.clearable ?? true, span: extra?.span ?? 8 };
+        extra = {
+            ...extra,
+            allowClear: extra?.clearable ?? true,
+            span: extra?.span ?? 12,
+            placeholder: extra?.placeholder ?? "请输入"
+        };
         return {
             inputType: "inputNumber",
             label,

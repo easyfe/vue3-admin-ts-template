@@ -1,6 +1,9 @@
 <template>
     <frame-view>
-        <base-form v-model="formData" :config="formConfig"></base-form>
+        <base-form ref="form" v-model="formData" :config="formConfig"></base-form>
+        <template #bottom>
+            <a-button type="primary" @click="save">保存</a-button>
+        </template>
     </frame-view>
 </template>
 <script lang="ts" setup>
@@ -43,7 +46,7 @@ const formConfig = computed(() => {
         formHelper.switch("切换", "key7"),
         formHelper.date("日期", "key10", {
             type: "daterange",
-            span: 8
+            span: 12
         }),
         formHelper.time("时间", "key11"),
         formHelper.editor("富文本", "key6")
@@ -54,4 +57,17 @@ const formData = ref({
     key6: "",
     text: `这是一段介绍文字<font style='color:red;padding-left:10px;font-weight:bold'>支持HTML</font>`
 });
+
+const form = ref();
+
+function save() {
+    formHelper
+        .validate(form.value)
+        .then(() => {
+            console.log("ok");
+        })
+        .catch((err) => {
+            console.log("error", err);
+        });
+}
 </script>

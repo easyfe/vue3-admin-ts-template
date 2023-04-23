@@ -22,7 +22,7 @@ const props = withDefaults(
         show?: boolean;
         modelValue: number | string | boolean;
         options: Record<string, any>[];
-        type: "button" | "radio";
+        type?: "button" | "radio";
         pixel?: boolean;
         disabled?: boolean;
         change?: (value: string | number | boolean, ev: Event) => any;
@@ -31,8 +31,10 @@ const props = withDefaults(
         modelValue: "",
         labelKey: "label",
         valueKey: "value",
+        type: "button",
         show: true,
         pixel: false,
+        options: () => [],
         disabled: false,
         change: (value, ev) => undefined
     }
