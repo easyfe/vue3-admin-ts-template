@@ -7,7 +7,7 @@
             <a-layout-header style="height: 64px">
                 <app-header></app-header>
             </a-layout-header>
-            <a-layout-content class="layout-content" :native-scrollbar="false">
+            <a-layout-content class="layout-content">
                 <app-main></app-main>
             </a-layout-content>
         </a-layout>
@@ -19,5 +19,8 @@ const collapsed = ref(false);
 <style lang="scss" scoped>
 .app-layout {
     height: 100%;
+    .layout-content {
+        background-color: #f2f3f5;
+    }
 }
 </style>

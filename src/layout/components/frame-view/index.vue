@@ -14,9 +14,11 @@
 .frame-view {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100vh - 64px);
     position: relative;
+    padding: 20px;
     .frame-view-content {
+        background-color: #fff;
         flex: 1;
         padding: 24px 48px;
         overflow-y: auto;

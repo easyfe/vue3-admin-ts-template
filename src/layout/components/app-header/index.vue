@@ -24,5 +24,6 @@ const onClick = (item: RouteLocationMatched) => {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    padding-left: 20px;
 }
 </style>
