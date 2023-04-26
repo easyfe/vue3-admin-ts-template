@@ -49,17 +49,11 @@
             <a-table
                 ref="baseTable"
                 v-model:selectedKeys="selectedKeys"
-                :row-key="privateTableConfig?.rowKey"
-                :size="privateTableConfig?.size || 'large'"
-                :scroll="{ y: privateTableConfig?.maxHeight }"
                 :loading="loading"
                 :data="privateList"
-                :row-selection="privateTableConfig?.selection"
                 :pagination="false"
-                :expandable="privateTableConfig?.expandable"
                 :stripe="true"
-                :bordered="privateTableConfig?.bordered"
-                v-on="$attrs"
+                v-bind="privateTableConfig.tableProps"
                 @row-click="rowClick"
             >
                 <template #columns>
@@ -159,7 +153,7 @@
             </a-table>
         </div>
         <!-- 表格底部 -->
-        <div v-if="privateTableConfig?.pagination !== false || enableSelection" class="footer">
+        <div v-if="privateTableConfig?.tableProps?.pagination !== false || enableSelection" class="footer">
             <div class="bat-wrapper">
                 <template v-if="enableSelection">
                     <a-checkbox
@@ -191,7 +185,7 @@
                 </template>
             </div>
             <a-pagination
-                v-if="privateTableConfig?.pagination !== false"
+                v-if="privateTableConfig?.tableProps?.pagination !== false"
                 v-model:current="privatePage"
                 v-model:pageSize="privateSize"
                 :page-size-options="privateSizeList"
@@ -309,7 +303,7 @@ const privateSizeList = computed(() => {
 
 //是否开启多选
 const enableSelection = computed(() => {
-    return privateTableConfig.value?.selection !== undefined;
+    return privateTableConfig.value?.tableProps?.rowSelection !== undefined;
 });
 
 /** 是否显示左下角按钮组 */

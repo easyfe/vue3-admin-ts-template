@@ -15,9 +15,13 @@ const getData = computed(() => {
 
 const getConfig = computed(() => {
     return tableHelper.create({
-        rowKey: "userId",
-        bordered: false,
-        selection: true,
+        tableProps: {
+            rowKey: "id",
+            bordered: false,
+            rowSelection: {
+                type: "checkbox"
+            }
+        },
         tabs: [
             {
                 label: "全部",
@@ -43,7 +47,7 @@ const getConfig = computed(() => {
             }
         ],
         columns: [
-            tableHelper.default("用户ID", "userId"),
+            tableHelper.default("用户ID", "id"),
             tableHelper.default("标题", "title"),
             tableHelper.default("内容", "body")
         ]

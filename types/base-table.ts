@@ -1,33 +1,65 @@
-import { ButtonProps, TableSortable, TableRowSelection, TableExpandable } from "@arco-design/web-vue";
+import { ButtonProps, TableSortable, TableRowSelection, TableExpandable, ScrollbarProps } from "@arco-design/web-vue";
+import {
+    TableColumnData,
+    TableData,
+    TableDraggable,
+    TableOperationColumn
+} from "@arco-design/web-vue/es/table/interface";
+import { VirtualListProps } from "@arco-design/web-vue/es/_components/virtual-list-v2/interface";
 /** 表格配置定义 */
 export type _TableConfig = {
-    pagination?: boolean;
-    /** 表格大小 */
-    size?: "mini" | "small" | "medium" | "large";
     /** 左上角标签 */
     tabs?: _Tabs;
     /** 右上角按钮 */
     btns?: _Btn[];
     /** 左下角按钮 */
     bats?: _Btn[];
-    /** 序号 */
-    index?: boolean;
-    /** 展开行 */
-    expandable?: TableExpandable;
     /** 是否禁用选中行 */
     disableSelectedRow?: boolean;
-    /** 多选 */
-    selection?: TableRowSelection;
-    /** 可复选的列 */
-    selectable?: (row: Record<string, any>, index: number) => boolean;
-    /** 是否分页 */
-    pageination?: boolean;
-    /** 是否边框 */
-    bordered?: boolean;
-    /** 表格高度 */
-    maxHeight?: number;
-    /** rowKey字段 */
-    rowKey: string;
+    tableProps: {
+        bordered?: boolean;
+        hoverable?: boolean;
+        striped?: boolean;
+        size?: "mini" | "small" | "medium" | "large";
+        tableLayoutFixed?: boolean;
+        loading?: boolean;
+        rowSelection?: TableRowSelection;
+        expandable?: TableExpandable;
+        scroll?: { x?: number | string; y?: number | string; minWidth?: number | string; maxHeight?: number | string };
+        pagination?: boolean;
+        pagePosition?: "tl" | "top" | "tr" | "bl" | "bottom" | "br";
+        indentSize?: number;
+        rowKey?: string;
+        showHeader?: boolean;
+        virtualListProps?: VirtualListProps;
+        spanMethod?: (data: {
+            record: TableData;
+            column: TableColumnData | TableOperationColumn;
+            rowIndex: number;
+            columnIndex: number;
+        }) => { rowspan?: number; colspan?: number } | void;
+        spanAll?: boolean;
+        loadMore?: (record: TableData, done: (children?: TableData[]) => void) => void;
+        filterIconAlignLeft?: boolean;
+        hideExpandButtonOnEmpty?: boolean;
+        rowClass?: string | any[] | Record<string, any> | ((record: TableData, rowIndex: number) => any);
+        draggable?: TableDraggable;
+        columnResizable?: boolean;
+        summary?: boolean | ((params: { columns: TableColumnData[]; data: TableData[] }) => TableData[]);
+        summaryText?: string;
+        summarySpanMethod?: (data: {
+            record: TableData;
+            column: TableColumnData | TableOperationColumn;
+            rowIndex: number;
+            columnIndex: number;
+        }) => { rowspan?: number; colspan?: number } | void;
+        selectedKeys?: (string | number)[];
+        defaultSelectedKeys?: (string | number)[];
+        expandedKeys?: (string | number)[];
+        defaultExpandAllRows?: boolean;
+        stickyHeader?: boolean | number;
+        scrollbar?: boolean | ScrollbarProps;
+    };
     /** 列表组 */
     columns: {
         /** 类型，默认default */
