@@ -1,6 +1,6 @@
 <template>
     <a-layout class="app-layout">
-        <a-layout-sider v-model:collapsed="collapsed" collapsible>
+        <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 99">
             <app-left v-model:collapsed="collapsed"></app-left>
         </a-layout-sider>
         <a-layout>

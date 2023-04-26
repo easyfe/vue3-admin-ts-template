@@ -1,7 +1,9 @@
+import { Message } from "@arco-design/web-vue";
+
 let reqNum = 0;
 const loading = {
     showToast(err: any): void {
-        MMessage.error(err.message || err.msg || err);
+        Message.error(err.message || err.msg || err);
     },
     showLoading(): void {
         if (reqNum === 0) {
@@ -19,7 +21,7 @@ const loading = {
         });
     },
     clearToast(): void {
-        console.log("结束loading");
+        Message.clear();
     }
 };
 /** 关闭loading */
@@ -29,8 +31,7 @@ function closeLoading(): void {
     }
     reqNum--;
     if (reqNum === 0) {
-        console.log("结束loading");
-        // Toast.clear();
+        Message.clear();
     }
 }
 

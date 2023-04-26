@@ -7,35 +7,38 @@
         <div class="top">
             <!-- table左上角切换tab -->
             <div class="tabs">
-                <m-radio-group v-if="tabsShow" v-model="activeTabValue">
+                <a-radio-group v-if="tabsShow" v-model="activeTabValue" type="button">
                     <template v-for="(item, index) in privateTableConfig?.tabs">
-                        <m-radio v-if="item.if !== false" :key="index" :label="item.value"
+                        <a-radio v-if="item.if !== false" :key="index" :label="item.value"
                             >{{ item.label }}
                             <template v-if="item.count">
                                 （<span class="tabs-count">{{ item.count }}</span
                                 >）
                             </template>
-                        </m-radio>
+                        </a-radio>
                     </template>
-                </m-radio-group>
+                </a-radio-group>
                 <!-- 左侧插槽 -->
                 <slot name="left-btns"></slot>
             </div>
             <!-- table右上角功能按钮 -->
             <div class="btns">
                 <template v-if="btnsShow">
-                    <template v-for="(item, index) in privateTableConfig?.btns">
-                        <m-button
-                            v-if="handleCheckBtnIf(item)"
-                            :key="index"
-                            :type="item.type || 'primary'"
-                            :disabled="handleCheckBtnDidsable(item) || item.loading"
-                            :icon="item.icon"
-                            :loading="item.loading"
-                            @click="handleExtraButtonClick(item)"
-                            >{{ item.label }}</m-button
-                        >
-                    </template>
+                    <a-space>
+                        <template v-for="(item, index) in privateTableConfig?.btns">
+                            <a-button
+                                v-if="handleCheckBtnIf(item)"
+                                :key="index"
+                                :type="item.type || 'primary'"
+                                :status="item.status || 'normal'"
+                                :disabled="handleCheckBtnDidsable(item) || item.loading"
+                                :icon="item.icon"
+                                :loading="item.loading"
+                                @click="handleExtraButtonClick(item)"
+                                >{{ item.label }}</a-button
+                            >
+                        </template>
+                    </a-space>
                 </template>
                 <!-- 右侧插槽 -->
                 <slot name="btns-slot"></slot>
@@ -43,7 +46,7 @@
         </div>
         <!-- 表格主体 -->
         <div class="table">
-            <m-table
+            <a-table
                 ref="baseTable"
                 v-model:selectedKeys="selectedKeys"
                 :row-key="privateTableConfig?.rowKey"
@@ -64,7 +67,7 @@
                         <!-- 插槽类型 -->
                         <slot v-if="item.type === 'slot'" :name="item.prop"></slot>
                         <!-- 普通列 -->
-                        <m-table-column
+                        <a-table-column
                             v-if="item.type === 'default'"
                             :key="index"
                             :ellipsis="true"
@@ -84,9 +87,9 @@
                                         : "-"
                                 }}
                             </template>
-                        </m-table-column>
+                        </a-table-column>
                         <!-- 时间列 -->
-                        <m-table-column
+                        <a-table-column
                             v-if="item.type === 'date'"
                             :key="index"
                             :ellipsis="true"
@@ -101,9 +104,9 @@
                             <template #cell="{ record }">
                                 {{ dateHelper.formatDate(record[item.prop], item.format) }}
                             </template>
-                        </m-table-column>
+                        </a-table-column>
                         <!-- 字典列 -->
-                        <m-table-column
+                        <a-table-column
                             v-if="item.type === 'dictionary'"
                             :key="index"
                             :ellipsis="true"
@@ -116,9 +119,9 @@
                             <template #cell="{ record }">
                                 {{ setDictionaryValue(item.prop, record[item.prop]) }}
                             </template>
-                        </m-table-column>
+                        </a-table-column>
                         <!-- 操作按钮组 -->
-                        <m-table-column
+                        <a-table-column
                             v-if="item.type === 'btns'"
                             :key="index"
                             :ellipsis="true"
@@ -129,9 +132,9 @@
                             :align="item.align || 'center'"
                         >
                             <template #cell="{ record }">
-                                <m-space>
+                                <a-space>
                                     <template v-for="(btn_item, btn_index) in item.btns"
-                                        ><m-button
+                                        ><a-button
                                             v-if="handleCheckColumnBtnIf(record, index, btn_item)"
                                             :key="btn_index"
                                             class="btn handle-btns"
@@ -141,31 +144,32 @@
                                             }"
                                             type="text"
                                             @click.stop="handleClickColumnBtn(record, index, btn_item)"
-                                            >{{ handleSetColumnBtnLabel(record, index, btn_item) }}</m-button
+                                            >{{ handleSetColumnBtnLabel(record, index, btn_item) }}</a-button
                                         ></template
                                     >
-                                </m-space>
+                                </a-space>
                             </template>
-                        </m-table-column>
+                        </a-table-column>
                     </template>
                 </template>
                 <!-- 空状态 -->
                 <template #empty>
-                    <m-empty description="暂无数据" :image="emptyImage" :image-size="220"></m-empty>
+                    <a-empty description="暂无数据" :image="emptyImage" :image-size="220"></a-empty>
                 </template>
-            </m-table>
+            </a-table>
         </div>
+        <!-- 表格底部 -->
         <div v-if="privateTableConfig?.pagination !== false || enableSelection" class="footer">
             <div class="bat-wrapper">
                 <template v-if="enableSelection">
-                    <m-checkbox
+                    <a-checkbox
                         v-model="footerCheckAllFlag"
                         class="bat-checkbox"
                         :indeterminate="footerIndeterminateFlag"
                         @change="haneleClickChoose"
                     >
                         {{ footerCheckAllFlag ? "取消全选" : "全选" }}
-                    </m-checkbox>
+                    </a-checkbox>
                     <span class="bats-slot">
                         已选 {{ selectedKeys?.length
                         }}<template v-if="props.selectLimit">/ {{ props.selectLimit }}</template> 个
@@ -173,7 +177,7 @@
                 </template>
                 <template v-if="batsShow">
                     <template v-for="(item, index) in privateTableConfig?.bats">
-                        <m-button
+                        <a-button
                             v-if="handleCheckBtnIf(item)"
                             :key="index"
                             :type="item.type || 'primary'"
@@ -181,12 +185,12 @@
                             :icon="item.icon"
                             :loading="item.loading"
                             @click="handleExtraButtonClick(item)"
-                            >{{ item.label }}</m-button
+                            >{{ item.label }}</a-button
                         >
                     </template>
                 </template>
             </div>
-            <m-pagination
+            <a-pagination
                 v-if="privateTableConfig?.pagination !== false"
                 v-model:current="privatePage"
                 v-model:pageSize="privateSize"
@@ -196,7 +200,7 @@
                 show-page-size
                 @page-size-change="handleSizeChange"
                 @change="handleCurrentChange"
-            ></m-pagination>
+            ></a-pagination>
         </div>
     </div>
 </template>
@@ -270,14 +274,10 @@ const emits = defineEmits<{
 }>();
 
 //内部tableConfig配置文件
-const privateTableConfig = ref<null | _TableConfig>(props.tableConfig);
-// const privateTableConfig = computed(() => {
-//     const cloneTableConfig = lodash.cloneDeep(props.tableConfig);
-//     if (cloneTableConfig?.selection?.showCheckedAll) {
-//         cloneTableConfig.selection.showCheckedAll = false;
-//     }
-//     return cloneTableConfig;
-// });
+const privateTableConfig = computed(() => {
+    const cloneTableConfig = lodash.cloneDeep(props.tableConfig);
+    return cloneTableConfig;
+});
 //是否结束
 const finished = ref(false);
 //列表加载状态
@@ -492,7 +492,7 @@ const listMore = async (refresh = false): Promise<void> => {
         const res = await props?.req.fn(params);
         // 仅开启分页的情况才去设置总数
         if (privateTableConfig.value?.pagination !== false) {
-            total.value = res[props.totalKey || "total"];
+            total.value = res[props.totalKey || "total"] || 0;
         }
         loading.value = false;
         if (refresh) {
@@ -543,7 +543,7 @@ const handleCurrentChange = (page: number): void => {
 };
 /** 操作列按钮点击事件 */
 const handleClickColumnBtn = (item: Record<string, any>, index: number, btn: BaseTableColunmBtn): void => {
-    btn.handler(item, index);
+    btn.handler?.(item, index);
 };
 /** 检查右上角按钮是否显示 */
 const handleCheckBtnIf = (btn: _Btn): boolean => {
@@ -623,7 +623,7 @@ const handleSetColumnBtnLabel = (item: Record<string, any>, index: number, btn: 
 
 /** 扩展按钮事件，右上角，左下角 */
 const handleExtraButtonClick = (btn: _Btn): void => {
-    btn.handler(btn);
+    btn.handler?.(btn);
 };
 
 /** 动态设置table的高度 */
@@ -731,17 +731,8 @@ onBeforeUnmount(() => {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 0 15px;
-        background: #fff;
+        margin-bottom: 16px;
         .tabs {
-            :deep(.el-radio-button__inner) {
-                min-width: 80px;
-                color: #8c8c8c;
-            }
-            :deep(.el-radio-button__orig-radio:checked + .el-radio-button__inner) {
-                background-color: #fff;
-                color: #1890ff;
-            }
             .tabs-count {
                 color: #f56c6c;
             }

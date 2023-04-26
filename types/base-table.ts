@@ -1,6 +1,7 @@
-import type { TableSortable, TableRowSelection, TableExpandable } from "@moment-design/web-vue";
+import { ButtonProps, TableSortable, TableRowSelection, TableExpandable } from "@arco-design/web-vue";
 /** 表格配置定义 */
 export type _TableConfig = {
+    pagination?: boolean;
     /** 表格大小 */
     size?: "mini" | "small" | "medium" | "large";
     /** 左上角标签 */
@@ -74,24 +75,18 @@ export type _Btn = {
     /** 标签（按钮文字） */
     label: string | ((row: any) => string);
     /** 点击事件 */
-    handler: (item: _Btn) => void;
-    /** 按钮类型 */
-    type?: "primary" | "secondary" | "outline" | "plain" | "dashed" | "text";
-    /** 按钮状态 */
-    status?: "normal" | "warning" | "success" | "danger";
+    handler?: (item: _Btn) => void;
     /** 是否展示，仅false时隐藏 */
     if?: boolean | (() => boolean);
     /** 是否禁用，仅true时禁用 */
     disabled?: boolean | (() => boolean);
     /** 颜色 */
     color?: string;
-    /** 加载状态 */
-    loading?: boolean;
     /** 加载文案 */
     loadingText?: string;
     /** 图标 */
     icon?: string;
-};
+} & ButtonProps;
 
 /** 表格tabs定义 */
 export type _Tabs = {

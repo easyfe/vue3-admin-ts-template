@@ -72,7 +72,7 @@ const getUrlSvgStyle = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped name="BaseSvg">
 .svg-filter {
     filter: v-bind("svgfilter");
 }

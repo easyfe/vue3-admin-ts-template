@@ -9,6 +9,7 @@
 import { ObjectDirective } from "vue";
 import typeHelper from "@/utils/helper/type/index";
 import handlerCopy from "@/utils/tools/copy";
+import { Message } from "@arco-design/web-vue";
 
 // 注册一个全局自定义复制指令 `v-copy`
 const CopyHookFunction: ObjectDirective = {
@@ -21,14 +22,14 @@ const CopyHookFunction: ObjectDirective = {
                     if (typeHelper.isFunction(onSuccess)) {
                         onSuccess(res);
                     } else {
-                        useMessage().success(res);
+                        Message.success(res);
                     }
                 })
                 .catch((err: any) => {
                     if (typeHelper.isFunction(onError)) {
                         onError(err);
                     } else {
-                        useMessage().error(err);
+                        Message.error(err);
                     }
                 });
         };
