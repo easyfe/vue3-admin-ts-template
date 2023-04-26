@@ -11,9 +11,8 @@ type rules = {
 };
 
 import type {
-    CheckboxProps,
+    CheckboxOption,
     InputProps,
-    CheckboxGroupProps,
     RadioProps,
     RadioGroupProps,
     InputNumberProps,
@@ -49,6 +48,13 @@ export type BaseFormInput = Partial<InputProps> & BaseFormExtra;
 //数字输入框扩展
 export type BaseFormInputNumber = Partial<InputNumberProps> & BaseFormExtra;
 //多选扩展
+type CheckboxGroupProps = {
+    max?: number;
+    options?: Array<string | number | CheckboxOption>;
+    direction?: "horizontal" | "vertical";
+    disabled?: boolean;
+};
+type CheckboxProps = CheckboxOption;
 export type BaseFormCheckboxGroup = Partial<CheckboxGroupProps> &
     BaseFormExtra & { labelKey?: string; valueKey?: string };
 export type BaseFormCheckbox = Partial<CheckboxProps>;

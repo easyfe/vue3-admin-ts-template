@@ -1,22 +1,24 @@
 <template>
-    <a-form-item v-bind="$attrs" content-flex>
-        <div class="base-color-reset"><a-button type="text" @click="reset">重置</a-button></div>
-        <a-trigger position="lt" trigger="click" :popup-offset="10">
-            <div class="base-color-wrapper" :trigger="['click']">
-                <div class="base-color-inner" :style="{ background: model }"></div>
-            </div>
-            <template #content>
-                <color-picker
-                    class="color"
-                    theme="light"
-                    :color="model"
-                    :sucker-hide="true"
-                    :sucker-canvas="suckerCanvas"
-                    :sucker-area="suckerArea"
-                    @changeColor="changeColor"
-                />
-            </template>
-        </a-trigger>
+    <a-form-item v-bind="$attrs">
+        <a-space>
+            <a-trigger position="lt" trigger="click" :popup-offset="10">
+                <div class="base-color-wrapper" :trigger="['click']">
+                    <div class="base-color-inner" :style="{ background: model }"></div>
+                </div>
+                <template #content>
+                    <color-picker
+                        class="color"
+                        theme="light"
+                        :color="model"
+                        :sucker-hide="true"
+                        :sucker-canvas="suckerCanvas"
+                        :sucker-area="suckerArea"
+                        @changeColor="changeColor"
+                    />
+                </template>
+            </a-trigger>
+            <div class="base-color-reset"><a-button type="text" @click="reset">重置</a-button></div>
+        </a-space>
     </a-form-item>
 </template>
 <script lang="ts" setup name="BaseColor">
@@ -58,7 +60,6 @@ const model = computed({
 });
 
 const changeColor = (color: any): void => {
-    console.log(color);
     // model.value = color.hex;
     const { r, g, b, a } = color.rgba;
     const rgba = `rgba(${r},${g},${b},${a})`;

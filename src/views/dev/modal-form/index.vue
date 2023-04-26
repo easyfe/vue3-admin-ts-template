@@ -1,15 +1,34 @@
 <template>
     <frame-view>
-        <base-form ref="form" v-model="formData" :config="formConfig"></base-form>
-        <template #bottom>
-            <a-button type="primary" @click="save">保存</a-button>
-        </template>
+        <a-space>
+            <a-button @click="formVisible1 = true">打开表单(props模式)</a-button>
+            <a-button @click="formVisible2 = true">打开表单(slot模式)</a-button>
+        </a-space>
+        <a-space>
+            {{ formData }}
+        </a-space>
+        <base-modal-form
+            v-model:visible="formVisible1"
+            :value="formData"
+            :modal-config="{ title: '测试', width: '70%' }"
+            :form-config="formConfig"
+            @ok="save1"
+        >
+        </base-modal-form>
+        <base-modal-form v-model:visible="formVisible2" :modal-config="{ title: '测试', width: '70%' }">
+            <template #content>
+                <base-form ref="form" v-model="formData" :config="formConfig"></base-form>
+            </template>
+        </base-modal-form>
     </frame-view>
 </template>
 <script lang="ts" setup>
 import formHelper from "@/utils/helper/form";
 import ruleHelper from "@/utils/helper/rule";
 import { Message } from "@arco-design/web-vue";
+
+const formVisible1 = ref(false);
+const formVisible2 = ref(false);
 
 const formConfig = computed(() => {
     return [
@@ -21,7 +40,6 @@ const formConfig = computed(() => {
             rules: [ruleHelper.require("必填", "blur")],
             tips: `示文案这是示文案是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案`
         }),
-        formHelper.color("颜色", "key8"),
         formHelper.checkbox("多选框", "key2", [
             {
                 label: "label1",
@@ -61,6 +79,12 @@ const formData = ref({
 });
 
 const form = ref();
+
+function save1(v: any) {
+    console.log("save1:", v);
+    formData.value = v;
+    formVisible1.value = false;
+}
 
 function save() {
     formHelper

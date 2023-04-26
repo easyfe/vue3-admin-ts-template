@@ -30,11 +30,11 @@
                             v-model="model[item.field]"
                             v-bind="item"
                         ></base-switch>
-                        <!-- <base-color
-                        v-if="item.inputType === 'color' && handleCheckIf(item.if)"
-                        v-model="model[item.field]"
-                        v-bind="item"
-                    ></base-color> -->
+                        <base-color
+                            v-if="item.inputType === 'color' && handleCheckIf(item.if)"
+                            v-model="model[item.field]"
+                            v-bind="item"
+                        ></base-color>
                         <!-- <base-color-range
                         v-if="item.inputType === 'colorRange' && handleCheckIf(item.if)"
                         v-model="model[item.field]"

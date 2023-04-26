@@ -8,7 +8,7 @@ const routers: RouteConfig[] = [
         meta: {
             title: "开发者工具",
             icon: "zx-1-2",
-            sort: 9
+            sort: 1
         },
         component: LayoutMain,
         children: [
@@ -16,10 +16,19 @@ const routers: RouteConfig[] = [
                 path: "/dev/form",
                 name: "dev-form",
                 meta: {
-                    title: "表单",
+                    title: "普通表单",
                     sort: 9
                 },
                 component: () => import("@/views/dev/form/index.vue")
+            },
+            {
+                path: "/dev/modal-form",
+                name: "dev-modal-form",
+                meta: {
+                    title: "弹窗表单",
+                    sort: 8
+                },
+                component: () => import("@/views/dev/modal-form/index.vue")
             }
         ]
     }
