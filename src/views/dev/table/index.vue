@@ -1,16 +1,47 @@
 <template>
     <frame-view>
-        <base-table :table-config="getConfig" :req="getData" page-key="_page" size-key="_size" row-key=""></base-table>
+        <base-table
+            v-model:filter-data="filterData"
+            :filter-config="filterConfig"
+            :table-config="getConfig"
+            :req="getData"
+            page-key="_page"
+            size-key="_size"
+            row-key=""
+        ></base-table>
     </frame-view>
 </template>
 <script lang="ts" setup>
 import { testList } from "@/config/apis/common";
+import formHelper from "@/utils/helper/form";
 import tableHelper from "@/utils/helper/table";
+
+const filterData = ref({
+    tabsData: "1"
+});
 
 const getData = computed(() => {
     return {
-        fn: testList
+        fn: testList,
+        params: {
+            ...filterData.value
+        }
     };
+});
+
+const filterConfig = computed(() => {
+    return [
+        formHelper.input("测试", "test", {
+            span: 8
+        }),
+        formHelper.input("测试2", "test2", {
+            span: 8
+        }),
+        formHelper.date("日期", "key10", {
+            type: "daterange",
+            span: 8
+        })
+    ];
 });
 
 const getConfig = computed(() => {
@@ -19,13 +50,24 @@ const getConfig = computed(() => {
             rowKey: "id",
             bordered: false,
             rowSelection: {
-                type: "checkbox"
+                type: "checkbox",
+                showCheckedAll: true
             }
         },
+        bats: [
+            {
+                label: "编辑",
+                type: "primary"
+            },
+            {
+                label: "删除",
+                status: "danger"
+            }
+        ],
         tabs: [
             {
                 label: "全部",
-                value: ""
+                value: "0"
             },
             {
                 label: "已发布",
@@ -47,9 +89,26 @@ const getConfig = computed(() => {
             }
         ],
         columns: [
-            tableHelper.default("用户ID", "id"),
+            tableHelper.default("用户ID", "id", {
+                width: 100
+            }),
             tableHelper.default("标题", "title"),
-            tableHelper.default("内容", "body")
+            tableHelper.default("内容", "body"),
+            tableHelper.btns(
+                "操作",
+                [
+                    {
+                        label: "编辑"
+                    },
+                    {
+                        label: "删除",
+                        status: "danger"
+                    }
+                ],
+                {
+                    width: 150
+                }
+            )
         ]
     });
 });

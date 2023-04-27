@@ -1,6 +1,6 @@
 <template>
     <a-form-item v-bind="$attrs">
-        <a-date-picker v-model:value="model" v-bind="$attrs" />
+        <a-date-picker v-model="model" v-bind="$attrs" />
     </a-form-item>
 </template>
 <script lang="ts" setup name="BaseDate">

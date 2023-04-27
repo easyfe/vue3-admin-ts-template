@@ -1,3 +1,4 @@
+import { ButtonProps } from "@arco-design/web-vue";
 import { _TableConfig } from "types/base-table";
 
 export type BaseTableColunmExtra = {
@@ -22,7 +23,7 @@ export type BaseTableColunmBtn = {
     disabled?: boolean | ((row: Record<string, any>, index: number) => boolean);
     /** 按钮颜色 */
     color?: string;
-};
+} & ButtonProps;
 const tableHelper = {
     /**
      * 创建table参数

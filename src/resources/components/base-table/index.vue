@@ -7,9 +7,9 @@
         <div class="top">
             <!-- table左上角切换tab -->
             <div class="tabs">
-                <a-radio-group v-if="tabsShow" v-model="activeTabValue" type="button">
+                <a-radio-group v-if="tabsShow" v-model="privateFilterData.tabsData" type="button">
                     <template v-for="(item, index) in privateTableConfig?.tabs">
-                        <a-radio v-if="item.if !== false" :key="index" :label="item.value"
+                        <a-radio v-if="item.if !== false" :key="index" :value="item.value"
                             >{{ item.label }}
                             <template v-if="item.count">
                                 （<span class="tabs-count">{{ item.count }}</span
@@ -119,7 +119,6 @@
                             v-if="item.type === 'btns'"
                             :key="index"
                             :ellipsis="true"
-                            :tooltip="item.tooltip || { position: 'top' }"
                             :title="item.label"
                             :width="item.width"
                             :fixed="item.fixed"
@@ -136,6 +135,7 @@
                                             :style="{
                                                 color: btn_item.color && !btn_item.disabled ? btn_item.color : ''
                                             }"
+                                            :status="btn_item.status || 'normal'"
                                             type="text"
                                             @click.stop="handleClickColumnBtn(record, index, btn_item)"
                                             >{{ handleSetColumnBtnLabel(record, index, btn_item) }}</a-button
@@ -170,18 +170,21 @@
                     </span>
                 </template>
                 <template v-if="batsShow">
-                    <template v-for="(item, index) in privateTableConfig?.bats">
-                        <a-button
-                            v-if="handleCheckBtnIf(item)"
-                            :key="index"
-                            :type="item.type || 'primary'"
-                            :disabled="handleCheckBtnDidsable(item) || item.loading"
-                            :icon="item.icon"
-                            :loading="item.loading"
-                            @click="handleExtraButtonClick(item)"
-                            >{{ item.label }}</a-button
-                        >
-                    </template>
+                    <a-space>
+                        <template v-for="(item, index) in privateTableConfig?.bats">
+                            <a-button
+                                v-if="handleCheckBtnIf(item)"
+                                :key="index"
+                                :type="item.type || 'primary'"
+                                :status="item.status || 'normal'"
+                                :disabled="handleCheckBtnDidsable(item) || item.loading"
+                                :icon="item.icon"
+                                :loading="item.loading"
+                                @click="handleExtraButtonClick(item)"
+                                >{{ item.label }}</a-button
+                            >
+                        </template>
+                    </a-space>
                 </template>
             </div>
             <a-pagination
@@ -203,7 +206,14 @@
 import emptyImage from "@/assets/images//common/no-data.png";
 import { _Btn, _TableConfig } from "types/base-table";
 import { BaseTableColunmBtn } from "@/utils/helper/table";
-import typeHelper from "@/utils/helper/type";
+import {
+    handleCheckBtnIf,
+    handleCheckBtnDidsable,
+    handleCheckColumnBtnIf,
+    handleCheckColumnBtnDidsable,
+    handleSetColumnBtnLabel,
+    arrIncludes
+} from "./util";
 import dateHelper from "@/utils/helper/date";
 import lodash from "@/utils/tools/lodash";
 
@@ -212,7 +222,7 @@ const props = withDefaults(
         //筛选框配置
         filterConfig?: any[];
         //筛选框值
-        filterData?: any;
+        filterData?: { tabsData?: string | number } & Record<string, any>;
         //复选框默认选中key集合
         defaultSelectionKeys?: number[] | string[];
         //构造请求
@@ -247,7 +257,7 @@ const props = withDefaults(
         defaultSelectionKeys: () => [],
         req: undefined,
         filterConfig: undefined,
-        filterData: {},
+        filterData: () => ({}),
         rowKey: "rows",
         totalKey: "total",
         sizeList: () => [10, 20, 30, 40, 50],
@@ -286,8 +296,6 @@ const total = ref(0);
 const privatePage = ref(1);
 //分页条数
 const privateSize = ref(20);
-/** 焦点tab */
-const activeTabValue = ref("");
 /** 全选标记 */
 const footerCheckAllFlag = ref(false);
 /** 底部多选复选框不确定状态 */
@@ -303,7 +311,7 @@ const privateSizeList = computed(() => {
 
 //是否开启多选
 const enableSelection = computed(() => {
-    return privateTableConfig.value?.tableProps?.rowSelection !== undefined;
+    return !!privateTableConfig.value?.tableProps?.rowSelection;
 });
 
 /** 是否显示左下角按钮组 */
@@ -354,25 +362,11 @@ const dictionaryObj = computed(() => {
     }
     return dicMap;
 });
+const tableRowKey = computed(() => {
+    return privateTableConfig.value?.tableProps?.rowKey || "id";
+});
 //选中的keys
 const selectedKeys = ref<string[] | number[]>([]);
-/** 监听tabs配置 */
-watch(
-    () => props.tableConfig.tabs,
-    () => {
-        //     if (privateTableConfig.value?.tabs) {
-        //     this.privateTableConfig.tabs = e;
-        // }
-        // this.activeTabValue = this.filterData.tabsData;
-    }
-);
-/** 监听tabs绑定值更新 */
-watch(
-    () => activeTabValue.value,
-    () => {
-        // this.$set(this.filterData, "tabsData", data);
-    }
-);
 
 /** 请求参数修改 */
 watch(
@@ -394,20 +388,7 @@ watch(
         }
     }
 );
-/**
- * arr1数组是否包含arr2数组
- * @param arr1
- * @param arr2
- */
-const arrIncludes = (arr1: any[], arr2: any[]): number => {
-    let total = 0;
-    for (let item of arr2) {
-        if (arr1.includes(item)) {
-            total = total + 1;
-        }
-    }
-    return total;
-};
+
 /** 重新加载之后，检测复选disabled */
 watch(loading, (newVal) => {
     if (!newVal) {
@@ -421,7 +402,7 @@ watch(loading, (newVal) => {
 const checkSelectedDisabled = (): void => {
     if (props.tableConfig.disableSelectedRow) {
         privateList.value.forEach((item) => {
-            if ((props.defaultSelectionKeys as any[]).includes(item[props.tableConfig.rowKey])) {
+            if ((props.defaultSelectionKeys as any[]).includes(item[tableRowKey.value])) {
                 item.disabled = true;
             } else {
                 item.disabled = false;
@@ -485,7 +466,7 @@ const listMore = async (refresh = false): Promise<void> => {
         }
         const res = await props?.req.fn(params);
         // 仅开启分页的情况才去设置总数
-        if (privateTableConfig.value?.pagination !== false) {
+        if (enableSelection.value) {
             total.value = res[props.totalKey || "total"] || 0;
         }
         loading.value = false;
@@ -539,81 +520,6 @@ const handleCurrentChange = (page: number): void => {
 const handleClickColumnBtn = (item: Record<string, any>, index: number, btn: BaseTableColunmBtn): void => {
     btn.handler?.(item, index);
 };
-/** 检查右上角按钮是否显示 */
-const handleCheckBtnIf = (btn: _Btn): boolean => {
-    if (typeHelper.isBoolean(btn.if)) {
-        const e = btn.if as boolean;
-        return e;
-    } else if (typeHelper.isFunction(btn.if)) {
-        const fn = btn.if as () => boolean;
-        return fn();
-    } else if (typeHelper.isUndefined(btn.if)) {
-        return true;
-    } else {
-        console.warn("Button组的IF类型错误，请检查：", btn.if);
-        return false;
-    }
-};
-/** 检查右上角按钮是否禁用 */
-const handleCheckBtnDidsable = (btn: _Btn): boolean => {
-    if (typeHelper.isBoolean(btn.disabled)) {
-        const e = btn.disabled as boolean;
-        return e;
-    } else if (typeHelper.isFunction(btn.disabled)) {
-        const fn = btn.disabled as () => boolean;
-        return fn();
-    } else if (typeHelper.isUndefined(btn.disabled)) {
-        return false;
-    } else {
-        console.warn("Button组的DISABLED类型错误，请检查：", btn.disabled);
-        return false;
-    }
-};
-/** 检查操作列的按钮是否显示 */
-const handleCheckColumnBtnIf = (item: Record<string, any>, index: number, btn: BaseTableColunmBtn): boolean => {
-    if (typeHelper.isBoolean(btn.if)) {
-        const e = btn.if as boolean;
-        return e;
-    } else if (typeHelper.isFunction(btn.if)) {
-        const fn = btn.if as (item: Record<string, any>, index: number) => boolean;
-        return fn(item, index);
-    } else if (typeHelper.isUndefined(btn.if)) {
-        return true;
-    } else {
-        console.warn("按钮组的IF类型错误，请检查：", btn.if);
-        return false;
-    }
-};
-
-/** 检查操作列的按钮是否禁用 */
-const handleCheckColumnBtnDidsable = (item: Record<string, any>, index: number, btn: BaseTableColunmBtn): boolean => {
-    if (typeHelper.isBoolean(btn.disabled)) {
-        const e = btn.disabled as boolean;
-        return e;
-    } else if (typeHelper.isFunction(btn.disabled)) {
-        const fn = btn.disabled as (item: Record<string, any>, index: number) => boolean;
-        return fn(item, index);
-    } else if (typeHelper.isUndefined(btn.disabled)) {
-        return false;
-    } else {
-        console.warn("按钮组的DISABLE类型错误，请检查：", btn.disabled);
-        return false;
-    }
-};
-
-/** 设置操作列按钮的label */
-const handleSetColumnBtnLabel = (item: Record<string, any>, index: number, btn: BaseTableColunmBtn): string => {
-    if (typeHelper.isString(btn.label)) {
-        const e = btn.label as string;
-        return e;
-    } else if (typeHelper.isFunction(btn.label)) {
-        const fn = btn.label as (item: Record<string, any>, index: number) => string;
-        return fn(item, index);
-    } else {
-        console.warn("按钮组的LABEL类型错误，请检查：", btn.label);
-        return "";
-    }
-};
 
 /** 扩展按钮事件，右上角，左下角 */
 const handleExtraButtonClick = (btn: _Btn): void => {
@@ -641,8 +547,8 @@ const rowClick = (data: Record<string, any>): void => {
     if (data.disabled) {
         return;
     }
-    const clickId = data[props.tableConfig.rowKey];
-    if (props.tableConfig.selection) {
+    const clickId = data[tableRowKey.value];
+    if (enableSelection.value) {
         const index = selectedKeys.value?.findIndex((item) => item === clickId);
         if (index !== undefined) {
             if (index === -1) {
@@ -665,14 +571,14 @@ watch(
 /** 复选框变更 */
 const onSelectionChange = (): void => {
     const selectionData = privateList.value.filter((item) =>
-        (selectedKeys.value as any[]).includes(item[privateTableConfig.value?.rowKey || ""])
+        (selectedKeys.value as any[]).includes(item[tableRowKey.value])
     );
     emits("selectionChange", selectionData);
     checkSelectedDisabled();
     nextTick(() => {
         const includeLength = arrIncludes(
             selectedKeys.value,
-            privateList.value.map((item) => item[privateTableConfig.value?.rowKey || ""])
+            privateList.value.map((item) => item[tableRowKey.value])
         );
         footerCheckAllFlag.value = includeLength > 0 && includeLength === privateList.value.length;
         //计算部分选中状态的时候，需要过滤已禁用的数据
@@ -711,14 +617,12 @@ onBeforeUnmount(() => {
 });
 </script>
 <style lang="scss" scoped>
-.el-radio-group {
-    user-select: none;
-}
 .base-table {
     display: flex;
     flex-direction: column;
     .filter {
-        background: #fff;
+        border-bottom: 1px solid var(--color-neutral-3);
+        margin-bottom: 20px;
     }
     .top {
         display: flex;
@@ -727,6 +631,7 @@ onBeforeUnmount(() => {
         justify-content: space-between;
         margin-bottom: 16px;
         .tabs {
+            user-select: none;
             .tabs-count {
                 color: #f56c6c;
             }
@@ -735,6 +640,7 @@ onBeforeUnmount(() => {
     .table {
         flex: 1;
     }
+
     .footer {
         display: flex;
         flex-direction: row;
@@ -744,8 +650,13 @@ onBeforeUnmount(() => {
         height: 50px;
         background: #fff;
         margin-top: 15px;
-        .bat-checkbox {
-            margin-right: 30px;
+        .bat-wrapper {
+            .bat-checkbox {
+                margin-right: 10px;
+            }
+            .bats-slot {
+                margin-right: 10px;
+            }
         }
     }
     .bats-slot {
