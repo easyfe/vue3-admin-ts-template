@@ -16,7 +16,7 @@ export type _TableConfig = {
     bats?: _Btn[];
     /** 是否禁用选中行 */
     disableSelectedRow?: boolean;
-    tableProps: {
+    tableProps?: {
         bordered?: boolean;
         hoverable?: boolean;
         striped?: boolean;
@@ -61,7 +61,7 @@ export type _TableConfig = {
         scrollbar?: boolean | ScrollbarProps;
     };
     /** 列表组 */
-    columns: {
+    columns?: {
         /** 类型，默认default */
         type?: "default" | "slot" | "btns" | "image" | "time" | "dictionary" | "date";
         /** prop */

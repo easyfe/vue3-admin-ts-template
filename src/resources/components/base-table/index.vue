@@ -340,7 +340,7 @@ const btnsShow = computed(() => {
 
 /** 生成新的字典对象 */
 const dictionaryObj = computed(() => {
-    const arr = privateTableConfig.value?.columns.filter((item) => item.type === "dictionary");
+    const arr = privateTableConfig.value?.columns?.filter((item) => item.type === "dictionary");
     if (!arr) {
         return null;
     }

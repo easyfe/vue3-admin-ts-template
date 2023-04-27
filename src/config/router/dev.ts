@@ -38,6 +38,15 @@ const routers: RouteConfig[] = [
                     sort: 7
                 },
                 component: () => import("@/views/dev/table/index.vue")
+            },
+            {
+                path: "/dev/modal-table",
+                name: "dev-modal-table",
+                meta: {
+                    title: "弹窗表格",
+                    sort: 6
+                },
+                component: () => import("@/views/dev/modal-table/index.vue")
             }
         ]
     }

@@ -11,8 +11,7 @@
         @cancel="handleCancel"
     >
         <div class="base-modal-content">
-            <slot v-if="$slots.content" name="content"></slot>
-            <base-form v-else ref="modalForm" v-model="computedModel" :config="props.formConfig"></base-form>
+            <base-form ref="modalForm" v-model="computedModel" :config="props.formConfig"></base-form>
         </div>
     </a-modal>
 </template>
@@ -49,13 +48,6 @@ const computedVisible = computed({
 });
 
 const computedModel = ref(lodash.cloneDeep(props.value));
-
-// watch(
-//     () => props.value,
-//     () => {
-//         computedModel.value = props.value;
-//     }
-// );
 
 async function handleOk() {
     if (modalForm) {
