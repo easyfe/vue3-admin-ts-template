@@ -1,18 +1,24 @@
 <template>
     <frame-view>
         <a-space>
-            <a-button @click="formVisible1 = true">打开表格</a-button>
+            <a-button @click="onOpen(1)">打开表格</a-button>
+            <a-button @click="onOpen(2)">默认选中</a-button>
         </a-space>
+        <a-row>
+            {{ tableData }}
+        </a-row>
         <base-modal-table
-            v-model:visible="formVisible1"
+            v-model:visible="visible"
             v-model:filter-data="filterData"
             :modal-config="{ title: '测试', width: '70%' }"
             :filter-config="filterConfig"
             :table-config="getConfig"
             :req="getData"
+            :default-selection-keys="selectionKeys"
             page-key="_page"
             size-key="_size"
             row-key=""
+            @ok="handleOk"
         ></base-modal-table>
     </frame-view>
 </template>
@@ -20,7 +26,9 @@
 import { testList } from "@/config/apis/common";
 import formHelper from "@/utils/helper/form";
 import tableHelper from "@/utils/helper/table";
-const formVisible1 = ref(false);
+const visible = ref(false);
+const tableData = ref();
+const selectionKeys = ref<string[] | number[]>([]);
 
 const filterData = ref({
     tabsData: "1"
@@ -52,6 +60,7 @@ const filterConfig = computed(() => {
 
 const getConfig = computed(() => {
     return tableHelper.create({
+        disableSelectedRow: true,
         tableProps: {
             rowKey: "id",
             bordered: false,
@@ -118,4 +127,18 @@ const getConfig = computed(() => {
         ]
     });
 });
+
+function handleOk(e: any[]) {
+    tableData.value = e;
+}
+
+function onOpen(type: number) {
+    visible.value = true;
+    if (type === 1) {
+        selectionKeys.value = [];
+    }
+    if (type === 2) {
+        selectionKeys.value = tableData.value.map((item: any) => item.id);
+    }
+}
 </script>

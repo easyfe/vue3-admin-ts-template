@@ -357,10 +357,10 @@
   resolved "https://registry.npmjs.org/@ctrl/tinycolor/-/tinycolor-3.4.1.tgz"
   integrity sha512-ej5oVy6lykXsvieQtqZxCOaLT+xD4+QNarq78cIYISHmZXshCvROLudpQN3lfL8G0NL7plMSSK+zlyvCaIJ4Iw==
 
-"@easyfe/eslint-config-vue3ts@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@easyfe/eslint-config-vue3ts/-/eslint-config-vue3ts-0.0.3.tgz#8d6d20cc815d2ef03a3575bda0471d0dff9a05df"
-  integrity sha512-FmZyiTyy0uGPTMp+3rLCUUNX6TgLykaOniJK1M7B+dX6f64p/Ta3lgCsCoUcY5JNcLrPM2BbAbR7Davk7g5PxA==
+"@easyfe/eslint-config-vue3ts@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@easyfe/eslint-config-vue3ts/-/eslint-config-vue3ts-0.0.4.tgz#b94ecf8ee6a04586d37901dd6b738ab3399f02f8"
+  integrity sha512-kYn6QJgQVeEh1cNXN7gql+QcMlmTU/oi7iYpfmKLv/AQnwaX+FnKZl8b+pY/eP5HKmmh5yImXnO6tx3xVSXuIg==
   dependencies:
     "@typescript-eslint/eslint-plugin" "5.4.0"
     "@typescript-eslint/parser" "5.4.0"

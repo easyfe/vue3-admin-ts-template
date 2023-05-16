@@ -55,7 +55,7 @@
         "@arco-themes/vue-easyfe": "^0.0.5",
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
-        "@easyfe/eslint-config-vue3ts": "^0.0.3",
+        "@easyfe/eslint-config-vue3ts": "^0.0.4",
         "@syyfe/eslint-plugin": "0.0.1",
         "@syyfe/vite-plugin-cos": "^0.0.9",
         "@types/big.js": "6.1.5",

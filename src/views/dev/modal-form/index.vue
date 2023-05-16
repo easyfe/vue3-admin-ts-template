@@ -3,9 +3,9 @@
         <a-space>
             <a-button @click="formVisible1 = true">打开表单</a-button>
         </a-space>
-        <a-space>
+        <a-row>
             {{ formData }}
-        </a-space>
+        </a-row>
         <base-modal-form
             v-model:visible="formVisible1"
             :value="formData"
