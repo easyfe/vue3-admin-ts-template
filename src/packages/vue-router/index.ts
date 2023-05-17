@@ -21,7 +21,7 @@ const initRoute = (): void => {
     const setRoutes = (tmpRoutes: RouteConfig[]) => {
         let cloneData: RouteConfig[] = [];
         tmpRoutes.sort((a, b) => (b.meta?.sort || 1) - (a.meta?.sort || 1));
-        tmpRoutes = tmpRoutes.filter((item) => !item.meta?.hidden);
+        // tmpRoutes = tmpRoutes.filter((item) => !item.meta?.hidden);
         cloneData = [...tmpRoutes];
         for (const key in tmpRoutes) {
             if (tmpRoutes[key].meta?.keepAliveName) {
@@ -54,7 +54,7 @@ router.beforeEach(async (to, from, next) => {
         if (timer && env.dev()) {
             document.getElementById("index-loading")?.setAttribute("style", "display:auto");
         }
-    }, 100);
+    }, 500);
     //正常跳转
     next();
 });

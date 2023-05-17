@@ -47,6 +47,35 @@ const routers: RouteConfig[] = [
                     sort: 6
                 },
                 component: () => import("@/views/dev/modal-table/index.vue")
+            },
+            {
+                path: "/dev/hide-menu/index",
+                name: "dev-hide-menu-index",
+                meta: {
+                    title: "列表跳详情",
+                    sort: 5
+                },
+                redirect: "/dev/hide-menu/index",
+                component: LayoutMain,
+                children: [
+                    {
+                        path: "/dev/hide-menu/index",
+                        name: "dev-hide-menu-index",
+                        meta: {
+                            hidden: true
+                        },
+                        component: () => import("@/views/dev/hide-menu/index/index.vue")
+                    },
+                    {
+                        path: "/dev/hide-menu/detail",
+                        name: "dev-hide-menu-detail",
+                        meta: {
+                            title: "详情菜单",
+                            hidden: true
+                        },
+                        component: () => import("@/views/dev/hide-menu/detail/index.vue")
+                    }
+                ]
             }
         ]
     }

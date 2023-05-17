@@ -16,6 +16,7 @@ interface RouteConfig {
     alias?: string | string[];
     meta?: RouteMetaAll;
     component?: any;
+    permission?: () => boolean;
 }
 
 type _TouchEvent = TouchEvent & {
