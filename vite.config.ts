@@ -64,8 +64,15 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             },
             rollupOptions: {
                 // 确保外部化处理那些你不想打包进库的依赖
-                external: []
+                external: [],
                 // https://rollupjs.org/guide/en/#big-list-of-options
+                output: {
+                    manualChunks: {
+                        echart: ["echarts"],
+                        ui: ["@arco-design/web-vue", "@arco-plugins/vite-vue"],
+                        core: ["vue", "vue-router"]
+                    }
+                }
             },
             // 文件变化时重新构建，会保留构建进程
             // watch: {

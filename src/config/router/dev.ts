@@ -49,6 +49,15 @@ const routers: RouteConfig[] = [
                 component: () => import("@/views/dev/modal-table/index.vue")
             },
             {
+                path: "/dev/echarts",
+                name: "dev-echarts",
+                meta: {
+                    title: "Echarts图表",
+                    sort: 6
+                },
+                component: () => import("@/views/dev/echarts/index.vue")
+            },
+            {
                 path: "/dev/hide-menu/index",
                 name: "dev-hide-menu-index",
                 meta: {

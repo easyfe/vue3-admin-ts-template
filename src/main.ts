@@ -10,6 +10,7 @@ import "vfonts/Lato.css";
 import "vfonts/FiraCode.css";
 //引入全局样式
 import "@/styles/index.scss";
+import ArcoVueIcon from "@arco-design/web-vue/es/icon";
 
 /***************** vue相关 ***************/
 //导入布局相关初始化处理
@@ -28,6 +29,7 @@ App.use(VueDOMPurifyHTML);
 App.use(VuePlyr, {
     plyr: {}
 });
+App.use(ArcoVueIcon);
 Object.keys(directive).forEach((key) => {
     App.directive(key, directive[key]);
 });

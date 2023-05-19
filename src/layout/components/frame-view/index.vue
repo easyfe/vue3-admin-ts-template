@@ -9,7 +9,16 @@
     </div>
 </template>
 
-<script lang="ts" setup name="FrameView"></script>
+<script lang="ts" setup name="FrameView">
+const props = withDefaults(
+    defineProps<{
+        backgroundColor?: string;
+    }>(),
+    {
+        backgroundColor: "#fff"
+    }
+);
+</script>
 <style lang="scss" scoped>
 .frame-view {
     display: flex;
@@ -17,7 +26,7 @@
     height: calc(100vh - 64px);
     position: relative;
     .frame-view-content {
-        background-color: #fff;
+        background-color: v-bind(backgroundColor);
         flex: 1;
         padding: 24px;
         margin: 20px;
