@@ -28,7 +28,6 @@ const option = computed(() => {
         },
         series: [
             {
-                //150, 230, 224, 218, 135, 147, 260
                 data: [],
                 type: "bar",
                 barWidth: 7
@@ -37,7 +36,7 @@ const option = computed(() => {
     };
     const dataArr = [150, 230, 224, 218, 135, 147, 260];
     if (!Array.isArray(v.series)) {
-        return;
+        return v;
     }
     v.series[0].data = dataArr.map((item, idx) => {
         return {
