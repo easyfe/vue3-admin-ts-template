@@ -85,6 +85,15 @@ const routers: RouteConfig[] = [
                         component: () => import("@/views/dev/hide-menu/detail/index.vue")
                     }
                 ]
+            },
+            {
+                path: "/dev/drag",
+                name: "dev-drag",
+                meta: {
+                    title: "自由拖拽",
+                    sort: 4
+                },
+                component: () => import("@/views/dev/drag/index.vue")
             }
         ]
     }

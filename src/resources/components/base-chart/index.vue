@@ -11,6 +11,7 @@
 <script lang="ts" setup name="BaseChart">
 import echarts from "@/config/echarts/index";
 import chinaJSON from "@/config/echarts/map/chinaChange.json";
+import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
 import lodash from "@/utils/tools/lodash";
 
 const props = withDefaults(
@@ -20,12 +21,14 @@ const props = withDefaults(
         height?: string | number;
         isMap?: boolean;
         isDark?: boolean;
+        id?: string;
     }>(),
     {
         width: "100%",
         height: "100%",
         isMap: false,
-        isDark: false
+        isDark: false,
+        id: ""
     }
 );
 
@@ -70,6 +73,12 @@ function initChart() {
     // 监听窗口变化 - 多个图表同时刷新
     window.addEventListener("resize", resizeChart);
 }
+
+eventBus.on(EVENT_CHART_RESIZE, (id: string) => {
+    if (id && id === props.id) {
+        resizeChart();
+    }
+});
 
 onUnmounted(() => {
     window.removeEventListener("resize", resizeChart);

@@ -1,12 +1,21 @@
 <template>
     <a-spin style="width: 100%">
         <a-card title="折线图" class="general-card">
-            <base-chart :option="option" height="200px"></base-chart>
+            <base-chart :id="props.id" :option="option" height="200px"></base-chart>
         </a-card>
     </a-spin>
 </template>
 <script lang="ts" setup>
 import { EChartsOption } from "echarts";
+
+const props = withDefaults(
+    defineProps<{
+        id?: string;
+    }>(),
+    {
+        id: ""
+    }
+);
 
 const option = computed(() => {
     const v: EChartsOption = {

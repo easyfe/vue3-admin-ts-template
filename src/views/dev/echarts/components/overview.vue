@@ -12,12 +12,21 @@
                     </a-statistic>
                 </a-col>
             </a-row>
-            <base-chart :option="option" height="500px"></base-chart>
+            <base-chart :id="props.id" :option="option" height="500px"></base-chart>
         </a-card>
     </a-spin>
 </template>
 <script lang="ts" setup>
 import { EChartsOption, LineSeriesOption } from "echarts";
+
+const props = withDefaults(
+    defineProps<{
+        id?: string;
+    }>(),
+    {
+        id: ""
+    }
+);
 
 const renderData = computed(() => [
     {
