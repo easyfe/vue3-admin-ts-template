@@ -20,7 +20,7 @@
                         :resizable="true"
                         :parent="true"
                         @click="onDraggableClick($event, index)"
-                        @resize-end="resizeEndHandle(item.id)"
+                        @resizing="resizeEndHandle(item.id)"
                         @deactivated="onDeactivated(index)"
                     >
                         <div class="vdr-content">

@@ -74,9 +74,12 @@ function initChart() {
     window.addEventListener("resize", resizeChart);
 }
 
+//监听图表宽高变化，一般由vue-draggable-resizable组件触发
 eventBus.on(EVENT_CHART_RESIZE, (id: string) => {
     if (id && id === props.id) {
-        resizeChart();
+        //这里取消了防抖，优化体验
+        charts.resize();
+        // resizeChart();
     }
 });
 
