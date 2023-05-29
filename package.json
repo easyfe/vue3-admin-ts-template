@@ -48,7 +48,6 @@
         "vue-gpickr": "^1.0.0",
         "vue-plyr": "^7.0.0",
         "vue-router": "^4.0.14",
-        "vue3-draggable-resizable": "^1.6.5",
         "vuedraggable": "^4.1.0"
     },
     "devDependencies": {

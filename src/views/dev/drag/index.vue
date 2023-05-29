@@ -25,7 +25,6 @@
                     >
                         <div class="vdr-content">
                             <component :is="item.component" :id="item.id" />
-                            <!-- <overview :id="item.id"></overview> -->
                         </div>
                     </Vue3DraggableResizable>
                 </template>
@@ -34,14 +33,12 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { DraggableContainer } from "vue3-draggable-resizable";
-import Vue3DraggableResizable from "vue3-draggable-resizable";
-//default styles
-import "vue3-draggable-resizable/dist/Vue3DraggableResizable.css";
+import Vue3DraggableResizable, { DraggableContainer } from "@/views/components/the-draggable-resizable";
 import genrateNanoid from "@/utils/tools/nanoid";
 import overview from "../echarts/components/overview.vue";
 import line from "../echarts/components/line.vue";
 import bar from "../echarts/components/bar.vue";
+import { markRaw } from "vue";
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
 const sourceList = [
     {
