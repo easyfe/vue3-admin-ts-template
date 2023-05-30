@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import "./index.css";
 import { matchesSelectorToParentElements, getComputedSize, addEvent, removeEvent } from "./utils/dom.js";
 import { computeWidth, computeHeight, restrictToBounds, snapToGrid } from "./utils/fns.js";
 
@@ -262,6 +263,8 @@ export default {
 
     data: function () {
         return {
+            vLine: [],
+            hLine: [],
             left: this.x,
             top: this.y,
             right: null,
@@ -504,6 +507,10 @@ export default {
         addEvent(parentElement || document.documentElement, "touchend touchcancel", this.deselect);
 
         addEvent(window, "resize", this.checkParentSize);
+
+        this.$nextTick(() => {
+            this.checkParentSize();
+        });
     },
     beforeUnmount: function () {
         removeEvent(document.documentElement, "mousedown", this.deselect);

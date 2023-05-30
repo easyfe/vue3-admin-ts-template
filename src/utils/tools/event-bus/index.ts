@@ -15,4 +15,4 @@ const eventBus = dush();
 
 export default eventBus;
 
-export const EVENT_CHART_RESIZE = "chart-resize";
+export const EVENT_CHART_RESIZE = "EVENT_CHART_RESIZE";

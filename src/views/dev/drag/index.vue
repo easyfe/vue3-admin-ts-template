@@ -6,49 +6,47 @@
             </div>
         </div>
         <div class="target-coulumn">
-            <DraggableContainer>
-                <template v-for="(item, index) in targetList" :key="item.id">
-                    <Vue3DraggableResizable
-                        v-model:x="item.x"
-                        v-model:y="item.y"
-                        v-model:w="item.w"
-                        v-model:h="item.h"
-                        v-model:active="item.active"
-                        :init-w="item.initW"
-                        :init-h="item.initY"
-                        :draggable="true"
-                        :resizable="true"
-                        :parent="true"
-                        :parent-height="parentSize.height"
-                        :parent-width="parentSize.width"
-                        @click="onDraggableClick($event, index)"
-                        @resizing="resizeEndHandle(item.id)"
-                        @deactivated="onDeactivated(index)"
-                    >
-                        <div class="vdr-content">
-                            <component :is="item.component" :id="item.id" />
-                        </div>
-                    </Vue3DraggableResizable>
-                </template>
-            </DraggableContainer>
+            <template v-for="(item, index) in targetList" :key="item.id">
+                <the-draggable-resizable
+                    v-model:x="item.x"
+                    v-model:y="item.y"
+                    v-model:w="item.w"
+                    v-model:h="item.h"
+                    v-model:active="item.active"
+                    :grid="[2, 2]"
+                    :help-line="false"
+                    :init-w="item.initW"
+                    :init-h="item.initY"
+                    :draggable="true"
+                    :resizable="true"
+                    :parent="true"
+                    :is-conflict-check="false"
+                    :snap="true"
+                    :snap-tolerance="10"
+                    @click="onDraggableClick($event, index)"
+                    @resizing="resizeEndHandle(item.id)"
+                    @deactivated="onDeactivated(index)"
+                    @refLineParams="useDragLine().setValue"
+                >
+                    <div class="vdr-content">
+                        <component :is="item.component" :id="item.id" />
+                    </div>
+                </the-draggable-resizable>
+            </template>
+            <the-draggable-line></the-draggable-line>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
-import Vue3DraggableResizable, { DraggableContainer } from "@/views/components/the-draggable-resizable";
 import genrateNanoid from "@/utils/tools/nanoid";
 import { ChartBar, ChartLine, ChartOverview } from "../echarts/components/index";
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
+import { useDragLine } from "@/views/components/the-draggable-line/hook";
 const sourceList = [
     {
         label: "测试"
     }
 ];
-
-const parentSize = {
-    width: 0,
-    height: 0
-};
 
 const targetList = ref([
     {
@@ -86,8 +84,6 @@ const targetList = ref([
     }
 ]);
 
-const ctrlClick = ref(false);
-
 function onDraggableClick(e: MouseEvent, index: number) {
     nextTick(() => {
         // targetList.value[index].active = e.ctrlKey;
@@ -106,36 +102,6 @@ function onDeactivated(index: number) {
         // }
     });
 }
-
-// function logKey(e: MouseEvent) {
-//     ctrlClick.value = e.ctrlKey;
-// }
-
-// onUnmounted(() => {
-//     const ele = document.getElementById("target-coulumn");
-//     if (!ele) return;
-//     ele.removeEventListener("click", logKey);
-// });
-
-onMounted(() => {
-    // const ele = document.getElementById("target-coulumn");
-    // if (!ele) return;
-    // ele.addEventListener("click", logKey);
-    // setTimeout(() => {
-    //     const ele = document.getElementById("draggable-container");
-    //     if (!ele) return;
-    //     parentSize.width = ele.clientWidth;
-    //     parentSize.height = ele.clientHeight;
-    // }, 1000);
-    // nextTick(() => {
-    //     const ele = document.getElementById("draggable-container");
-    //     if (!ele) return;
-    //     const { width, height } = getElSize(ele);
-    //     console.log(width, "===============", height);
-    //     parentSize.width = width;
-    //     parentSize.height = height;
-    // });
-});
 </script>
 <style lang="scss" scoped>
 .content {
