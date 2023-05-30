@@ -19,6 +19,8 @@
                         :draggable="true"
                         :resizable="true"
                         :parent="true"
+                        :parent-height="parentSize.height"
+                        :parent-width="parentSize.width"
                         @click="onDraggableClick($event, index)"
                         @resizing="resizeEndHandle(item.id)"
                         @deactivated="onDeactivated(index)"
@@ -35,16 +37,18 @@
 <script lang="ts" setup>
 import Vue3DraggableResizable, { DraggableContainer } from "@/views/components/the-draggable-resizable";
 import genrateNanoid from "@/utils/tools/nanoid";
-import overview from "../echarts/components/overview.vue";
-import line from "../echarts/components/line.vue";
-import bar from "../echarts/components/bar.vue";
-import { markRaw } from "vue";
+import { ChartBar, ChartLine, ChartOverview } from "../echarts/components/index";
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
 const sourceList = [
     {
         label: "测试"
     }
 ];
+
+const parentSize = {
+    width: 0,
+    height: 0
+};
 
 const targetList = ref([
     {
@@ -56,7 +60,7 @@ const targetList = ref([
         w: 100,
         h: 120,
         active: true,
-        component: overview
+        component: shallowRef(ChartOverview)
     },
     {
         id: genrateNanoid(),
@@ -67,7 +71,7 @@ const targetList = ref([
         w: 100,
         h: 120,
         active: false,
-        component: line
+        component: shallowRef(ChartLine)
     },
     {
         id: genrateNanoid(),
@@ -78,7 +82,7 @@ const targetList = ref([
         w: 100,
         h: 120,
         active: false,
-        component: bar
+        component: shallowRef(ChartBar)
     }
 ]);
 
@@ -113,11 +117,25 @@ function onDeactivated(index: number) {
 //     ele.removeEventListener("click", logKey);
 // });
 
-// onMounted(() => {
-//     const ele = document.getElementById("target-coulumn");
-//     if (!ele) return;
-//     ele.addEventListener("click", logKey);
-// });
+onMounted(() => {
+    // const ele = document.getElementById("target-coulumn");
+    // if (!ele) return;
+    // ele.addEventListener("click", logKey);
+    // setTimeout(() => {
+    //     const ele = document.getElementById("draggable-container");
+    //     if (!ele) return;
+    //     parentSize.width = ele.clientWidth;
+    //     parentSize.height = ele.clientHeight;
+    // }, 1000);
+    // nextTick(() => {
+    //     const ele = document.getElementById("draggable-container");
+    //     if (!ele) return;
+    //     const { width, height } = getElSize(ele);
+    //     console.log(width, "===============", height);
+    //     parentSize.width = width;
+    //     parentSize.height = height;
+    // });
+});
 </script>
 <style lang="scss" scoped>
 .content {

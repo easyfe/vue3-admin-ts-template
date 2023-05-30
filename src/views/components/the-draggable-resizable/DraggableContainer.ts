@@ -102,7 +102,8 @@ export default defineComponent({
         return h(
             "div",
             {
-                style: { width: "100%", height: "100%", position: "relative" }
+                style: { width: "100%", height: "100%", position: "relative" },
+                id: "draggable-container"
             },
             [this.$slots.default && this.$slots.default(), ...this.renderReferenceLine()]
         );

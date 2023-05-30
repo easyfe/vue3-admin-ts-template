@@ -78,6 +78,14 @@ const VdrProps = {
         type: Boolean,
         default: false
     },
+    parentWidth: {
+        type: Number,
+        default: 0
+    },
+    parentHeight: {
+        type: Number,
+        default: 0
+    },
     handles: {
         type: Array,
         default: ALL_HANDLES,
@@ -152,6 +160,12 @@ const VueDraggableResizable = defineComponent({
         }
         const containerRef = ref<HTMLElement>();
         const parentSize = initParent(containerRef);
+        if (props.parentWidth) {
+            parentSize.parentWidth = ref(props.parentWidth);
+        }
+        if (props.parentHeight) {
+            parentSize.parentHeight = ref(props.parentHeight);
+        }
         const limitProps = initLimitSizeAndMethods(props, parentSize, containerProps);
         initDraggableContainer(
             containerRef,
@@ -206,7 +220,21 @@ const VueDraggableResizable = defineComponent({
                 h: this.height
             });
         }
+        // window.addEventListener("resize", this.resizeParentSize);
     },
+    // unmounted() {
+    //     window.removeEventListener("resize", this.resizeParentSize);
+    // },
+    // methods: {
+    //     resizeParentSize() {
+    //         //
+    //         if (!this.containerRef) return;
+    //         const { width, height } = initParent(this.containerRef);
+    //         console.log("xxxxxxxxxx", width, "====", height);
+    //         this.parentWidth = width;
+    //         this.parentHeight = height;
+    //     }
+    // },
     render() {
         return h(
             "div",
