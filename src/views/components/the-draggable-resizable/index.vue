@@ -659,7 +659,7 @@ export default {
                 if (this.enabled && !this.preventDeactivation) {
                     this.enabled = false;
 
-                    this.$emit("deactivated");
+                    this.$emit("deactivated", e);
                     this.$emit("update:active", false);
                 }
 

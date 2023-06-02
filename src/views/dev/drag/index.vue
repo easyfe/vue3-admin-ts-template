@@ -14,7 +14,6 @@
                     v-model:h="item.h"
                     v-model:active="item.active"
                     :grid="[2, 2]"
-                    :help-line="false"
                     :init-w="item.initW"
                     :init-h="item.initY"
                     :draggable="true"
@@ -23,9 +22,10 @@
                     :is-conflict-check="false"
                     :snap="true"
                     :snap-tolerance="10"
-                    @click="onDraggableClick($event, index)"
+                    @dragging="(left:number, top:number) => onDragging(index, left, top)"
+                    @dragstop="(left:number, top:number) => onDragstop(index, left, top)"
                     @resizing="resizeEndHandle(item.id)"
-                    @deactivated="onDeactivated(index)"
+                    @deactivated="onDeactivated($event, index)"
                     @refLineParams="useDragLine().setValue"
                 >
                     <div class="vdr-content">
@@ -42,12 +42,16 @@ import genrateNanoid from "@/utils/tools/nanoid";
 import { ChartBar, ChartLine, ChartOverview } from "../echarts/components/index";
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
 import { useDragLine } from "@/views/components/the-draggable-line/hook";
+
 const sourceList = [
     {
         label: "测试"
     }
 ];
 
+const getMultiple = computed(() => {
+    return targetList.value.filter((item) => item.active).length > 1;
+});
 const targetList = ref([
     {
         id: genrateNanoid(),
@@ -84,22 +88,64 @@ const targetList = ref([
     }
 ]);
 
-function onDraggableClick(e: MouseEvent, index: number) {
-    nextTick(() => {
-        // targetList.value[index].active = e.ctrlKey;
-    });
-}
+const prevOffsetX = ref(0);
+const prevOffsetY = ref(0);
 
 function resizeEndHandle(id: string) {
     eventBus.emit(EVENT_CHART_RESIZE, id);
 }
 
-function onDeactivated(index: number) {
+function getDeltaX(offsetX: number) {
+    const ret = offsetX - prevOffsetX.value;
+
+    prevOffsetX.value = offsetX;
+
+    return ret;
+}
+function getDeltaY(offsetY: number) {
+    const ret = offsetY - prevOffsetY.value;
+
+    prevOffsetY.value = offsetY;
+
+    return ret;
+}
+
+function onDragging(index: number, left: number, top: number) {
+    if (!getMultiple.value) {
+        return;
+    }
+
+    const offsetX = left - targetList.value[index].x;
+    const offsetY = top - targetList.value[index].y;
+
+    const deltaX = getDeltaX(offsetX);
+    const deltaY = getDeltaY(offsetY);
+
+    targetList.value.forEach((v, i) => {
+        if (v.active && i !== index) {
+            v.x += deltaX;
+            v.y += deltaY;
+        }
+    });
+}
+
+function onDragstop(index: number, left: number, top: number) {
+    console.log("=======", left);
+    prevOffsetX.value = 0;
+    prevOffsetY.value = 0;
+}
+
+function onDeactivated(e: MouseEvent, index: number) {
     nextTick(() => {
-        // if (ctrlClick.value) {
-        //     ctrlClick.value = false;
-        //     targetList.value[index].active = true;
-        // }
+        if (!e) {
+            return;
+        }
+        if (e?.ctrlKey) {
+            targetList.value[index].active = true;
+        }
+        if (getMultiple.value && e?.target?.className !== "target-coulumn") {
+            targetList.value[index].active = true;
+        }
     });
 }
 </script>
@@ -121,8 +167,6 @@ function onDeactivated(index: number) {
     position: relative;
     margin: 20px 20px 20px 0;
     flex: 1;
-    // width: 1920px;
-    // height: 1080px;
     background-color: #fff;
     user-select: none;
     .vdr-content {
