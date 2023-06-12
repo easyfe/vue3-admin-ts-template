@@ -12,6 +12,7 @@
         "prepare": "husky install"
     },
     "dependencies": {
+        "@arco-design/web-vue": "^2.47.1",
         "@caohenghu/vue-colorpicker": "^1.2.4",
         "@syyfe/web-request": "^1.0.2",
         "@tinymce/tinymce-vue": "^5.0.1",
@@ -44,14 +45,12 @@
         "vue-awesome-swiper": "^5.0.1",
         "vue-clipboard3": "^2.0.0",
         "vue-dompurify-html": "^4.0.0",
-        "vue-draggable-resizable-gorkys": "^2.4.8",
         "vue-gpickr": "^1.0.0",
         "vue-plyr": "^7.0.0",
         "vue-router": "^4.0.14",
         "vuedraggable": "^4.1.0"
     },
     "devDependencies": {
-        "@arco-design/web-vue": "^2.45.1",
         "@arco-plugins/vite-vue": "^1.4.5",
         "@arco-themes/vue-easyfe": "^0.0.5",
         "@commitlint/cli": "^17.0.3",
@@ -83,7 +82,7 @@
         "unplugin-auto-import": "0.11.2",
         "unplugin-vue-components": "0.22.4",
         "vfonts": "0.0.3",
-        "vite": "2.9.13",
+        "vite": "^4.3.9",
         "vite-plugin-compression": "0.4.0",
         "vite-plugin-optimize-persist": "0.1.2",
         "vite-plugin-package-config": "0.1.1",

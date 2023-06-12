@@ -1,6 +1,11 @@
 <template>
     <a-form-item v-bind="$attrs">
-        <a-date-picker v-model="model" v-bind="$attrs" />
+        <a-date-picker v-if="$attrs.type === 'date'" v-model="model" v-bind="$attrs" />
+        <a-month-picker v-if="$attrs.type === 'month'" v-model="model" v-bind="$attrs" />
+        <a-year-picker v-if="$attrs.type === 'year'" v-model="model" v-bind="$attrs" />
+        <a-quarter-picker v-if="$attrs.type === 'quarter'" v-model="model" v-bind="$attrs" />
+        <a-week-picker v-if="$attrs.type === 'week'" v-model="model" v-bind="$attrs" />
+        <a-range-picker v-if="$attrs.type === 'range'" v-model="model" v-bind="$attrs" />
     </a-form-item>
 </template>
 <script lang="ts" setup name="BaseDate">

@@ -3,17 +3,53 @@ import {
     BaseFormCheckbox,
     BaseFormCheckboxGroup,
     BaseFormColor,
-    BaseFormDate,
+    BaseFormDatePicker,
     BaseFormExtra,
     BaseFormInput,
     BaseFormInputNumber,
+    BaseFormMonthPicker,
+    BaseFormQuarterPicker,
     BaseFormRadio,
     BaseFormRadioGroup,
+    BaseFormRangePicker,
     BaseFormSelect,
     BaseFormSelectOptions,
     BaseFormSwitch,
-    BaseFormTime
+    BaseFormTime,
+    BaseFormWeekPicker,
+    BaseFormYearPicker,
+    DateType
 } from "types/base-form";
+
+type BaseFormPicker =
+    | BaseFormYearPicker
+    | BaseFormQuarterPicker
+    | BaseFormWeekPicker
+    | BaseFormRangePicker
+    | BaseFormMonthPicker
+    | BaseFormDatePicker;
+
+function date(label: string, field: string, dateType: "year", extra?: BaseFormYearPicker): any;
+function date(label: string, field: string, dateType: "quarter", extra?: BaseFormQuarterPicker): any;
+function date(label: string, field: string, dateType: "week", extra?: BaseFormWeekPicker): any;
+function date(label: string, field: string, dateType: "range", extra?: BaseFormRangePicker): any;
+function date(label: string, field: string, dateType: "month", extra?: BaseFormMonthPicker): any;
+function date(label: string, field: string, dateType: "date", extra?: BaseFormDatePicker): any;
+function date(label: string, field: string, dateType: DateType, extra?: BaseFormPicker): any {
+    extra = {
+        ...extra,
+        type: dateType,
+        placeholder: extra?.placeholder ?? "请选择",
+        allowClear: extra?.clearable ?? true,
+        span: extra?.span ?? 12
+    };
+    return {
+        inputType: "date",
+        label,
+        field,
+        ...extra
+    };
+}
 
 const formHelper = {
     validate(value: FormInstance) {
@@ -80,20 +116,22 @@ const formHelper = {
      * @param field
      * @param extra
      */
-    date(label: string, field: string, extra?: BaseFormDate) {
-        extra = {
-            ...extra,
-            placeholder: extra?.placeholder ?? "请选择",
-            allowClear: extra?.clearable ?? true,
-            span: extra?.span ?? 12
-        };
-        return {
-            inputType: "date",
-            label,
-            field,
-            ...extra
-        };
-    },
+    date,
+    // data(label: string, field: string, dateType: "date", extra?: BaseFormDatePicker) {
+    //     extra = {
+    //         ...extra,
+    //         type: extra?.type ?? "date",
+    //         placeholder: extra?.placeholder ?? "请选择",
+    //         allowClear: extra?.clearable ?? true,
+    //         span: extra?.span ?? 12
+    //     };
+    //     return {
+    //         inputType: "date",
+    //         label,
+    //         field,
+    //         ...extra
+    //     };
+    // },
     /**
      * 时间输入框
      * @param label
@@ -224,6 +262,10 @@ const formHelper = {
      * @returns
      */
     editor(label: string, field: string, extra?: BaseFormExtra) {
+        extra = {
+            ...extra,
+            span: extra?.span ?? 12
+        };
         return {
             inputType: "editor",
             label,

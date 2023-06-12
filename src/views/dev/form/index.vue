@@ -16,10 +16,10 @@ const formConfig = computed(() => {
         formHelper.section("基础信息"),
         formHelper.span("介绍", "text"),
         formHelper.input("文本", "key1", {
-            maxlength: 20,
-            showCount: true,
+            maxLength: 20,
+            showWordLimit: true,
             rules: [ruleHelper.require("必填", "blur")],
-            tips: `示文案这是示文案是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案`
+            InputTIps: `示文案这是示文案是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案`
         }),
         formHelper.color("颜色", "key8"),
         formHelper.checkbox("多选框", "key2", [
@@ -46,10 +46,13 @@ const formConfig = computed(() => {
             { label: "label2", value: 2 }
         ]),
         formHelper.switch("切换", "key7"),
-        formHelper.date("日期", "key10", {
-            type: "daterange",
-            span: 12
+        formHelper.date("日期", "key9", "range", {
+            test: 1
         }),
+        // formHelper.date("日期", "key10", {
+        //     type: "range",
+        //     span: 12
+        // }),
         formHelper.time("时间", "key11"),
         formHelper.editor("富文本", "key6")
     ];

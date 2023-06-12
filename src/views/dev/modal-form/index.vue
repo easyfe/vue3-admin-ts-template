@@ -9,7 +9,7 @@
         <base-modal-form
             v-model:visible="formVisible1"
             :value="formData"
-            :modal-config="{ title: '测试', width: '70%' }"
+            :modal-config="{ title: '测试', width: '50%' }"
             :form-config="formConfig"
             @ok="save1"
         >

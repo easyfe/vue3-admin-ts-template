@@ -8,8 +8,7 @@
                         <base-span v-if="item.inputType === 'span'" v-model="model[item.field]" v-bind="item">
                         </base-span>
                         <base-input v-if="item.inputType === 'input'" v-model.trim="model[item.field]" v-bind="item">
-                            <template #extra> <form-extra :config="item"></form-extra> </template
-                        ></base-input>
+                        </base-input>
                         <base-input-number
                             v-if="item.inputType === 'inputNumber'"
                             v-model="model[item.field]"
