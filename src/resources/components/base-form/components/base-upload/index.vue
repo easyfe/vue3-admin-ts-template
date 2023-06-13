@@ -24,7 +24,6 @@
             </div>
         </div>
     </form-item>
-    <!-- <the-file-manager v-model="fileMangerVisiable" :limit="limit" @confirm="onFileConfirm"></the-file-manager> -->
 </template>
 
 <script lang="ts" setup name="BaseUpload">
