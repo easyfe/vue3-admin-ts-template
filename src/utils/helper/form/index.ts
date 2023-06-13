@@ -3,43 +3,52 @@ import {
     BaseFormCheckbox,
     BaseFormCheckboxGroup,
     BaseFormColor,
-    BaseFormDatePicker,
     BaseFormExtra,
     BaseFormInput,
     BaseFormInputNumber,
-    BaseFormMonthPicker,
-    BaseFormQuarterPicker,
     BaseFormRadio,
     BaseFormRadioGroup,
-    BaseFormRangePicker,
     BaseFormSelect,
     BaseFormSelectOptions,
     BaseFormSwitch,
     BaseFormTime,
+    BaseFormUpload,
+    BaseFormDatePicker,
+    BaseFormMonthPicker,
+    BaseFormQuarterPicker,
+    BaseFormRangePicker,
     BaseFormWeekPicker,
     BaseFormYearPicker,
     DateType
 } from "types/base-form";
 
-type BaseFormPicker =
-    | BaseFormYearPicker
-    | BaseFormQuarterPicker
-    | BaseFormWeekPicker
-    | BaseFormRangePicker
-    | BaseFormMonthPicker
-    | BaseFormDatePicker;
+// function date(label: string, field: string, dateType: "year", extra?: BaseFormYearPicker): any;
+// function date(label: string, field: string, dateType: "quarter", extra?: BaseFormQuarterPicker): any;
+// function date(label: string, field: string, dateType: "week", extra?: BaseFormWeekPicker): any;
+// function date(label: string, field: string, dateType: "range", extra?: BaseFormRangePicker): any;
+// function date(label: string, field: string, dateType: "month", extra?: BaseFormMonthPicker): any;
+// function date(label: string, field: string, dateType: "date", extra?: BaseFormDatePicker): any;
+// function date(label: string, field: string, dateType: any, extra?: any): any {
+//     extra = {
+//         ...extra,
+//         type: dateType,
+//         placeholder: extra?.placeholder ?? (dateType === "range" ? ["开始时间", "结束时间"] : "请选择"),
+//         allowClear: extra?.clearable ?? true,
+//         span: extra?.span ?? 12
+//     };
+//     return {
+//         inputType: "date",
+//         label,
+//         field,
+//         ...extra
+//     };
+// }
 
-function date(label: string, field: string, dateType: "year", extra?: BaseFormYearPicker): any;
-function date(label: string, field: string, dateType: "quarter", extra?: BaseFormQuarterPicker): any;
-function date(label: string, field: string, dateType: "week", extra?: BaseFormWeekPicker): any;
-function date(label: string, field: string, dateType: "range", extra?: BaseFormRangePicker): any;
-function date(label: string, field: string, dateType: "month", extra?: BaseFormMonthPicker): any;
-function date(label: string, field: string, dateType: "date", extra?: BaseFormDatePicker): any;
-function date(label: string, field: string, dateType: DateType, extra?: BaseFormPicker): any {
+function genrateDateForm(label: string, field: string, dateType: DateType, extra?: Record<string, any>) {
     extra = {
         ...extra,
         type: dateType,
-        placeholder: extra?.placeholder ?? "请选择",
+        placeholder: extra?.placeholder ?? (dateType === "range" ? ["开始时间", "结束时间"] : "请选择"),
         allowClear: extra?.clearable ?? true,
         span: extra?.span ?? 12
     };
@@ -52,6 +61,11 @@ function date(label: string, field: string, dateType: DateType, extra?: BaseForm
 }
 
 const formHelper = {
+    /**
+     * 验证器
+     * @param value
+     * @returns
+     */
     validate(value: FormInstance) {
         return new Promise((resolve, reject) => {
             value.validate().then((res) => {
@@ -63,7 +77,11 @@ const formHelper = {
             });
         });
     },
-    //段落文案
+    /**
+     * 段落文案
+     * @param value
+     * @returns
+     */
     section(value: string) {
         return {
             inputType: "section",
@@ -111,27 +129,29 @@ const formHelper = {
         };
     },
     /**
-     * 事件输入框
+     * 日期输入框
      * @param label
      * @param field
      * @param extra
      */
-    date,
-    // data(label: string, field: string, dateType: "date", extra?: BaseFormDatePicker) {
-    //     extra = {
-    //         ...extra,
-    //         type: extra?.type ?? "date",
-    //         placeholder: extra?.placeholder ?? "请选择",
-    //         allowClear: extra?.clearable ?? true,
-    //         span: extra?.span ?? 12
-    //     };
-    //     return {
-    //         inputType: "date",
-    //         label,
-    //         field,
-    //         ...extra
-    //     };
-    // },
+    datePicker(label: string, field: string, extra?: BaseFormDatePicker) {
+        return genrateDateForm(label, field, "date", extra);
+    },
+    monthPicker(label: string, field: string, extra?: BaseFormMonthPicker) {
+        return genrateDateForm(label, field, "month", extra);
+    },
+    yearPicker(label: string, field: string, extra?: BaseFormYearPicker) {
+        return genrateDateForm(label, field, "year", extra);
+    },
+    quarterPicker(label: string, field: string, extra?: BaseFormQuarterPicker) {
+        return genrateDateForm(label, field, "quarter", extra);
+    },
+    weekPicker(label: string, field: string, extra?: BaseFormWeekPicker) {
+        return genrateDateForm(label, field, "week", extra);
+    },
+    rangePicker(label: string, field: string, extra?: BaseFormRangePicker) {
+        return genrateDateForm(label, field, "range", extra);
+    },
     /**
      * 时间输入框
      * @param label
@@ -315,7 +335,7 @@ const formHelper = {
      * @param extra
      * @returns
      */
-    uploadPic(label: string, field: string, extra?: BaseFormExtra) {
+    uploadPic(label: string, field: string, extra?: BaseFormUpload) {
         return {
             inputType: "uploadPic",
             label,

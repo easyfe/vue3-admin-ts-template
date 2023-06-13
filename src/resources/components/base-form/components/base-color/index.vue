@@ -1,5 +1,5 @@
 <template>
-    <a-form-item v-bind="$attrs">
+    <form-item>
         <a-space>
             <a-trigger position="lt" trigger="click" :popup-offset="10">
                 <div class="base-color-wrapper" :trigger="['click']">
@@ -19,7 +19,7 @@
             </a-trigger>
             <div class="base-color-reset"><a-button type="text" @click="reset">重置</a-button></div>
         </a-space>
-    </a-form-item>
+    </form-item>
 </template>
 <script lang="ts" setup name="BaseColor">
 import colorPicker from "@caohenghu/vue-colorpicker";

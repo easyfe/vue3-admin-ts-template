@@ -1,15 +1,3 @@
-/** 校验规则 */
-// type rules = {
-//     validator?: (rule: unknown, value: any, callback: <T>(data?: T) => T) => void;
-//     pattern?: RegExp;
-//     message?: string;
-//     trigger?: "blur" | "change";
-//     required?: boolean;
-//     min?: number;
-//     max?: number;
-//     type?: "date" | "array";
-// };
-
 import type {
     CheckboxOption,
     SelectProps,
@@ -28,31 +16,30 @@ import type {
     QuarterPicker,
     WeekPicker
 } from "@arco-design/web-vue";
+// import { Override } from "types";
 
 /** form表单元素基础配置 */
 export type BaseFormExtra = {
-    placeholder?: string;
     clearable?: boolean;
     rules?: FieldRule | FieldRule[];
     if?: boolean | ((...args: any) => boolean);
     span?: number;
     labelTips?: string;
-    InputTIps?: string;
+    inputTips?: string;
 };
 //radio选择器扩展
-export type BaseFormRadioGroup = {
+export type BaseFormRadioGroup = BaseFormExtra & {
     type?: "button" | "radio";
-} & InstanceType<typeof RadioGroup>["$props"] &
-    BaseFormExtra;
-export type BaseFormRadio = InstanceType<typeof Radio>["$props"];
+} & InstanceType<typeof RadioGroup>["$props"];
+export type BaseFormRadio = InstanceType<typeof Radio>["$props"] & { label: string };
 //颜色选择器扩展
 export type BaseFormColor = {
     defaultColor?: string;
 };
 //文本输入框扩展
-export type BaseFormInput = InstanceType<typeof Input>["$props"] & BaseFormExtra;
+export type BaseFormInput = BaseFormExtra & InstanceType<typeof Input>["$props"];
 //数字输入框扩展
-export type BaseFormInputNumber = InstanceType<typeof InputNumber>["$props"] & BaseFormExtra;
+export type BaseFormInputNumber = BaseFormExtra & InstanceType<typeof InputNumber>["$props"];
 //多选扩展
 type CheckboxGroupProps = {
     max?: number;
@@ -65,14 +52,14 @@ export type BaseFormCheckboxGroup = Partial<CheckboxGroupProps> &
     BaseFormExtra & { labelKey?: string; valueKey?: string };
 export type BaseFormCheckbox = Partial<CheckboxProps>;
 //下拉框
-export type BaseFormSelect = Partial<SelectProps> & BaseFormExtra;
+export type BaseFormSelect = BaseFormExtra & Partial<SelectProps>;
 export type BaseFormSelectOptions = Partial<SelectOption>;
 //切换框
-export type BaseFormSwitch = InstanceType<typeof Switch>["$props"] & BaseFormExtra;
+export type BaseFormSwitch = BaseFormExtra & InstanceType<typeof Switch>["$props"];
 //日期选择框
 export type DateType = "date" | "month" | "year" | "quarter" | "week" | "range";
-export type BaseFormDate = InstanceType<typeof DatePicker>["$props"] &
-    BaseFormExtra & {
+export type BaseFormDate = BaseFormExtra &
+    InstanceType<typeof DatePicker>["$props"] & {
         allowClear?: boolean;
         type: DateType;
     };
@@ -83,4 +70,11 @@ export type BaseFormQuarterPicker = BaseFormDate & InstanceType<typeof QuarterPi
 export type BaseFormWeekPicker = BaseFormDate & InstanceType<typeof WeekPicker>["$props"];
 export type BaseFormRangePicker = BaseFormDate & InstanceType<typeof RangePicker>["$props"];
 //时间选择框
-export type BaseFormTime = InstanceType<typeof TimePicker>["$props"] & BaseFormExtra;
+export type BaseFormTime = BaseFormExtra & InstanceType<typeof TimePicker>["$props"];
+
+export type BaseFormUpload = BaseFormExtra & {
+    remove?: boolean;
+    independent?: boolean;
+    limit?: number;
+    disabled?: boolean;
+};

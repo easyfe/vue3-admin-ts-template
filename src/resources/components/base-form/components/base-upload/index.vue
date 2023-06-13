@@ -1,6 +1,6 @@
 <template>
-    <a-form-item v-bind="$attrs" :class="indepClass">
-        <div class="upload-pic">
+    <form-item>
+        <div class="upload-pic" :class="indepClass">
             <div class="pic-box">
                 <div class="pic">
                     <a-image
@@ -16,25 +16,20 @@
                     <img
                         v-if="modelValue && remove"
                         class="close-icon"
-                        src="@/assets/images/member/close-icon@2x.png"
+                        src="@/assets/images/common/close-icon@2x.png"
                         alt=""
                         @click="removeIcon"
                     />
                 </div>
-                <div class="tips">{{ tips }}</div>
             </div>
         </div>
-    </a-form-item>
+    </form-item>
     <!-- <the-file-manager v-model="fileMangerVisiable" :limit="limit" @confirm="onFileConfirm"></the-file-manager> -->
 </template>
 
 <script lang="ts" setup name="BaseUpload">
 const props = defineProps({
     modelValue: {
-        type: String,
-        default: ""
-    },
-    tips: {
         type: String,
         default: ""
     },
@@ -86,7 +81,7 @@ const removeIcon = (): void => {
 
 <style lang="scss" scoped>
 .base-upload-indep {
-    :deep(.mo-form-item-label-col) {
+    :deep(.arco-form-item-label-col) {
         padding-right: 0;
     }
 }
@@ -119,11 +114,11 @@ const removeIcon = (): void => {
                 height: 64px;
                 background-color: #f5f6fa;
                 border-radius: 3px;
-                :deep(.mo-image-img) {
+                :deep(.arco-image-img) {
                     width: 64px;
                     height: 64px;
                 }
-                :deep(.mo-image-loader-spin-text) {
+                :deep(.arco-image-loader-spin-text) {
                     font-size: 12px;
                 }
             }
@@ -173,16 +168,6 @@ const removeIcon = (): void => {
                 }
             }
         }
-
-        .tips {
-            margin-top: 8px;
-            color: #898b8f;
-            font-size: 14px;
-            line-height: 20px;
-        }
     }
-}
-:deep(.mo-form-item-label) {
-    color: #898b8f !important;
 }
 </style>

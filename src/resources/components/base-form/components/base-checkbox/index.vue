@@ -1,5 +1,5 @@
 <template>
-    <a-form-item v-bind="$attrs">
+    <form-item>
         <a-space direction="vertical" size="large">
             <a-checkbox-group v-model:value="model" class="checkbox" v-bind="$attrs">
                 <a-checkbox v-for="(item, index) in props.options" :key="index" v-bind="item">{{
@@ -7,7 +7,7 @@
                 }}</a-checkbox>
             </a-checkbox-group>
         </a-space>
-    </a-form-item>
+    </form-item>
 </template>
 <script lang="ts" setup name="BaseCheckbox">
 const props = withDefaults(

@@ -1,6 +1,6 @@
 <template>
     <div class="form-extra">
-        <p class="tips">{{ props.config.tips }}</p>
+        <p class="tips">{{ props.config.inputTips }}</p>
     </div>
 </template>
 <script lang="ts" setup>

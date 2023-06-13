@@ -1,7 +1,7 @@
 <template>
-    <a-form-item v-bind="$attrs">
+    <form-item>
         <base-rich-text :content="model"></base-rich-text>
-    </a-form-item>
+    </form-item>
 </template>
 <script lang="ts" setup name="BaseInput">
 const props = defineProps({

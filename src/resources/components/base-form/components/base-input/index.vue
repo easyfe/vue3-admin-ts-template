@@ -1,18 +1,11 @@
 <template>
-    <a-form-item v-bind="$attrs">
+    <form-item>
         <a-input v-model.trim="model" v-bind="$attrs" class="input"></a-input>
-        <template v-if="$attrs.extra" #extra>
-            <form-extra :config="$attrs"></form-extra>
-        </template>
-    </a-form-item>
+    </form-item>
 </template>
 <script lang="ts" setup name="BaseInput">
 const props = defineProps({
     modelValue: {
-        type: String,
-        default: ""
-    },
-    defaultValue: {
         type: String,
         default: ""
     }

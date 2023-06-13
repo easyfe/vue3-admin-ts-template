@@ -1,5 +1,5 @@
 <template>
-    <a-form-item v-bind="$attrs">
+    <form-item>
         <div v-if="pixel" class="pixel">{{ model }}px</div>
         <a-space direction="vertical" size="large">
             <a-radio-group v-model="model" class="radio" :type="type" :disabled="disabled" @change="change">
@@ -12,7 +12,7 @@
                 >
             </a-radio-group>
         </a-space>
-    </a-form-item>
+    </form-item>
 </template>
 <script lang="ts" setup name="BaseRadio">
 const props = withDefaults(

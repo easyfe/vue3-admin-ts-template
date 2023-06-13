@@ -1,7 +1,7 @@
 <template>
-    <a-form-item v-bind="$attrs">
+    <form-item>
         <TinyEditor v-model="model" class="editor" :init="initEditor" />
-    </a-form-item>
+    </form-item>
 </template>
 <script lang="ts" setup name="BaseEditor">
 import tinymce from "tinymce/tinymce";

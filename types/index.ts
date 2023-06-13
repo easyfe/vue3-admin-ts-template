@@ -1,5 +1,8 @@
 import { RouteLocation, RouteMeta } from "vue-router";
 
+//类型覆盖方法，后面覆盖前面的
+export type Override<P, S> = Omit<P, keyof S> & S;
+
 interface RouteMetaAll extends RouteMeta {
     sort?: number;
     hidden?: boolean;
@@ -8,7 +11,7 @@ interface RouteMetaAll extends RouteMeta {
     keepAliveName?: string;
 }
 
-interface RouteConfig {
+export interface RouteConfig {
     path: string;
     name?: string;
     children?: RouteConfig[];
@@ -19,7 +22,7 @@ interface RouteConfig {
     permission?: () => boolean;
 }
 
-type _TouchEvent = TouchEvent & {
+export type _TouchEvent = TouchEvent & {
     _isScroller?: boolean;
 };
 
@@ -78,11 +81,6 @@ interface Header {
     icon?: IconProp;
     tip?: string;
     height?: string | number;
-}
-
-interface ToDetailParams {
-    oid: string;
-    orderType?: string;
 }
 
 export interface GeoLocationType {
