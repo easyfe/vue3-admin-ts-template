@@ -37,8 +37,8 @@ const filterConfig = computed(() => {
         formHelper.input("测试2", "test2", {
             span: 8
         }),
-        formHelper.date("日期", "key10", {
-            type: "daterange",
+        formHelper.datePicker("日期", "key10", {
+            type: "date",
             span: 8
         })
     ];

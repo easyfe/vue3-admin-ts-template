@@ -62,6 +62,6 @@ function handleCancel() {
 </script>
 <style scoped lang="scss">
 .base-modal-content {
-    max-height: 70vh;
+    max-height: 60vh;
 }
 </style>

@@ -56,9 +56,9 @@ const formConfig = computed(() => {
             { label: "label2", value: 2 }
         ]),
         formHelper.switch("切换", "key7"),
-        formHelper.date("日期", "key10", {
-            type: "daterange",
-            span: 12
+        formHelper.datePicker("日期", "key10", {
+            type: "date",
+            span: 8
         }),
         formHelper.time("时间", "key11"),
         formHelper.editor("富文本", "key6")
