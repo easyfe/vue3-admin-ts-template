@@ -1,16 +1,17 @@
 <template>
     <div class="base-form">
-        <a-form ref="formRef" :model="model" size="small" auto-label-width v-bind="$attrs">
+        <a-form ref="formRef" :model="model" size="medium" auto-label-width v-bind="$attrs">
             <a-row :gutter="24" :style="getRowStyle">
                 <template v-for="(item, index) in props.config" :key="index">
                     <a-col v-if="handleCheckIf(item.if)" class="form-items" :span="getSpan(item)">
                         <div v-if="item.inputType === 'section'" class="section">{{ item.value }}</div>
+                        <slot v-else-if="item.inputType === 'slot'" :name="item.field"></slot>
                         <component
                             :is="componentList[item.inputType]"
+                            v-else
                             v-model="model[item.field]"
                             v-bind="item"
                         ></component>
-                        <slot v-if="item.inputType === 'slot'" :name="item.field"></slot>
                     </a-col>
                 </template>
             </a-row>
