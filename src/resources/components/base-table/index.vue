@@ -648,20 +648,19 @@ onBeforeUnmount(() => {
         align-items: center;
         padding: 0 15px 0 7px;
         height: 50px;
-        background: #fff;
+        background-color: var(--color-bg-4);
         margin-top: 15px;
         .bat-wrapper {
+            display: flex;
+            align-items: center;
             .bat-checkbox {
                 margin-right: 10px;
             }
             .bats-slot {
                 margin-right: 10px;
+                color: var(--color-text-2);
             }
         }
-    }
-    .bats-slot {
-        position: relative;
-        top: -2px;
     }
 }
 </style>

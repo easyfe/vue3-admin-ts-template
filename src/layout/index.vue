@@ -20,7 +20,7 @@ const collapsed = ref(false);
 .app-layout {
     height: 100%;
     .layout-content {
-        background-color: #f2f3f5;
+        background-color: rgb(var(--gray-2));
     }
 }
 </style>

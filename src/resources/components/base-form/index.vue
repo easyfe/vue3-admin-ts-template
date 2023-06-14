@@ -114,12 +114,12 @@ onMounted(() => {
     .form-items {
         .section {
             height: 42px;
-            background-color: #f7f8fa;
+            background-color: rgb(var(--gray-1));
             display: flex;
             align-items: center;
             padding-left: 24px;
             margin-bottom: 24px;
-            color: rgb(29, 33, 41);
+            color: rgb(var(--gray-8));
         }
         :deep(.arco-form-item-content > div) {
             width: 100%;
