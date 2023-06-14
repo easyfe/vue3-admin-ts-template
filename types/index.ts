@@ -9,6 +9,7 @@ interface RouteMetaAll extends RouteMeta {
     title?: string;
     icon?: string;
     keepAliveName?: string;
+    key?: string;
 }
 
 export interface RouteConfig {

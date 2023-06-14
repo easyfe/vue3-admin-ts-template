@@ -10,6 +10,17 @@ const routers: RouteConfig[] = [
             sort: 9
         },
         component: () => import("@/views/index/index.vue")
+    },
+    {
+        path: "/redirect",
+        name: "redirect",
+        meta: {
+            title: "redirect",
+            icon: "zx-1-1",
+            sort: 9,
+            hidden: true
+        },
+        component: () => import("@/views/redirect/index.vue")
     }
 ];
 

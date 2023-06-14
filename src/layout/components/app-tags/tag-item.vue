@@ -144,14 +144,12 @@ const actionSelect = async (value: any) => {
         routes().navTags = filterList;
         router.push(data);
     } else if (value === Eaction.reload) {
-        // tabBarStore.deleteCache(itemData);
-        // await router.push({
-        //     name: REDIRECT_ROUTE_NAME,
-        //     params: {
-        //         path: route.fullPath
-        //     }
-        // });
-        // tabBarStore.addCache(itemData.name);
+        router.replace({
+            name: "redirect",
+            params: {
+                url: route.fullPath
+            }
+        });
     } else {
         routes().CLEAR_NAVTAGS();
         const defaultRoutes = getDefaultRoute();
