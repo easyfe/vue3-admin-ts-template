@@ -1,7 +1,12 @@
+<template>
+    <frame-view></frame-view>
+</template>
 <script lang="ts" setup>
 import getUrlkey from "@/utils/tools/get-url-key";
 
 const router = useRouter();
-router.replace({ path: getUrlkey("url") });
+onMounted(() => {
+    router.replace(decodeURIComponent(getUrlkey("url")));
+});
 </script>
 <style lang="scss" scoped></style>

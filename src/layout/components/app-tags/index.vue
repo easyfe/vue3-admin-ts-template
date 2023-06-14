@@ -3,16 +3,18 @@
         <a-affix ref="affixRef" :offset-top="offsetTop">
             <div class="tab-bar-box">
                 <div class="tab-bar-scroll">
-                    <div class="tags-wrap">
-                        <app-tag-item v-for="(tag, index) in tagList" :key="tag.path" :data="tag" :index="index" />
-                    </div>
+                    <draggable :list="tagList" class="tags-wrap" item-key="path" animation="200">
+                        <template #item="{ element, index }">
+                            <app-tag-item :data="element" :index="index" />
+                        </template>
+                    </draggable>
                 </div>
-                <div class="tag-bar-operation"></div>
             </div>
         </a-affix>
     </div>
 </template>
 <script lang="ts" setup name="AppTags">
+import draggable from "vuedraggable";
 import routes from "@/config/pinia/routes";
 import AppTagItem from "./tag-item.vue";
 
@@ -46,15 +48,20 @@ watch(
             flex: 1;
             overflow: hidden;
             .tags-wrap {
-                padding: 4px 0;
-                height: 48px;
+                display: flex;
+                align-items: center;
+                flex-wrap: nowrap;
+                height: 100%;
                 white-space: nowrap;
                 overflow-x: auto;
+                overflow-y: hidden;
+                @include scroll-x;
 
-                :deep(.arco-tag) {
+                :deep(.tag-item) {
                     display: inline-flex;
                     align-items: center;
                     margin-right: 6px;
+                    flex-shrink: 0;
                     cursor: pointer;
                     &:first-child {
                         .arco-tag-close-btn {
@@ -64,11 +71,6 @@ watch(
                 }
             }
         }
-    }
-
-    .tag-bar-operation {
-        width: 100px;
-        height: 32px;
     }
 }
 </style>

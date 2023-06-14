@@ -71,7 +71,9 @@ router.afterEach((to) => {
         timer = 0;
     }
     document.getElementById("index-loading")?.setAttribute("style", "display:none");
-    piniaRoutes().CREATE_NAVTAG(to);
+    if (!to.meta.hidden) {
+        piniaRoutes().CREATE_NAVTAG(to);
+    }
 });
 
 export default router;

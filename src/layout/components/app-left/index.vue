@@ -29,6 +29,7 @@ watch(
 </script>
 <style lang="scss" scoped>
 .app-menu {
+    user-select: none;
     height: 100%;
 }
 </style>

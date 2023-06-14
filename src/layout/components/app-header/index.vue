@@ -123,6 +123,9 @@ function handleToggleSkin(item: { name: string; color: string }) {
     height: 100%;
     padding: 0 20px;
     background-color: var(--color-bg-2);
+    .left-side {
+        user-select: none;
+    }
     .right-side {
         display: flex;
         align-items: center;
