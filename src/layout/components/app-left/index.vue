@@ -14,11 +14,18 @@ const routeList = computed(() => {
 
 const openKeys = ref<string[]>([]);
 const selectedKeys = ref<string[]>([]);
-onMounted(() => {
-    const matched = route.matched.map((item) => item.path);
-    openKeys.value = matched;
-    selectedKeys.value = matched;
-});
+
+watch(
+    () => route.path,
+    () => {
+        const matched = route.matched.map((item) => item.path);
+        openKeys.value = matched;
+        selectedKeys.value = matched;
+    },
+    {
+        immediate: true
+    }
+);
 </script>
 <style lang="scss" scoped>
 .app-menu {

@@ -13,11 +13,15 @@ interface RouteMetaAll extends RouteMeta {
 
 export interface RouteConfig {
     path: string;
-    name?: string;
+    name?: string | symbol;
     children?: RouteConfig[];
     redirect?: string | RouteLocation;
     alias?: string | string[];
     meta?: RouteMetaAll;
+    hash?: string;
+    fullPath?: RouteLocation["fullPath"];
+    query?: RouteLocation["query"];
+    params?: RouteLocation["params"];
     component?: any;
     permission?: () => boolean;
 }

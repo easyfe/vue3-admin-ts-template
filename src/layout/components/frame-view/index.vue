@@ -14,7 +14,7 @@
 .frame-view {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 64px - 60px);
     position: relative;
     .frame-view-content {
         background-color: var(--color-bg-2);

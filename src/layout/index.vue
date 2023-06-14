@@ -7,6 +7,7 @@
             <a-layout-header style="height: 64px">
                 <app-header></app-header>
             </a-layout-header>
+            <app-tags></app-tags>
             <a-layout-content class="layout-content">
                 <app-main></app-main>
             </a-layout-content>

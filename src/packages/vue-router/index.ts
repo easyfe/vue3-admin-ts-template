@@ -59,7 +59,7 @@ router.beforeEach(async (to, from, next) => {
     next();
 });
 
-router.afterEach(() => {
+router.afterEach((to) => {
     if (env.dev()) {
         console.warn(`路由耗时：${new Date().getTime() - start}，定时器：${timer}`);
     }
@@ -71,6 +71,7 @@ router.afterEach(() => {
         timer = 0;
     }
     document.getElementById("index-loading")?.setAttribute("style", "display:none");
+    piniaRoutes().CREATE_NAVTAG(to);
 });
 
 export default router;
