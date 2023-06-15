@@ -15,6 +15,9 @@
     </a-layout>
 </template>
 <script lang="ts" setup name="Layout">
+import AppLeft from "./components/app-left/index.vue";
+import AppHeader from "./components/app-header/index.vue";
+import AppMain from "./components/app-main/index.vue";
 const collapsed = ref(false);
 </script>
 <style lang="scss" scoped>
