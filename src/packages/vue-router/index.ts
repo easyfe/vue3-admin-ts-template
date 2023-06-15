@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import piniaRoutes from "@/config/pinia/routes";
 import { RouteConfig } from "types";
-import global from "@/config/pinia/global";
 
 const router = createRouter({
     history: createWebHistory(),

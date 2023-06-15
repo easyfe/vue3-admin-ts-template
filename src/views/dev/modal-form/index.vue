@@ -27,10 +27,10 @@ const formConfig = computed(() => {
         formHelper.section("基础信息"),
         formHelper.span("介绍", "text"),
         formHelper.input("文本", "key1", {
-            maxlength: 20,
-            showCount: true,
+            maxLength: 20,
+            showWordLimit: true,
             rules: [ruleHelper.require("必填", "blur")],
-            tips: `示文案这是示文案是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案`
+            inputTips: `示文案这是示文案是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案`
         }),
         formHelper.checkbox("多选框", "key2", [
             {

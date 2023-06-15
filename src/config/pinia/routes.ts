@@ -23,22 +23,24 @@ export default defineStore({
         },
         // 添加导航栏标签
         CREATE_NAVTAG(res: RouteLocationNormalized): void {
-            if (this.navTags.findIndex((item: RouteConfig) => item.path === res.path) === -1) {
-                if (!res.name) {
-                    console.warn("路由未设置name属性，无法添加导航标签");
-                    return;
-                }
-                const { name, meta, path, hash, query, params, fullPath } = res;
+            if (!res.name) {
+                console.warn("路由未设置name属性，无法添加导航标签");
+                return;
+            }
+            const inTag = this.navTags.findIndex((item: RouteConfig) => item.path === res.path) > -1;
+            const inCache =
+                this.cachedTags.findIndex((item: string) => item === (res.meta?.keepAliveName || res.name)) > -1;
+            if (inTag && inCache) {
+                return;
+            }
+            const { name, meta, path, hash, query, params, fullPath } = res;
+            if (!inTag) {
                 this.navTags.push({ name, meta, path, hash, query, params, fullPath });
-                /** 同步添加缓存标签 */
-                if (
-                    res.meta?.cache !== false &&
-                    name &&
-                    res.meta?.keepAliveName !== undefined &&
-                    this.cachedTags.findIndex((item) => item === name) === -1
-                ) {
-                    this.cachedTags.push(<string>res.meta?.keepAliveName || <string>name);
-                }
+            }
+
+            /** 同步添加缓存标签 */
+            if (!inCache && res.meta?.cache !== false && res.meta?.keepAliveName !== undefined) {
+                this.cachedTags.push(<string>res.meta?.keepAliveName || <string>name);
             }
         },
         // 根据index删除导航标签

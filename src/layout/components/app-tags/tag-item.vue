@@ -146,6 +146,10 @@ const actionSelect = async (value: any) => {
         routes().navTags = filterList;
         router.push(data);
     } else if (value === Eaction.reload) {
+        const name = props.data.meta?.keepAliveName || props.data.name;
+        if (name) {
+            routes().cachedTags = routes().cachedTags.filter((el) => el !== name);
+        }
         router.replace({
             name: "redirect",
             query: {
@@ -164,36 +168,34 @@ const actionSelect = async (value: any) => {
 };
 </script>
 <style scoped lang="scss">
-.tag-item {
+.tag-link {
+    color: var(--color-text-2);
+    text-decoration: none;
+    user-select: none;
+}
+.link-activated {
+    color: rgb(var(--link-6));
     .tag-link {
-        color: var(--color-text-2);
-        text-decoration: none;
-        user-select: none;
-    }
-    .link-activated {
         color: rgb(var(--link-6));
-        .tag-link {
-            color: rgb(var(--link-6));
-        }
-        & + .arco-tag-close-btn {
-            color: rgb(var(--link-6));
-        }
     }
-    :deep(.arco-dropdown-option-content) {
-        span {
-            margin-left: 10px;
-        }
+    & + .arco-tag-close-btn {
+        color: rgb(var(--link-6));
     }
-    .arco-dropdown-open {
-        .tag-link {
-            color: rgb(var(--danger-6));
-        }
-        .arco-tag-close-btn {
-            color: rgb(var(--danger-6));
-        }
+}
+:deep(.arco-dropdown-option-content) {
+    span {
+        margin-left: 10px;
     }
-    .sperate-line {
-        border-bottom: 1px solid var(--color-neutral-3);
+}
+.arco-dropdown-open {
+    .tag-link {
+        color: rgb(var(--danger-6));
     }
+    .arco-tag-close-btn {
+        color: rgb(var(--danger-6));
+    }
+}
+.sperate-line {
+    border-bottom: 1px solid var(--color-neutral-3);
 }
 </style>
