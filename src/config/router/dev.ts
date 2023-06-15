@@ -17,7 +17,8 @@ const routers: RouteConfig[] = [
                 name: "dev-form",
                 meta: {
                     title: "普通表单",
-                    sort: 9
+                    sort: 9,
+                    keepAliveName: "DevForm"
                 },
                 component: () => import("@/views/dev/form/index.vue")
             },
@@ -71,7 +72,8 @@ const routers: RouteConfig[] = [
                         path: "/dev/hide-menu/index",
                         name: "dev-hide-menu-index",
                         meta: {
-                            hidden: true
+                            hidden: true,
+                            navTag: true
                         },
                         component: () => import("@/views/dev/hide-menu/index/index.vue")
                     },
@@ -80,7 +82,8 @@ const routers: RouteConfig[] = [
                         name: "dev-hide-menu-detail",
                         meta: {
                             title: "详情菜单",
-                            hidden: true
+                            hidden: true,
+                            navTag: true
                         },
                         component: () => import("@/views/dev/hide-menu/detail/index.vue")
                     }

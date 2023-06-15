@@ -10,7 +10,7 @@ export default defineStore({
         // 导航栏标签
         navTags: <RouteConfig[]>[],
         // 缓存的tags
-        cachedTags: <(string | symbol)[]>[]
+        cachedTags: <string[]>["LayoutMain"]
     }),
     actions: {
         SET_ROUTES(res: RouteConfig[]) {
@@ -18,7 +18,7 @@ export default defineStore({
         },
         //清空导航栏标签
         CLEAR_NAVTAGS() {
-            this.cachedTags = [];
+            this.cachedTags = ["LayoutMain"];
             this.navTags = [];
         },
         // 添加导航栏标签
@@ -31,8 +31,13 @@ export default defineStore({
                 const { name, meta, path, hash, query, params, fullPath } = res;
                 this.navTags.push({ name, meta, path, hash, query, params, fullPath });
                 /** 同步添加缓存标签 */
-                if (res.meta?.cache !== false && name) {
-                    this.cachedTags.push(name);
+                if (
+                    res.meta?.cache !== false &&
+                    name &&
+                    res.meta?.keepAliveName !== undefined &&
+                    this.cachedTags.findIndex((item) => item === name) === -1
+                ) {
+                    this.cachedTags.push(<string>res.meta?.keepAliveName || <string>name);
                 }
             }
         },

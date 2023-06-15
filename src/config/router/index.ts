@@ -7,7 +7,8 @@ const routers: RouteConfig[] = [
         meta: {
             title: "首页",
             icon: "zx-1-1",
-            sort: 9
+            sort: 9,
+            keepAliveName: "AppIndex"
         },
         component: () => import("@/views/index/index.vue")
     },

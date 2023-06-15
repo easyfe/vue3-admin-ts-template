@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 export default defineStore({
     id: "global",
     state: () => ({
-        keepaliveList: <string[]>[],
         theme: <"light" | "dark">"light"
     }),
     actions: {

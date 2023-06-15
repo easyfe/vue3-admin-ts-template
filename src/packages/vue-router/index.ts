@@ -17,16 +17,12 @@ let start = 0;
  * 递归处理路由
  */
 const initRoute = (): void => {
-    const keepAliveName: string[] = [];
     const setRoutes = (tmpRoutes: RouteConfig[]) => {
         let cloneData: RouteConfig[] = [];
         tmpRoutes.sort((a, b) => (b.meta?.sort || 1) - (a.meta?.sort || 1));
         // tmpRoutes = tmpRoutes.filter((item) => !item.meta?.hidden);
         cloneData = [...tmpRoutes];
         for (const key in tmpRoutes) {
-            if (tmpRoutes[key].meta?.keepAliveName) {
-                keepAliveName.push(tmpRoutes[key].meta?.keepAliveName as string);
-            }
             if (tmpRoutes[key].children?.length) {
                 cloneData[key].children = setRoutes(tmpRoutes[key].children || []);
             }
@@ -35,7 +31,6 @@ const initRoute = (): void => {
     };
     const res = setRoutes(routes[0].children as unknown as RouteConfig[]);
     piniaRoutes().SET_ROUTES(res);
-    global().keepaliveList = keepAliveName;
 };
 
 //路由前置守卫
@@ -71,7 +66,7 @@ router.afterEach((to) => {
         timer = 0;
     }
     document.getElementById("index-loading")?.setAttribute("style", "display:none");
-    if (!to.meta.hidden) {
+    if (!to.meta.hidden || to.meta.navTag) {
         piniaRoutes().CREATE_NAVTAG(to);
     }
 });

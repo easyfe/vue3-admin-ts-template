@@ -6,7 +6,7 @@
         </template>
     </frame-view>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="DevForm">
 import formHelper from "@/utils/helper/form";
 import ruleHelper from "@/utils/helper/rule";
 import { Message } from "@arco-design/web-vue";

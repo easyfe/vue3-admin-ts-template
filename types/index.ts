@@ -10,6 +10,8 @@ interface RouteMetaAll extends RouteMeta {
     icon?: string;
     keepAliveName?: string;
     key?: string;
+    navTag?: boolean;
+    cache?: boolean;
 }
 
 export interface RouteConfig {

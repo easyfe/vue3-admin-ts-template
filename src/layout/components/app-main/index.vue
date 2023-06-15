@@ -8,8 +8,8 @@
     </router-view>
 </template>
 <script setup lang="ts" name="AppMain">
-import global from "@/config/pinia/global";
+import routes from "@/config/pinia/routes";
 const keepList = computed(() => {
-    return global().keepaliveList;
+    return routes().cachedTags;
 });
 </script>
