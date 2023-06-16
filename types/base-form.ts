@@ -26,6 +26,7 @@ export type BaseFormExtra = {
     span?: number;
     labelTips?: string;
     inputTips?: string;
+    width?: string | number;
 };
 //radio选择器扩展
 export type BaseFormRadioGroup = BaseFormExtra & {

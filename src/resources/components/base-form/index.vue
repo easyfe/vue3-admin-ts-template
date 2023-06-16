@@ -10,6 +10,7 @@
                             :is="componentList[item.inputType]"
                             v-else
                             v-model="model[item.field]"
+                            :layout="props.layout"
                             v-bind="item"
                         ></component>
                     </a-col>
