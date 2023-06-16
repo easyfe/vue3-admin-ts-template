@@ -1,62 +1,13 @@
-// $main-color: #fc7301;
-$main-color: #f2321a;
+// 主色调
+$main: rgb(var(--primary-6));
 
 // 辅助色
-$blue: #3593ff;
-$green: #08cb9b;
-$red: #ff5959;
-$teal: #39dcd0;
-$orange: #fc7202;
-$purple: #9c87fd;
-$cyan: #36d0ee;
-
-// 中性色
-$primary-color: #333;
-$secondary-color: #666;
-$thirdly-color: #999;
-
-// 隔断、边框线颜色
-$border-color: #f2f2f2;
-
-// 字体
-$fz-mini: 18px;
-$fz-small: 20px;
-$fz-normal: 24px;
-$fz-large: 28px;
-
-// 边距
-$bw-mini: 10px;
-$bw-small: 15px;
-$bw-normal: 20px;
-$bw-large: 30px;
-
-.syy-main-color {
-    color: $main-color;
-}
-
-// font 字体
-.fz-48 {
-    font-size: 48px;
-}
-.fz-36 {
-    font-size: 36px;
-}
-.fz-30 {
-    font-size: 30px;
-}
-.fz-28 {
-    font-size: 28px;
-}
-.fz-26 {
-    font-size: 26px;
-}
-.fz-24 {
-    font-size: 24px;
-}
-.fz-22 {
-    font-size: 22px;
-}
-
-.fz-20 {
-    font-size: 22px;
-}
+$success: rgb(var(--success-6));
+$warning: rgb(var(--warning-6));
+$danger: rgb(var(--danger-6));
+$link: rgb(var(--link-6));
+$border: var(--color-border-2);
+$fill: var(--color-fill-2);
+$text: var(--color-text-1);
+$bg: var(--color-bg-white);
+$bg2: var(--color-bg-2);

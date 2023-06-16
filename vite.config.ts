@@ -26,7 +26,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             preprocessorOptions: {
                 scss: {
                     javascriptEnabled: true,
-                    additionalData: `@import "@/styles/utils/@util.scss";`
+                    additionalData: `@import "@/styles/utils/index.scss";`
                 }
             }
         },

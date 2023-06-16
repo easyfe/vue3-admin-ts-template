@@ -174,12 +174,12 @@ const actionSelect = async (value: any) => {
     user-select: none;
 }
 .link-activated {
-    color: rgb(var(--link-6));
+    color: $main;
     .tag-link {
-        color: rgb(var(--link-6));
+        color: $main;
     }
     & + .arco-tag-close-btn {
-        color: rgb(var(--link-6));
+        color: $main;
     }
 }
 :deep(.arco-dropdown-option-content) {
