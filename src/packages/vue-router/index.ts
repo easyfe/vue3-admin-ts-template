@@ -28,7 +28,7 @@ const initRoute = (): void => {
         }
         return cloneData;
     };
-    const res = setRoutes(routes[0].children as unknown as RouteConfig[]);
+    const res = setRoutes(routes as RouteConfig[]);
     piniaRoutes().SET_ROUTES(res);
 };
 

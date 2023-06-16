@@ -1,4 +1,5 @@
 import { RouteConfig } from "types";
+import Layout from "@/layout/index.vue";
 import LayoutMain from "@/layout/main.vue";
 
 const routers: RouteConfig[] = [
@@ -10,7 +11,8 @@ const routers: RouteConfig[] = [
             icon: "zx-1-2",
             sort: 1
         },
-        component: LayoutMain,
+        redirect: "/dev/form",
+        component: Layout,
         children: [
             {
                 path: "/dev/form",

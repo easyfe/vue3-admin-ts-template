@@ -10,7 +10,7 @@ export default defineStore({
         // 导航栏标签
         navTags: <RouteConfig[]>[],
         // 缓存的tags
-        cachedTags: <string[]>["LayoutMain"]
+        cachedTags: <string[]>[]
     }),
     actions: {
         SET_ROUTES(res: RouteConfig[]) {
@@ -18,7 +18,7 @@ export default defineStore({
         },
         //清空导航栏标签
         CLEAR_NAVTAGS() {
-            this.cachedTags = ["LayoutMain"];
+            this.cachedTags = [];
             this.navTags = [];
         },
         // 添加导航栏标签

@@ -1,19 +1,31 @@
 <template>
-    <a-sub-menu v-if="hasChild && checkVisible()" :key="props.route.path">
-        <template #icon
-            ><base-svg v-if="route.meta && route.meta.icon" :name="route.meta.icon" :width="20" :height="20"></base-svg
-        ></template>
-        <template #title>
+    <template v-if="checkVisible()">
+        <a-sub-menu v-if="showSubMenu()" :key="props.route.path">
+            <template #icon
+                ><base-svg
+                    v-if="route.meta && route.meta.icon"
+                    :name="route.meta.icon"
+                    :width="20"
+                    :height="20"
+                ></base-svg
+            ></template>
+            <template #title>
+                <span>{{ route.meta?.title || "" }}</span>
+            </template>
+            <menu-item v-for="child in route.children" :key="child.path" :route="child" />
+        </a-sub-menu>
+        <a-menu-item v-if="!showSubMenu()" :key="props.route.path" @click="onJump">
+            <template #icon
+                ><base-svg
+                    v-if="route.meta && route.meta.icon"
+                    :name="route.meta.icon"
+                    :width="20"
+                    :height="20"
+                ></base-svg
+            ></template>
             <span>{{ route.meta?.title || "" }}</span>
-        </template>
-        <menu-item v-for="child in route.children" :key="child.path" :route="child" />
-    </a-sub-menu>
-    <a-menu-item v-if="!hasChild && checkVisible()" :key="props.route.path" @click="onJump">
-        <template #icon
-            ><base-svg v-if="route.meta && route.meta.icon" :name="route.meta.icon" :width="20" :height="20"></base-svg
-        ></template>
-        <span>{{ route.meta?.title || "" }}</span>
-    </a-menu-item>
+        </a-menu-item>
+    </template>
 </template>
 <script setup lang="ts" name="MenuItem">
 import { RouteConfig } from "types";
@@ -41,6 +53,14 @@ const hasChild = computed(() => {
     }
     return true;
 });
+
+function showSubMenu() {
+    //如果没有子路由，不显示submenu
+    if (!hasChild.value) {
+        return false;
+    }
+    return true;
+}
 
 function checkVisible() {
     if (props.route.meta?.hidden) {
