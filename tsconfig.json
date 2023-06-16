@@ -12,7 +12,7 @@
         "allowSyntheticDefaultImports": true,
         "sourceMap": true,
         "baseUrl": ".",
-        "types": ["vite/client", "unplugin-vue-define-options/macros-global"],
+        "types": ["vite/client"],
         "typeRoots": ["./node_modules/@types/", "./types/"],
         "paths": {
             "@/*": ["src/*"]
