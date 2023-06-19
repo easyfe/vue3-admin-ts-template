@@ -71,6 +71,13 @@ const formHelper = {
                 if (!res) {
                     resolve(true);
                 } else {
+                    nextTick(() => {
+                        const isError = document.getElementsByClassName("arco-form-item-message")[0];
+                        isError.scrollIntoView({
+                            block: "center",
+                            behavior: "smooth"
+                        });
+                    });
                     reject(res);
                 }
             });
