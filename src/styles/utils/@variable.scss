@@ -11,3 +11,10 @@ $fill: var(--color-fill-2);
 $text: var(--color-text-1);
 $bg: var(--color-bg-white);
 $bg2: var(--color-bg-2);
+
+//标签高度
+$base-tags-height: 34px;
+//头部高度
+$base-header-height: 60px;
+//主体高度
+$base-main-height: calc(100vh - #{$base-header-height} - #{$base-tags-height});

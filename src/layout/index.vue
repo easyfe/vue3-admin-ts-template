@@ -4,10 +4,10 @@
             <app-left v-model:collapsed="collapsed"></app-left>
         </a-layout-sider>
         <a-layout>
-            <a-layout-header style="height: 64px">
+            <a-layout-header class="layout-header">
                 <app-header></app-header>
+                <app-tags></app-tags>
             </a-layout-header>
-            <app-tags></app-tags>
             <a-layout-content class="layout-content">
                 <app-main></app-main>
             </a-layout-content>
@@ -23,8 +23,23 @@ const collapsed = ref(false);
 <style lang="scss" scoped>
 .app-layout {
     height: 100%;
+    .layout-header {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        .app-header {
+            height: 60px;
+        }
+        .app-tags {
+            height: 34px;
+        }
+    }
     .layout-content {
         background-color: rgb(var(--gray-2));
+        .frame-view {
+            height: calc(100vh - 94px);
+        }
     }
 }
 </style>
