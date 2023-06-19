@@ -36,6 +36,9 @@ function toDefaultPage() {
 <style lang="scss" scoped>
 .app-layout {
     height: 100%;
+    :deep(.arco-layout-sider-children) {
+        @include scroll-y;
+    }
     .log {
         display: flex;
         align-items: center;
