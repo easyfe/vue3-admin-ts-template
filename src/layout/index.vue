@@ -50,7 +50,6 @@ function toDefaultPage() {
             opacity: 0.6;
         }
         .title {
-            color: $text;
             font-size: 16px;
             margin-left: 8px;
         }

@@ -1,5 +1,5 @@
 .mce-content-body .mce-item-anchor {
-  background: transparent url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D'8'%20height%3D'12'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M0%200L8%200%208%2012%204.09117821%209%200%2012z'%2F%3E%3C%2Fsvg%3E%0A") no-repeat center;
+  background: transparent url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D'8'%20height%3D'12'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M0%200L8%200%208%2012%204.09117821%209%200%2012z'%20fill%3D%22%23cccccc%22%2F%3E%3C%2Fsvg%3E%0A") no-repeat center;
 }
 .mce-content-body .mce-item-anchor:empty {
   cursor: default;
@@ -49,7 +49,7 @@
   margin: 0.25em 0;
 }
 .tox-checklist > li:not(.tox-checklist--hidden)::before {
-  content: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cg%20id%3D%22checklist-unchecked%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20id%3D%22Rectangle%22%20width%3D%2215%22%20height%3D%2215%22%20x%3D%22.5%22%20y%3D%22.5%22%20fill-rule%3D%22nonzero%22%20stroke%3D%22%234C4C4C%22%20rx%3D%222%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A");
+  content: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cg%20id%3D%22checklist-unchecked%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20id%3D%22Rectangle%22%20width%3D%2215%22%20height%3D%2215%22%20x%3D%22.5%22%20y%3D%22.5%22%20fill-rule%3D%22nonzero%22%20stroke%3D%22%236d737b%22%20rx%3D%222%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A");
   cursor: pointer;
   height: 1em;
   margin-left: -1.5em;
@@ -67,17 +67,17 @@
 /* stylelint-disable */
 /* http://prismjs.com/ */
 /**
- * prism.js default theme for JavaScript, CSS and HTML
- * Based on dabblet (http://dabblet.com)
- * @author Lea Verou
+ * Dracula Theme originally by Zeno Rocha [@zenorocha]
+ * https://draculatheme.com/
+ *
+ * Ported for PrismJS by Albert Vallverdu [@byverdu]
  */
 code[class*="language-"],
 pre[class*="language-"] {
-  color: black;
+  color: #f8f8f2;
   background: none;
-  text-shadow: 0 1px white;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  font-size: 1em;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
@@ -89,35 +89,16 @@ pre[class*="language-"] {
   -webkit-hyphens: none;
   hyphens: none;
 }
-pre[class*="language-"]::-moz-selection,
-pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection,
-code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-pre[class*="language-"]::selection,
-pre[class*="language-"] ::selection,
-code[class*="language-"]::selection,
-code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-@media print {
-  code[class*="language-"],
-  pre[class*="language-"] {
-    text-shadow: none;
-  }
-}
 /* Code blocks */
 pre[class*="language-"] {
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
+  border-radius: 0.3em;
 }
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #f5f2f0;
+  background: #282a36;
 }
 /* Inline code */
 :not(pre) > code[class*="language-"] {
@@ -129,22 +110,24 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: slategray;
+  color: #6272a4;
 }
 .token.punctuation {
-  color: #999;
+  color: #f8f8f2;
 }
-.token.namespace {
+.namespace {
   opacity: 0.7;
 }
 .token.property,
 .token.tag,
-.token.boolean,
-.token.number,
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #905;
+  color: #ff79c6;
+}
+.token.boolean,
+.token.number {
+  color: #bd93f9;
 }
 .token.selector,
 .token.attr-name,
@@ -152,30 +135,28 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #690;
+  color: #50fa7b;
 }
 .token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
-.style .token.string {
-  color: #9a6e3a;
-  /* This background color was intended by the author of this theme. */
-  background: hsla(0, 0%, 100%, 0.5);
+.style .token.string,
+.token.variable {
+  color: #f8f8f2;
 }
 .token.atrule,
 .token.attr-value,
-.token.keyword {
-  color: #07a;
-}
 .token.function,
 .token.class-name {
-  color: #DD4A68;
+  color: #f1fa8c;
+}
+.token.keyword {
+  color: #8be9fd;
 }
 .token.regex,
-.token.important,
-.token.variable {
-  color: #e90;
+.token.important {
+  color: #ffb86c;
 }
 .token.important,
 .token.bold {
@@ -273,14 +254,14 @@ div.mce-footnotes li > a.mce-footnotes-backlink {
   display: none;
 }
 .mce-content-body .mce-mergetag:hover {
-  background-color: rgba(0, 108, 231, 0.1);
+  background-color: rgba(0, 108, 231, 0.3);
 }
 .mce-content-body .mce-mergetag-affix {
-  background-color: rgba(0, 108, 231, 0.1);
+  background-color: rgba(0, 108, 231, 0.3);
   color: #006ce7;
 }
 .mce-object {
-  background: transparent url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M4%203h16a1%201%200%200%201%201%201v16a1%201%200%200%201-1%201H4a1%201%200%200%201-1-1V4a1%201%200%200%201%201-1zm1%202v14h14V5H5zm4.79%202.565l5.64%204.028a.5.5%200%200%201%200%20.814l-5.64%204.028a.5.5%200%200%201-.79-.407V7.972a.5.5%200%200%201%20.79-.407z%22%2F%3E%3C%2Fsvg%3E%0A") no-repeat center;
+  background: transparent url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M4%203h16a1%201%200%200%201%201%201v16a1%201%200%200%201-1%201H4a1%201%200%200%201-1-1V4a1%201%200%200%201%201-1zm1%202v14h14V5H5zm4.79%202.565l5.64%204.028a.5.5%200%200%201%200%20.814l-5.64%204.028a.5.5%200%200%201-.79-.407V7.972a.5.5%200%200%201%20.79-.407z%22%20fill%3D%22%23cccccc%22%2F%3E%3C%2Fsvg%3E%0A") no-repeat center;
   border: 1px dashed #aaa;
 }
 .mce-pagebreak {
@@ -506,31 +487,31 @@ div.mce-footnotes li > a.mce-footnotes-backlink {
 .mce-content-body object[data-mce-selected],
 .mce-content-body embed[data-mce-selected],
 .mce-content-body table[data-mce-selected] {
-  outline: 3px solid #b4d7ff;
+  outline: 3px solid #4099ff;
 }
 .mce-content-body hr[data-mce-selected] {
-  outline: 3px solid #b4d7ff;
+  outline: 3px solid #4099ff;
   outline-offset: 1px;
 }
 .mce-content-body *[contentEditable=false] *[contentEditable=true]:focus {
-  outline: 3px solid #b4d7ff;
+  outline: 3px solid #4099ff;
 }
 .mce-content-body *[contentEditable=false] *[contentEditable=true]:hover {
-  outline: 3px solid #b4d7ff;
+  outline: 3px solid #4099ff;
 }
 .mce-content-body *[contentEditable=false][data-mce-selected] {
   cursor: not-allowed;
-  outline: 3px solid #b4d7ff;
+  outline: 3px solid #4099ff;
 }
 .mce-content-body.mce-content-readonly *[contentEditable=true]:focus,
 .mce-content-body.mce-content-readonly *[contentEditable=true]:hover {
   outline: none;
 }
 .mce-content-body *[data-mce-selected="inline-boundary"] {
-  background-color: #b4d7ff;
+  background-color: #4099ff;
 }
 .mce-content-body .mce-edit-focus {
-  outline: 3px solid #b4d7ff;
+  outline: 3px solid #4099ff;
 }
 .mce-content-body td[data-mce-selected],
 .mce-content-body th[data-mce-selected] {
@@ -555,11 +536,11 @@ div.mce-footnotes li > a.mce-footnotes-backlink {
 .mce-content-body td[data-mce-selected]::after,
 .mce-content-body th[data-mce-selected]::after {
   background-color: rgba(180, 215, 255, 0.7);
-  border: 1px solid rgba(180, 215, 255, 0.7);
+  border: 1px solid transparent;
   bottom: -1px;
   content: '';
   left: -1px;
-  mix-blend-mode: multiply;
+  mix-blend-mode: lighten;
   position: absolute;
   right: -1px;
   top: -1px;
@@ -577,7 +558,7 @@ div.mce-footnotes li > a.mce-footnotes-backlink {
   background: none;
 }
 .ephox-snooker-resizer-bar {
-  background-color: #b4d7ff;
+  background-color: #4099ff;
   opacity: 0;
   -webkit-user-select: none;
   -moz-user-select: none;

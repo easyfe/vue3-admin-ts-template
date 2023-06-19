@@ -1,6 +1,7 @@
 <template>
     <form-item>
-        <TinyEditor v-model="model" class="editor" :init="initEditor" />
+        <TinyEditor v-if="isDark" v-model="model" class="editor" :init="initEditor" />
+        <TinyEditor v-else v-model="model" class="editor" :init="initEditor" />
     </form-item>
 </template>
 <script lang="ts" setup name="BaseEditor">
@@ -13,6 +14,7 @@ import "tinymce/plugins/advlist";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/image";
 import env from "@/utils/tools/env";
+import global from "@/config/pinia/global";
 const props = defineProps({
     modelValue: {
         type: String,
@@ -38,32 +40,47 @@ const model = computed({
 
 const editorInstantce = ref<any>(null);
 const baseUrl = env.get("VITE_APP_CDN_URL") + "/static/syy-business-center-ide-v2";
-const initEditor = {
-    language_url: `${baseUrl}/tinymce/langs/zh-Hans.js`,
-    skin_url: `${baseUrl}/tinymce/skins/ui/oxide`,
-    content_css: `${baseUrl}/tinymce/skins/ui/oxide/content.css`,
-    language: "zh-Hans", //语言类型
-    placeholder: "在这里输入文字", //textarea中的提示信息
-    height: 500, //高度
-    menubar: false,
-    branding: false,
-    plugins: "image advlist lists",
-    toolbar: [
-        "undo redo bold italic underline forecolor backcolor lineheight alignleft aligncenter alignright bullist numlist fontsize customImage"
-    ],
-    content_style: "body {font-size: 14px;}",
-    font_size_formats: "8px 10px 12px 14px 16px 18px 24px 36px 48px",
-    setup: (editor: any): any => {
-        editorInstantce.value = editor;
-        editor.ui.registry.addToggleButton("customImage", {
-            icon: "image",
-            onAction: () => {
-                console.log("拉起图片弹窗");
-                // theFileManager({ limit: 0, confirm: onFileConfirm });
-            }
-        });
+
+const isDark = computed(() => {
+    return global().theme === "dark";
+});
+
+const initEditor = computed(() => {
+    const baseSkinUrl = `https://cdn.staticfile.org/tinymce/6.5.1/skins`;
+    return {
+        language_url: `${baseUrl}/tinymce/langs/zh-Hans.js`,
+        skin_url: `${baseSkinUrl}/ui/oxide${isDark.value ? "-dark" : ""}`,
+        content_css: `${baseSkinUrl}/content/${isDark.value ? "dark" : "default"}/content.min.css`,
+        language: "zh-Hans", //语言类型
+        placeholder: "在这里输入文字", //textarea中的提示信息
+        height: 500, //高度
+        menubar: false,
+        branding: false,
+        plugins: "image advlist lists",
+        toolbar: [
+            "undo redo bold italic underline forecolor backcolor lineheight alignleft aligncenter alignright bullist numlist fontsize customImage"
+        ],
+        content_style: "body {font-size: 14px;}",
+        font_size_formats: "8px 10px 12px 14px 16px 18px 24px 36px 48px",
+        setup: (editor: any): any => {
+            editorInstantce.value = editor;
+            editor.ui.registry.addToggleButton("customImage", {
+                icon: "image",
+                onAction: () => {
+                    console.log("拉起图片弹窗");
+                    // theFileManager({ limit: 0, confirm: onFileConfirm });
+                }
+            });
+        }
+    };
+});
+
+watch(
+    () => isDark.value,
+    () => {
+        editorInstantce.value?.destroy?.();
     }
-};
+);
 
 // const onFileConfirm = (fileList: any): void => {
 //     for (const file of fileList) {

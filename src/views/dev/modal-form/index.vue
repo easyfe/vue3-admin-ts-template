@@ -3,7 +3,7 @@
         <a-space>
             <a-button @click="formVisible1 = true">打开表单</a-button>
         </a-space>
-        <a-row class="value">
+        <a-row>
             {{ formData }}
         </a-row>
         <base-modal-form
@@ -75,8 +75,4 @@ function save1(v: any) {
     formVisible1.value = false;
 }
 </script>
-<style lang="scss" scoped>
-.value {
-    color: $text;
-}
-</style>
+<style lang="scss" scoped></style>
