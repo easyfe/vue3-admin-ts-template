@@ -5,6 +5,7 @@ import piniaRoutes from "@/config/pinia/routes";
 import { RouteConfig } from "types";
 import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css";
+import typeHelper from "@/utils/helper/type";
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
@@ -17,7 +18,7 @@ let timer = 0;
 let start = 0;
 
 /**
- * 递归处理路由
+ * 递归设置路由
  */
 const initRoute = (): void => {
     const setRoutes = (tmpRoutes: RouteConfig[]) => {
@@ -34,6 +35,30 @@ const initRoute = (): void => {
     };
     const res = setRoutes(routes as RouteConfig[]);
     piniaRoutes().SET_ROUTES(res);
+};
+
+/**
+ * 获取默认路由
+ * @returns
+ */
+const getDefaultRoute = (): RouteConfig | undefined => {
+    const fn = (list: RouteConfig[]) => {
+        let result: RouteConfig | undefined;
+        for (const item of list) {
+            if (item.meta?.navTag || (!item.meta?.hidden && typeHelper.isFunction(item.component))) {
+                result = item;
+                break;
+            }
+            if (item.children) {
+                result = fn(item.children);
+                if (result) {
+                    break;
+                }
+            }
+        }
+        return result;
+    };
+    return fn(piniaRoutes().routes);
 };
 
 //路由前置守卫
@@ -77,3 +102,4 @@ router.afterEach((to) => {
 });
 
 export default router;
+export { getDefaultRoute, initRoute };

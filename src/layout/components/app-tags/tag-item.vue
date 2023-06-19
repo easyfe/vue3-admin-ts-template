@@ -47,7 +47,7 @@
 </template>
 <script lang="ts" setup name="AppTagItem">
 import routes from "@/config/pinia/routes";
-import typeHelper from "@/utils/helper/type";
+import { getDefaultRoute } from "@/packages/vue-router";
 import { Message } from "@arco-design/web-vue";
 import { RouteConfig } from "types";
 
@@ -107,21 +107,6 @@ const findCurrentRouteIndex = () => {
     return tagList.value.findIndex((el) => el.fullPath === route.fullPath);
 };
 
-const getDefaultRoute = (): RouteConfig | undefined => {
-    const fn = (list: RouteConfig[]) => {
-        for (const item of list) {
-            if (item.children) {
-                fn(item.children);
-            } else {
-                if (!item.meta?.hidden && typeHelper.isFunction(item.component)) {
-                    return item;
-                }
-            }
-        }
-    };
-    return fn(routes().routes);
-};
-
 const actionSelect = async (value: any) => {
     const { data, index } = props;
     if (value === Eaction.current) {
@@ -159,6 +144,7 @@ const actionSelect = async (value: any) => {
     } else {
         routes().CLEAR_NAVTAGS();
         const defaultRoutes = getDefaultRoute();
+        console.log(defaultRoutes, "defaultRoutes");
         if (!defaultRoutes) {
             Message.error("没有可用的路由");
             return;

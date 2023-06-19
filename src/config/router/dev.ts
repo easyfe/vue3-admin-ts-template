@@ -9,7 +9,7 @@ const routers: RouteConfig[] = [
         meta: {
             title: "开发者工具",
             icon: "zx-1-2",
-            sort: 1
+            sort: 2
         },
         redirect: "/dev/form",
         component: Layout,
