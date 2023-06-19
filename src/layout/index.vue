@@ -1,6 +1,6 @@
 <template>
     <a-layout class="app-layout">
-        <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 99">
+        <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 200">
             <div class="log" @click="toDefaultPage">
                 <base-svg name="vue" width="36" height="36"></base-svg>
                 <h2 v-show="!collapsed" class="title">Easyfe Admin</h2>
