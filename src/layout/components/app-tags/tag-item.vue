@@ -144,7 +144,6 @@ const actionSelect = async (value: any) => {
     } else {
         routes().CLEAR_NAVTAGS();
         const defaultRoutes = getDefaultRoute();
-        console.log(defaultRoutes, "defaultRoutes");
         if (!defaultRoutes) {
             Message.error("没有可用的路由");
             return;
