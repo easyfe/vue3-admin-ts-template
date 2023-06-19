@@ -73,9 +73,13 @@ const formHelper = {
                 } else {
                     nextTick(() => {
                         const isError = document.getElementsByClassName("arco-form-item-message")[0];
+                        isError.classList.add("shake-horizontal");
                         isError.scrollIntoView({
                             block: "center",
                             behavior: "smooth"
+                        });
+                        isError.addEventListener("animationend", () => {
+                            isError.classList.remove("shake-horizontal");
                         });
                     });
                     reject(res);

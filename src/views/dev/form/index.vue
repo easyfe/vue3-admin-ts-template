@@ -23,13 +23,20 @@ const formConfig = computed(() => {
             inputTips: `示文案这是示文案是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案`
         }),
         formHelper.color("颜色", "key8"),
-        formHelper.checkbox("多选框", "key2", [
+        formHelper.checkbox(
+            "多选框",
+            "key2",
+            [
+                {
+                    label: "label1",
+                    value: 1
+                },
+                { label: "label2", value: 2 }
+            ],
             {
-                label: "label1",
-                value: 1
-            },
-            { label: "label2", value: 2 }
-        ]),
+                rules: [ruleHelper.require("必选", "blur")]
+            }
+        ),
         formHelper.uploadPic("图片", "key12", {
             remove: true,
             inputTips: "推荐使用400*400的图片"

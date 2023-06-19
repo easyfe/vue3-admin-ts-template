@@ -1,5 +1,5 @@
 <template>
-    <frame-view background-color="transparent" class="chart">
+    <frame-view class="chart">
         <a-space direction="vertical" :size="16" fill>
             <a-grid :cols="24" :col-gap="16" :row-gap="16">
                 <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 18, xl: 18, xxl: 18 }">
@@ -29,6 +29,19 @@ import mapChart from "./components/map.vue";
 .chart {
     :deep(.frame-view-content) {
         padding: 0;
+        background-color: transparent !important;
+    }
+    :deep(.general-card) {
+        border-radius: 4px;
+        border: none;
+        & > .arco-card-header {
+            height: auto;
+            padding: 20px;
+            border: none;
+        }
+        & > .arco-card-body {
+            padding: 0 20px 20px 20px;
+        }
     }
 }
 </style>
