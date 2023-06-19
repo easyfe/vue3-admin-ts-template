@@ -16,8 +16,6 @@ const routers: RouteConfig[] = [
                 path: "/index",
                 name: "index",
                 meta: {
-                    title: "首页",
-                    icon: "zx-1-1",
                     sort: 1,
                     keepAliveName: "AppIndex",
                     hidden: true,

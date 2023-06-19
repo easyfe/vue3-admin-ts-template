@@ -3,8 +3,11 @@
         <div class="left-side">
             <a-breadcrumb>
                 <a-breadcrumb-item v-for="(item, index) in breadList" :key="item.name">
-                    <div v-if="checkDidsable(item, index)">{{ item.meta.title }}</div>
-                    <a-link v-else @click="onClick(item)"> {{ item.meta.title }}</a-link>
+                    <div class="bre-item">
+                        <base-svg v-if="item.meta?.icon" :name="item.meta.icon" :width="20" :height="20"></base-svg>
+                        <div v-if="checkDidsable(item, index)">{{ item.meta.title }}</div>
+                        <a-link v-else @click="onClick(item)"> {{ item.meta.title }}</a-link>
+                    </div>
                 </a-breadcrumb-item>
             </a-breadcrumb>
         </div>
@@ -125,6 +128,16 @@ function handleToggleSkin(item: { name: string; color: string }) {
     background-color: var(--color-bg-2);
     .left-side {
         user-select: none;
+        .arco-breadcrumb-item a:hover {
+            color: $main;
+        }
+        .bre-item {
+            display: flex;
+            align-items: center;
+            .svg-icon {
+                margin-right: 4px;
+            }
+        }
     }
     .right-side {
         display: flex;
