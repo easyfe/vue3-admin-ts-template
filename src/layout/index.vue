@@ -46,7 +46,11 @@ function toDefaultPage() {
         height: 60px;
         cursor: pointer;
         user-select: none;
+        &:hover {
+            opacity: 0.6;
+        }
         .title {
+            color: $text;
             font-size: 16px;
             margin-left: 8px;
         }
