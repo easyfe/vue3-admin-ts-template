@@ -3,6 +3,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import piniaRoutes from "@/config/pinia/routes";
 import { RouteConfig } from "types";
+import NProgress from "nprogress"; // progress bar
+import "nprogress/nprogress.css";
+
+NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const router = createRouter({
     history: createWebHistory(),
@@ -34,6 +38,7 @@ const initRoute = (): void => {
 
 //路由前置守卫
 router.beforeEach(async (to, from, next) => {
+    NProgress.start();
     if (!piniaRoutes().routes.length) {
         initRoute();
     }
@@ -68,6 +73,7 @@ router.afterEach((to) => {
     if (!to.meta.hidden || to.meta.navTag) {
         piniaRoutes().CREATE_NAVTAG(to);
     }
+    NProgress.done();
 });
 
 export default router;
