@@ -1,6 +1,10 @@
 <template>
     <a-layout class="app-layout">
         <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 99">
+            <div class="log" @click="toDefaultPage">
+                <base-svg name="vue" width="36" height="36"></base-svg>
+                <h2 v-show="!collapsed" class="title">Easyfe Admin</h2>
+            </div>
             <app-left v-model:collapsed="collapsed"></app-left>
         </a-layout-sider>
         <a-layout>
@@ -18,11 +22,32 @@
 import AppLeft from "./components/app-left/index.vue";
 import AppHeader from "./components/app-header/index.vue";
 import AppMain from "./components/app-main/index.vue";
+import router, { getDefaultRoute } from "@/packages/vue-router";
 const collapsed = ref(false);
+
+function toDefaultPage() {
+    const defaultPage = getDefaultRoute();
+    if (!defaultPage) {
+        return;
+    }
+    router.push(defaultPage);
+}
 </script>
 <style lang="scss" scoped>
 .app-layout {
     height: 100%;
+    .log {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        cursor: pointer;
+        user-select: none;
+        .title {
+            font-size: 16px;
+            margin-left: 8px;
+        }
+    }
     .layout-header {
         position: sticky;
         top: 0;
