@@ -7,7 +7,7 @@ const routers: RouteConfig[] = [
         redirect: "/index",
         meta: {
             title: "首页",
-            icon: "zx-1-1",
+            icon: "menu-home",
             sort: 9
         },
         component: Layout,

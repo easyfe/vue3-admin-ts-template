@@ -8,7 +8,7 @@ const routers: RouteConfig[] = [
         name: "dev",
         meta: {
             title: "开发者工具",
-            icon: "zx-1-2",
+            icon: "menu-dev",
             sort: 2
         },
         redirect: "/dev/form",
