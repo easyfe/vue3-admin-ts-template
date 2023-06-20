@@ -2,7 +2,10 @@
     <frame-view>
         <div class="empty">
             <img :src="emptyImage" />
-            <a-button type="primary" @click="handleRetry">返回首页</a-button>
+            <a-space>
+                <a-button type="primary" @click="handleBack">返回上一页</a-button>
+                <a-button @click="handleRetry">返回首页</a-button>
+            </a-space>
         </div>
     </frame-view>
 </template>
@@ -11,13 +14,18 @@
 import emptyImage from "@/assets/images/empty/404.png";
 import { getDefaultRoute } from "@/packages/vue-router";
 const router = useRouter();
-const handleRetry = (): void => {
+
+function handleRetry() {
     const defaultPage = getDefaultRoute();
     if (!defaultPage) {
         return;
     }
     router.replace(defaultPage);
-};
+}
+
+function handleBack() {
+    router.back();
+}
 </script>
 <style lang="scss" scoped>
 .empty {
