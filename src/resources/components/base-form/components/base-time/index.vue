@@ -1,6 +1,6 @@
 <template>
     <form-item>
-        <a-time-picker v-model:value="model" v-bind="$attrs" />
+        <a-time-picker v-model="model" v-bind="$attrs" />
     </form-item>
 </template>
 <script lang="ts" setup name="BaseTime">

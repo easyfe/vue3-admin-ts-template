@@ -1,7 +1,7 @@
 <template>
     <form-item>
         <a-space direction="vertical" size="large">
-            <a-checkbox-group v-model:value="model" class="checkbox" v-bind="$attrs">
+            <a-checkbox-group v-model="model" class="checkbox" v-bind="$attrs">
                 <a-checkbox v-for="(item, index) in props.options" :key="index" v-bind="item">{{
                     item[props.labelKey]
                 }}</a-checkbox>

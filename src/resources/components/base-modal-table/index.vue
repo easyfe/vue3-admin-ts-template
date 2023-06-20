@@ -61,11 +61,23 @@ const computedVisible = computed({
 
 const baseModalTable = ref();
 
-const computedModel = ref(lodash.cloneDeep(props.value));
+const computedModel = ref({});
 
 const selectList = ref<any[]>([]);
 
 const selectionKeys = ref<string[] | number[]>([]);
+
+watch(
+    () => props.value,
+    (newVal) => {
+        if (newVal) {
+            computedModel.value = lodash.cloneDeep(newVal);
+        }
+    },
+    {
+        immediate: true
+    }
+);
 
 watch(
     () => computedVisible.value,

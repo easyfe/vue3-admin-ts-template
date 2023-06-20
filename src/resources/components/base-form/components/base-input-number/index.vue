@@ -1,6 +1,6 @@
 <template>
     <form-item>
-        <a-input-number v-model:value="model" v-bind="$attrs"></a-input-number>
+        <a-input-number v-model="model" v-bind="$attrs"></a-input-number>
     </form-item>
 </template>
 

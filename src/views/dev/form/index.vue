@@ -34,7 +34,21 @@ const formConfig = computed(() => {
                 { label: "label2", value: 2 }
             ],
             {
-                rules: [ruleHelper.require("必选", "blur")]
+                rules: [
+                    ruleHelper.require("必选", "blur"),
+                    {
+                        validator: (value, callback) => {
+                            if (!value) {
+                                callback("至少选择两个");
+                            }
+                            if (value.length < 2) {
+                                callback("至少选择两个");
+                            } else {
+                                callback();
+                            }
+                        }
+                    }
+                ]
             }
         ),
         formHelper.uploadPic("图片", "key12", {
@@ -53,10 +67,17 @@ const formConfig = computed(() => {
             }
         ),
         formHelper.inputNumber("数字输入框", "key4"),
-        formHelper.select("下拉框", "key5", [
-            { label: "label1", value: 1, disabled: true },
-            { label: "label2", value: 2 }
-        ]),
+        formHelper.select(
+            "下拉框",
+            "key5",
+            [
+                { label: "label1", value: 1, disabled: true },
+                { label: "label2", value: 2 }
+            ],
+            {
+                rules: [ruleHelper.require("必选", "blur")]
+            }
+        ),
         formHelper.switch("切换", "key7"),
         formHelper.rangePicker("日期", "key10", {
             type: "date",

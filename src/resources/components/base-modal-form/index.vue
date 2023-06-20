@@ -47,7 +47,19 @@ const computedVisible = computed({
     set: (newVal: boolean) => emits("update:visible", newVal)
 });
 
-const computedModel = ref(lodash.cloneDeep(props.value));
+const computedModel = ref({});
+
+watch(
+    () => props.value,
+    (newVal) => {
+        if (newVal) {
+            computedModel.value = lodash.cloneDeep(newVal);
+        }
+    },
+    {
+        immediate: true
+    }
+);
 
 async function handleOk() {
     if (modalForm) {

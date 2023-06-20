@@ -1,6 +1,6 @@
 <template>
     <form-item>
-        <a-select v-model:value="model" allow-clear v-bind="$attrs" class="select"> </a-select>
+        <a-select v-model="model" v-bind="$attrs" class="select"> </a-select>
     </form-item>
 </template>
 <script lang="ts" setup name="BaseSelect">
