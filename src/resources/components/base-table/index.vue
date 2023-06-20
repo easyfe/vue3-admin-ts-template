@@ -203,7 +203,7 @@
 </template>
 
 <script lang="ts" setup name="BaseTable">
-import emptyImage from "@/assets/images//common/no-data.png";
+import emptyImage from "@/assets/images/common/no-data.png";
 import { _Btn, _TableConfig } from "types/base-table";
 import { BaseTableColunmBtn } from "@/utils/helper/table";
 import {

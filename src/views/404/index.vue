@@ -1,22 +1,35 @@
 <template>
     <frame-view>
-        <base-empty type="error" desc="这是一个404页面">
-            <van-button round type="danger" class="error-button" @click="handleRetry">回到首页</van-button>
-        </base-empty>
+        <div class="empty">
+            <img :src="emptyImage" />
+            <a-button type="primary" @click="handleRetry">返回首页</a-button>
+        </div>
     </frame-view>
 </template>
 
 <script setup lang="ts">
+import emptyImage from "@/assets/images/empty/404.png";
+import { getDefaultRoute } from "@/packages/vue-router";
 const router = useRouter();
 const handleRetry = (): void => {
-    router.replace({
-        path: "/"
-    });
+    const defaultPage = getDefaultRoute();
+    if (!defaultPage) {
+        return;
+    }
+    router.replace(defaultPage);
 };
 </script>
 <style lang="scss" scoped>
-.error-button {
-    width: 320px;
-    height: 80px;
+.empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 40%;
+        height: 40%;
+    }
 }
 </style>
