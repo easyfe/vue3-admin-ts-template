@@ -1,6 +1,6 @@
 <template>
     <a-layout class="app-layout">
-        <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 200">
+        <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 200" @collapse="onCollapse">
             <div class="log" @click="toDefaultPage">
                 <base-svg name="vue" width="36" height="36"></base-svg>
                 <h2 v-show="!collapsed" class="title">Easyfe Admin</h2>
@@ -23,7 +23,12 @@ import AppLeft from "./components/app-left/index.vue";
 import AppHeader from "./components/app-header/index.vue";
 import AppMain from "./components/app-main/index.vue";
 import router, { getDefaultRoute } from "@/packages/vue-router";
-const collapsed = ref(false);
+import global from "@/config/pinia/global";
+const collapsed = ref(global().collapsed);
+
+function onCollapse(e: boolean) {
+    global().collapsed = e;
+}
 
 function toDefaultPage() {
     const defaultPage = getDefaultRoute();
@@ -67,9 +72,12 @@ function toDefaultPage() {
         }
     }
     .layout-content {
+        flex: 1;
+        overflow-y: auto;
+        @include scroll-y(8);
         background-color: rgb(var(--gray-2));
         .frame-view {
-            height: calc(100vh - 94px);
+            min-height: 100%;
         }
     }
 }

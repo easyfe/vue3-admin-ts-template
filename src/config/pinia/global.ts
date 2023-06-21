@@ -3,7 +3,8 @@ import { defineStore } from "pinia";
 export default defineStore({
     id: "global",
     state: () => ({
-        theme: <"light" | "dark">"light"
+        theme: <"light" | "dark">"light",
+        collapsed: false
     }),
     actions: {
         // Change theme color

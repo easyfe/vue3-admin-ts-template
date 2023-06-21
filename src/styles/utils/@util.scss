@@ -94,31 +94,31 @@
     bottom: calc(env(safe-area-inset-bottom) + $height);
 }
 
-@mixin scroll-y() {
+@mixin scroll-y($width: 4) {
     &::-webkit-scrollbar {
-        width: 4px;
+        width: #{$width}px;
     }
 
     &::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background: #ccc;
+        background: rgb(var(--gray-6));
     }
 
     &::-webkit-scrollbar-track {
-        background: #f2f2f2;
+        background: transparent;
     }
 }
 
-@mixin scroll-x() {
+@mixin scroll-x($height: 4) {
     &::-webkit-scrollbar {
-        height: 4px;
+        height: #{$height}px;
     }
     &::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background: #ccc;
+        background: rgb(var(--gray-6));
     }
 
     &::-webkit-scrollbar-track {
-        background: #f2f2f2;
+        background: transparent;
     }
 }
