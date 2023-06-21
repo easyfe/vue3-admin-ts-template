@@ -1,10 +1,10 @@
-# H5 基础框架
+# Admin 基础框架
 
 ## 简介
 
 该框架旨在帮助开发者方便、规范的进行业务逻辑开发，能够开箱使用。
 
-基于vue3.2(使用setup语法)+ typescript+pinia状态库+eslint 校验+vant3组件库。
+基于vue3.3(使用setup语法)+ typescript+pinia状态库+eslint 校验+arco-design组件库，支持暗黑模式、自定义主题色。
 
 > 基于当前框架，作为开发者只需要关心以下目录：
 >
@@ -151,9 +151,8 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  ├─config			                    #配置目录
 │  │  │  dictonary.ts	                #字典配置
 │  │  │  enum.ts		                #枚举配置
-│  │  │  oss.js			                #oss配置
+│  │  │  oss.ts			                #oss配置
 │  │  │  svgo.js		                #svg配置
-│  │  │  tabbar.ts		                #底部tabbar配置
 │  │  ├─apis		                    #接口请求文件夹
 │  │  ├─router		                    #路由配置文件夹
 │  │  └─pinia		                    #pinia状态机文件
@@ -165,32 +164,17 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  │  └─init		                    #初始化文件
 │  ├─resources		                    #核心资源文件夹
 │  │  ├─components		                #基础组件库（可脱离业务使用），基于base开头，非基础组件请勿存放在该目录下
-│  │  │  ├─base-back		            #返回控件
-│  │  │  ├─base-button		            #按钮
-│  │  │  ├─base-card		            #卡片
-│  │  │  ├─base-collapse	            #折叠框
-│  │  │  ├─base-dialog-form	            #提示框
-│  │  │  ├─base-empty		            #空状态页面
-│  │  │  ├─base-footer		            #底部栏（非tabbar）
-│  │  │  ├─base-form		            #表单封装
-│  │  │  ├─base-format-money	        #金额格式化
-│  │  │  ├─base-list		            #流式加载
-│  │  │  ├─base-loading		            #加载状态
-│  │  │  ├─base-page-visible	        #页面状态监听
-│  │  │  ├─base-product-card	        #商品卡片
-│  │  │  ├─base-progress	            #进度条
-│  │  │  ├─base-svg			            #svg试用
-│  │  │  ├─base-swiper		            #更丰富的banner
-│  │  │  ├─base-tabbar		            #底部tabbar
-│  │  │  ├─base-table		            #表格
-│  │  │  ├─base-tabs		            #顶部tab
-│  │  │  ├─base-wx-subscribe	        #微信订阅标签
-│  │  │  └─base-wx-weapp		        #微信小程序标签
+│  │  │  ├─base-chart		            #echarts图表控件
+│  │  │  ├─base-form		            #表单组件
+│  │  │  ├─base-modal-form		        #弹窗表单组件
+│  │  │  ├─base-table	            	#表格组件
+│  │  │  ├─base-rich-text	            #富文本组件
+│  │  │  ├─base-svg		            	#svg图标
+│  │  │  ├─base-modal-table		        #弹窗表格
 │  │  ├─directive	                    #自定义指令文件夹
 │  │  │  └─copy				            #复制
 │  ├─styles		                        #样式文件夹
 │  │  │  index.scss			            #全局基础样式
-│  │  │  vant-ui.scss		            #覆盖vant样式
 │  │  └─utils			                #样式工具
 │  ├─utils		                        #公共方法文件夹
 │  │  ├─helper	                        #帮助工具
@@ -215,7 +199,6 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  │      ├─sleep		                #睡眠
 │  │      ├─storage		                #storage处理
 │  │      ├─theme		                #主题设置
-│  │      └─wx			                #微信相关方法
 │  └─views	                            #视图文件夹
 └─types	                                #类型定义文件夹
 ```
