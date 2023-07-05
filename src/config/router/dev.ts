@@ -92,6 +92,15 @@ const routers: RouteConfig[] = [
                 ]
             },
             {
+                path: "/dev/count-up",
+                name: "dev-count-up",
+                meta: {
+                    title: "滚动数字",
+                    sort: 4
+                },
+                component: () => import("@/views/dev/count-up/index.vue")
+            },
+            {
                 path: "/dev/drag",
                 name: "dev-drag",
                 meta: {
