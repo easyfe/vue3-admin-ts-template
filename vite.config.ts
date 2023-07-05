@@ -16,7 +16,8 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         base: envMap.VITE_APP_MODE === "development" || !ossConfig.uploadOption.SecretId ? "./" : ossConfig.uploadPath,
         resolve: {
             alias: {
-                "@": resolvePath("src")
+                "@": resolvePath("src"),
+                types: resolvePath("types")
             }
         },
         // 插件加载
