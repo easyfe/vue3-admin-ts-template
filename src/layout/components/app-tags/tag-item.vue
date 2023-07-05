@@ -50,6 +50,7 @@ import routes from "@/config/pinia/routes";
 import { getDefaultRoute } from "@/packages/vue-router";
 import { Message } from "@arco-design/web-vue";
 import { RouteConfig } from "types";
+import "@arco-design/web-vue/es/tag/style/css.js";
 
 enum Eaction {
     reload = "reload",
