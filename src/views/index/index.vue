@@ -1,6 +1,6 @@
 <template>
     <frame-view>
-        <div>index</div>
+        <div>首页缓存</div>
         <a-input v-model="test"></a-input>
     </frame-view>
 </template>

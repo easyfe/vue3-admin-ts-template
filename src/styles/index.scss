@@ -5,8 +5,8 @@ html {
 
 body {
     margin: 0 auto;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Segoe UI, Arial, Roboto, "PingFang SC",
-        "miui", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+    font-family: "HarmonyOS_Regular", "nunito_for_arco", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", "微软雅黑", Arial, sans-serif !important;
     text-size-adjust: 100% !important; /** IOS禁止微信调整字体大小 */
     color: $text;
 }

@@ -1,7 +1,7 @@
 <template>
     <a-layout class="app-layout">
         <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 200" @collapse="onCollapse">
-            <div class="log" @click="toDefaultPage">
+            <div class="logo" @click="toDefaultPage">
                 <base-svg name="vue" width="36" height="36"></base-svg>
                 <h2 v-show="!collapsed" class="title">Easyfe Admin</h2>
             </div>
@@ -44,7 +44,7 @@ function toDefaultPage() {
     :deep(.arco-layout-sider-children) {
         @include scroll-y;
     }
-    .log {
+    .logo {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -75,6 +75,7 @@ function toDefaultPage() {
         flex: 1;
         overflow-y: auto;
         @include scroll-y(8);
+        @include scroll-x(8);
         background-color: rgb(var(--gray-2));
         .frame-view {
             min-height: 100%;
