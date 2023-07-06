@@ -1,14 +1,21 @@
 <template>
     <the-draggable-container id="container" class="container" :grid="[15, 15]">
         <template v-for="item in list" :key="item.id">
-            <div :style="getItemStyle(item)" draggable="true" @drag="ondrag"></div>
+            <div
+                :style="getItemStyle(item)"
+                draggable="true"
+                @drag="ondrag(item, $event)"
+                @mousedown="mousedown(item, $event)"
+            ></div>
         </template>
     </the-draggable-container>
 </template>
 <script lang="ts" setup>
 import genrateNanoid from "@/utils/tools/nanoid";
+import { RefLine } from "./ref-line";
 
-const infoClientRect = ref<DOMRect | null>(null);
+let infoClientRect = <DOMRect | null>null;
+let mouseEl = <null | MouseEvent>null;
 
 const list = ref([
     {
@@ -19,7 +26,8 @@ const list = ref([
         y: 100,
         w: 100,
         h: 120,
-        active: true
+        active: true,
+        color: "red"
     },
     {
         id: genrateNanoid(),
@@ -29,17 +37,33 @@ const list = ref([
         y: 100,
         w: 100,
         h: 120,
-        active: false
+        active: false,
+        color: "blue"
     }
 ]);
 
-function ondrag(event: DragEvent) {
-    if (!infoClientRect.value) {
+function ondrag(item: any, event: DragEvent) {
+    if (!infoClientRect || !mouseEl) {
         return;
     }
-    let leftNew = Math.ceil(event.clientX - infoClientRect.value.left);
-    let topNew = Math.ceil(event.clientY - infoClientRect.value.top);
-    console.log(leftNew, topNew);
+    let leftNew = Math.ceil(event.clientX - infoClientRect.left - mouseEl.offsetX + window.scrollX);
+    let topNew = Math.ceil(event.clientY - infoClientRect.top - mouseEl.offsetY + window.scrollY);
+    //如果超出边界，则禁止拖动
+    if (leftNew >= 0) {
+        item.x = leftNew;
+    }
+    if (topNew >= 0) {
+        item.y = topNew;
+    }
+}
+
+function mousedown(item: any, event: MouseEvent) {
+    event.stopPropagation();
+    // list.value.forEach((item: any) => {
+    //     item.active = false;
+    // });
+    item.active = true;
+    mouseEl = event;
 }
 
 function getItemStyle(item: any): any {
@@ -48,52 +72,16 @@ function getItemStyle(item: any): any {
         width: `${item.w}px`,
         height: `${item.h}px`,
         transform: `translate3d(${item.x}px, ${item.y}px,0px)`,
-        backgroundColor: randomColor()
+        backgroundColor: item.color
     };
-}
-function randomColor() {
-    const color = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "0",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
-    ];
-    // 三位和六位，都是有用的二进制颜色  设置type为奇数就是3，偶数就是6位
-    const type = ~~(Math.random() * 10 + 1);
-    // 循环的长度
-    let len = type % 2 == 0 ? 3 : 6;
-    // 存放结果
-    let ans = "";
-    for (let i = 0; i < len; i++) {
-        //这里循环随机得到数组下标
-        let index = ~~(Math.random() * color.length);
-        ans += color[index];
-    }
-    return "#" + ans;
 }
 
 onMounted(() => {
     nextTick(() => {
         let info = document.getElementById("container")?.getBoundingClientRect();
         if (info) {
-            infoClientRect.value = info;
+            infoClientRect = info;
+            new RefLine();
         }
     });
 });
