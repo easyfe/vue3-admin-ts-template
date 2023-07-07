@@ -1,5 +1,9 @@
 <template>
-    <div :class="['the-draggable-container', props.grid && 'the-draggable-grid']" :style="containerStyle">
+    <div
+        id="the-draggable-container"
+        :class="['the-draggable-container', props.grid && 'the-draggable-grid']"
+        :style="containerStyle"
+    >
         <slot></slot>
     </div>
 </template>
