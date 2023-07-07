@@ -10,12 +10,38 @@
 <script lang="ts" setup name="TheDraggableContainer">
 import { computed } from "vue";
 
+const list = ref<
+    {
+        w: number;
+        h: number;
+        x: number;
+        y: number;
+        active?: boolean | undefined;
+    }[]
+>([]);
+
+provide("list", list);
 const props = withDefaults(
     defineProps<{
         grid?: [number, number];
+        lineValue?: {
+            vLine: {
+                display: boolean;
+                position: string;
+                origin: string;
+                lineLength: string;
+            }[];
+            hLine: {
+                display: boolean;
+                position: string;
+                origin: string;
+                lineLength: string;
+            }[];
+        };
     }>(),
     {
-        grid: undefined
+        grid: undefined,
+        lineValue: undefined
     }
 );
 

@@ -1,5 +1,6 @@
 <template>
     <div
+        ref="myself"
         class="the-draggable-item"
         :style="itemStyle"
         draggable="true"
@@ -9,18 +10,19 @@
         @dragenter="ondragenter"
         @dragove="ondragove"
     >
+        <div class="active"></div>
         <slot></slot>
     </div>
 </template>
 <script lang="ts" setup name="TheDraggableItem">
 const props = withDefaults(
     defineProps<{
-        w: string | number; //宽度
-        h: string | number; //高度
-        x: string | number; //x坐标
-        y: string | number; //y坐标
-        minW?: string | number; //最小宽度
-        minH?: string | number; //最小高度
+        w: number; //宽度
+        h: number; //高度
+        x: number; //x坐标
+        y: number; //y坐标
+        minW?: number; //最小宽度
+        minH?: number; //最小高度
         active?: boolean; //是否激活
     }>(),
     {
@@ -29,6 +31,10 @@ const props = withDefaults(
         active: false
     }
 );
+
+const allList = inject<any>("list");
+
+const myself = ref<HTMLElement | null>(null);
 
 let parentClientRect = <DOMRect | null>null;
 let mouseEl = <MouseEvent | null>null;
@@ -41,6 +47,37 @@ const emits = defineEmits<{
     (e: "update:w", data: number): void;
     (e: "update:h", data: number): void;
 }>();
+
+//辅助线坐标点
+const coords = computed(() => {
+    const topLeft = {
+        x: props.x,
+        y: props.y
+    };
+    const topRight = {
+        x: props.x + props.w,
+        y: props.y
+    };
+    const bottomLeft = {
+        x: props.x,
+        y: props.y + props.h
+    };
+    const bottomRight = {
+        x: props.x + props.w,
+        y: props.y + props.h
+    };
+    const center = {
+        x: props.x + props.w / 2,
+        y: props.y + props.h / 2
+    };
+    return {
+        topLeft,
+        topRight,
+        bottomLeft,
+        bottomRight,
+        center
+    };
+});
 
 const itemStyle = computed<Record<string, any>>(() => {
     const width = isNaN(Number(props.w)) ? props.w : props.w + "px";
@@ -97,6 +134,13 @@ onMounted(() => {
     nextTick(() => {
         parentClientRect = document.getElementById("the-draggable-container")?.getBoundingClientRect() || null;
         scrollRect = document.getElementsByClassName("layout-content")[0];
+        allList.push({
+            w: props.w,
+            h: props.h,
+            x: props.x,
+            y: props.y,
+            active: props.active
+        });
     });
 });
 
@@ -106,5 +150,14 @@ onBeforeUnmount(() => {
 </script>
 <style lang="scss" scoped>
 .the-draggable-item {
+    position: relative;
+    .active {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px dashed #f2f3f5;
+    }
 }
 </style>
