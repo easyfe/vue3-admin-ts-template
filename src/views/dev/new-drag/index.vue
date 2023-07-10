@@ -35,6 +35,15 @@ const list = ref([
         h: 120,
         active: false,
         color: "blue"
+    },
+    {
+        id: genrateNanoid(),
+        x: 450,
+        y: 300,
+        w: 100,
+        h: 120,
+        active: false,
+        color: "yellow"
     }
 ]);
 

@@ -20,6 +20,10 @@
 import lodash from "@/utils/tools/lodash";
 import { MatchedLine, Position, SetMatchedLine } from "../the-draggable-container/type";
 
+//吸附阈值
+const adsorbValue = 10;
+let adsorbFlag = false;
+
 const props = withDefaults(
     defineProps<{
         id: string;
@@ -113,7 +117,21 @@ function ondragstart(event: DragEvent) {
     event?.dataTransfer?.setDragImage(img, 0, 0);
 }
 
-function ondrag(event: DragEvent) {
+function wait() {
+    return new Promise((resolve) => {
+        if (!adsorbFlag) {
+            resolve(true);
+        } else {
+            setTimeout(() => {
+                adsorbFlag = false;
+                resolve(true);
+            }, 200);
+        }
+    });
+}
+
+async function ondrag(event: DragEvent) {
+    // await wait();
     if (!parentClientRect || !mouseEl || !event.clientX || !event.clientY) {
         return;
     }
@@ -128,18 +146,24 @@ function ondrag(event: DragEvent) {
     if (topNew >= 0 && topNew + scrollTop + Number(props.h) <= parentClientRect.height) {
         emits("update:y", topNew + scrollTop);
     }
-    // throttleCheckSnap();
+    console.log(leftNew + scrollLeft, topNew + scrollTop, "=========");
     checkSnap();
 }
 
 /** 定义防抖加载 */
-const throttleAdsorption = lodash.throttle((value: number, direction: "x" | "y") => {
+const debounceUpdatePosition = lodash.debounce((value: number, direction: "x" | "y") => {
     if (direction === "x") {
         emits("update:x", value);
     }
     if (direction === "y") {
         emits("update:y", value);
     }
+    adsorbFlag = false;
+}, 800);
+
+const debounceUpdateFlag = lodash.debounce(() => {
+    console.log("debounceUpdateFlag");
+    adsorbFlag = false;
 }, 800);
 
 //检查辅助线和吸附
@@ -169,7 +193,10 @@ function checkSnap() {
         //遍历其他元素所有的锚点
         anchorPointList.forEach((v2, i2) => {
             v2.x.forEach((v3) => {
-                if (v1 === v3) {
+                const abs = v1 - v3;
+                if (Math.abs(abs) <= adsorbValue) {
+                    adsorbFlag = true;
+                    emits("update:x", props.x - abs);
                     //如果有匹配的x坐标，则存储
                     if (!matchX[v3]) {
                         matchX[v3] = [...anchorPointList[i2].y, ...selfAnchorPoint.value.y];
@@ -195,7 +222,18 @@ function checkSnap() {
         let matchY: Record<number, number[]> = {};
         anchorPointList.forEach((v2, i2) => {
             v2.y.forEach((v3) => {
-                if (v1 === v3) {
+                const abs = v1 - v3;
+                if (Math.abs(abs) <= adsorbValue) {
+                    adsorbFlag = true;
+                    emits("update:y", props.y - abs);
+                    // if (!adsorbFlag) {
+                    //     adsorbFlag = true;
+                    // }
+                    // if (adsorbFlag) {
+                    //     emits("update:y", props.y - abs);
+                    // }
+                    // console.log("循环debounceUpdateFlag", adsorbFlag);
+                    // debounceUpdateFlag();
                     if (!matchY[v3]) {
                         matchY[v3] = [...anchorPointList[i2].x, ...selfAnchorPoint.value.x];
                     } else {
