@@ -4,19 +4,25 @@
         class="the-draggable-item"
         :style="itemStyle"
         draggable="true"
+        @dragstart="ondragstart"
         @drag="ondrag"
         @dragend="ondragend"
         @mousedown="mousedown"
+        @mouseup="mouseup"
         @dragenter="ondragenter"
         @dragove="ondragove"
     >
-        <div class="active"></div>
+        <div :class="[props.active && 'active']"></div>
         <slot></slot>
     </div>
 </template>
 <script lang="ts" setup name="TheDraggableItem">
+import lodash from "@/utils/tools/lodash";
+import { MatchedLine, Position, SetMatchedLine } from "../the-draggable-container/type";
+
 const props = withDefaults(
     defineProps<{
+        id: string;
         w: number; //宽度
         h: number; //高度
         x: number; //x坐标
@@ -32,7 +38,9 @@ const props = withDefaults(
     }
 );
 
-const allList = inject<any>("list");
+const allList = ref(inject<Position[]>("list"));
+
+const setMatchedLine = inject<SetMatchedLine>("setMatchedLine");
 
 const myself = ref<HTMLElement | null>(null);
 
@@ -48,37 +56,6 @@ const emits = defineEmits<{
     (e: "update:h", data: number): void;
 }>();
 
-//辅助线坐标点
-const coords = computed(() => {
-    const topLeft = {
-        x: props.x,
-        y: props.y
-    };
-    const topRight = {
-        x: props.x + props.w,
-        y: props.y
-    };
-    const bottomLeft = {
-        x: props.x,
-        y: props.y + props.h
-    };
-    const bottomRight = {
-        x: props.x + props.w,
-        y: props.y + props.h
-    };
-    const center = {
-        x: props.x + props.w / 2,
-        y: props.y + props.h / 2
-    };
-    return {
-        topLeft,
-        topRight,
-        bottomLeft,
-        bottomRight,
-        center
-    };
-});
-
 const itemStyle = computed<Record<string, any>>(() => {
     const width = isNaN(Number(props.w)) ? props.w : props.w + "px";
     const height = isNaN(Number(props.h)) ? props.h : props.h + "px";
@@ -92,6 +69,49 @@ const itemStyle = computed<Record<string, any>>(() => {
         transform: `translate3d(${x}, ${y}, 0px)`
     };
 });
+
+// const anchorPoint = computed(() => {
+//     const topLeft = {
+//         x: props.x,
+//         y: props.y
+//     };
+//     const topRight = {
+//         x: props.x + props.w,
+//         y: props.y
+//     };
+//     const bottomLeft = {
+//         x: props.x,
+//         y: props.y + props.h
+//     };
+//     const bottomRight = {
+//         x: props.x + props.w,
+//         y: props.y + props.h
+//     };
+//     const center = {
+//         x: props.x + props.w / 2,
+//         y: props.y + props.h / 2
+//     };
+//     return {
+//         topLeft,
+//         topRight,
+//         bottomLeft,
+//         bottomRight,
+//         center
+//     };
+// });
+
+const selfAnchorPoint = computed(() => {
+    return {
+        x: [props.x, props.x + props.w / 2, props.x + props.w],
+        y: [props.y, props.y + props.h / 2, props.y + props.h]
+    };
+});
+
+function ondragstart(event: DragEvent) {
+    var img = new Image();
+    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' %3E%3Cpath /%3E%3C/svg%3E";
+    event?.dataTransfer?.setDragImage(img, 0, 0);
+}
 
 function ondrag(event: DragEvent) {
     if (!parentClientRect || !mouseEl || !event.clientX || !event.clientY) {
@@ -108,8 +128,122 @@ function ondrag(event: DragEvent) {
     if (topNew >= 0 && topNew + scrollTop + Number(props.h) <= parentClientRect.height) {
         emits("update:y", topNew + scrollTop);
     }
-    console.log(props.x, props.y);
+    // throttleCheckSnap();
+    checkSnap();
 }
+
+/** 定义防抖加载 */
+const throttleAdsorption = lodash.throttle((value: number, direction: "x" | "y") => {
+    if (direction === "x") {
+        emits("update:x", value);
+    }
+    if (direction === "y") {
+        emits("update:y", value);
+    }
+}, 800);
+
+//检查辅助线和吸附
+function checkSnap() {
+    if (!setMatchedLine) {
+        return;
+    }
+    const list = allList.value?.filter((item: any) => item._id !== props.id);
+    const matchedLine: MatchedLine = {
+        row: [],
+        col: []
+    };
+    if (!list) {
+        return;
+    }
+    const anchorPointList = list.map((item) => {
+        const anchorPoint = {
+            x: [item.x, item.x + item.w / 2, item.x + item.w],
+            y: [item.y, item.y + item.h / 2, item.y + item.h]
+        };
+        return anchorPoint;
+    });
+    //x表示竖向线条，有3条线
+    selfAnchorPoint.value.x.forEach((v1) => {
+        //用于存储匹配的x坐标
+        let matchX: Record<number, number[]> = {};
+        //遍历其他元素所有的锚点
+        anchorPointList.forEach((v2, i2) => {
+            v2.x.forEach((v3) => {
+                if (v1 === v3) {
+                    //如果有匹配的x坐标，则存储
+                    if (!matchX[v3]) {
+                        matchX[v3] = [...anchorPointList[i2].y, ...selfAnchorPoint.value.y];
+                    } else {
+                        matchX[v3].push(...anchorPointList[i2].y, ...selfAnchorPoint.value.y);
+                    }
+                }
+            });
+        });
+        //如果有匹配的x坐标，则计算最小值和最大值，存储到matchedLine中
+        Object.keys(matchX).forEach((key) => {
+            const min = Math.min(...matchX[Number(key)]);
+            const max = Math.max(...matchX[Number(key)]);
+            matchedLine.col.push({
+                top: min,
+                left: Number(key),
+                height: max - min
+            });
+        });
+    });
+    //y表示横向线条，有3条线
+    selfAnchorPoint.value.y.forEach((v1) => {
+        let matchY: Record<number, number[]> = {};
+        anchorPointList.forEach((v2, i2) => {
+            v2.y.forEach((v3) => {
+                if (v1 === v3) {
+                    if (!matchY[v3]) {
+                        matchY[v3] = [...anchorPointList[i2].x, ...selfAnchorPoint.value.x];
+                    } else {
+                        matchY[v3].push(...anchorPointList[i2].x, ...selfAnchorPoint.value.x);
+                    }
+                }
+            });
+        });
+        Object.keys(matchY).forEach((key) => {
+            const min = Math.min(...matchY[Number(key)]);
+            const max = Math.max(...matchY[Number(key)]);
+            matchedLine.row.push({
+                top: Number(key),
+                left: min,
+                width: max - min
+            });
+        });
+    });
+    setMatchedLine(matchedLine);
+}
+
+watch(
+    () => props,
+    () => {
+        if (!allList.value) return;
+        const index = allList.value.findIndex((item: any) => item._id === props.id);
+        if (index !== -1) {
+            allList.value[index].w = props.w;
+            allList.value[index].h = props.h;
+            allList.value[index].x = props.x;
+            allList.value[index].y = props.y;
+            allList.value[index].active = props.active;
+        } else {
+            allList.value.push({
+                _id: props.id,
+                w: props.w,
+                h: props.h,
+                x: props.x,
+                y: props.y,
+                active: props.active
+            });
+        }
+    },
+    {
+        immediate: true,
+        deep: true
+    }
+);
 
 function ondragend(event: DragEvent) {
     event.stopPropagation();
@@ -130,17 +264,23 @@ function mousedown(event: MouseEvent) {
     mouseEl = event;
 }
 
+function mouseup(event: MouseEvent) {
+    event.stopPropagation();
+    // emits("update:active", false);
+    mouseEl = null;
+}
+
 onMounted(() => {
     nextTick(() => {
-        parentClientRect = document.getElementById("the-draggable-container")?.getBoundingClientRect() || null;
+        const parentDom = document.getElementById("the-draggable-container");
+        parentClientRect = parentDom?.getBoundingClientRect() || null;
         scrollRect = document.getElementsByClassName("layout-content")[0];
-        allList.push({
-            w: props.w,
-            h: props.h,
-            x: props.x,
-            y: props.y,
-            active: props.active
-        });
+        if (parentDom) {
+            parentDom.ondragover = function (e) {
+                // 禁止默认行为,才能看到拖动元素的光标样式与effectAllowed的值对应
+                e.preventDefault();
+            };
+        }
     });
 });
 
@@ -151,6 +291,8 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .the-draggable-item {
     position: relative;
+    user-select: none;
+    cursor: default;
     .active {
         position: absolute;
         top: 0;

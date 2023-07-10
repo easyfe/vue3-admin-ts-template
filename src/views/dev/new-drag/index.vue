@@ -1,7 +1,13 @@
 <template>
     <the-draggable-container class="container" :grid="[15, 15]">
         <template v-for="item in list" :key="item.id">
-            <the-draggable-item v-model:h="item.h" v-model:w="item.w" v-model:x="item.x" v-model:y="item.y">
+            <the-draggable-item
+                :id="item.id"
+                v-model:h="item.h"
+                v-model:w="item.w"
+                v-model:x="item.x"
+                v-model:y="item.y"
+            >
                 <div :style="getItemStyle(item)"></div>
             </the-draggable-item>
         </template>
@@ -19,12 +25,12 @@ const list = ref([
         w: 100,
         h: 120,
         active: true,
-        color: "red"
+        color: "black"
     },
     {
         id: genrateNanoid(),
         x: 250,
-        y: 100,
+        y: 200,
         w: 100,
         h: 120,
         active: false,

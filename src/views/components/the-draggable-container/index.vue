@@ -5,45 +5,93 @@
         :style="containerStyle"
     >
         <slot></slot>
+        <!--辅助线-->
+        <span
+            v-for="(item, index) in matchedRows"
+            :key="index"
+            :style="{
+                width: item.width + 'px',
+                height: '0',
+                left: item.left + 'px',
+                top: item.top + 'px',
+                borderTop: `2px solid red`,
+                position: 'absolute'
+            }"
+        ></span>
+        <span
+            v-for="(item, index) in matchedCols"
+            :key="index"
+            :style="{
+                width: '0',
+                height: item.height + 'px',
+                top: item.top + 'px',
+                left: item.left + 'px',
+                borderLeft: `2px solid red`,
+                position: 'absolute'
+            }"
+        ></span>
+        <!--辅助线END-->
     </div>
 </template>
 <script lang="ts" setup name="TheDraggableContainer">
 import { computed } from "vue";
+import { MatchedLine, Position, SetMatchedLine } from "./type";
 
-const list = ref<
-    {
-        w: number;
-        h: number;
-        x: number;
-        y: number;
-        active?: boolean | undefined;
-    }[]
->([]);
+const list = ref<Position[]>([]);
 
-provide("list", list);
+const state = reactive<{
+    matchedLine: MatchedLine | null;
+}>({
+    matchedLine: null
+});
+
+const setMatchedLine: SetMatchedLine = (matchedLine: MatchedLine | null) => {
+    state.matchedLine = matchedLine;
+};
+
+const matchedRows = computed(() => state.matchedLine && state.matchedLine.row);
+const matchedCols = computed(() => state.matchedLine && state.matchedLine.col);
+
 const props = withDefaults(
     defineProps<{
         grid?: [number, number];
-        lineValue?: {
-            vLine: {
-                display: boolean;
-                position: string;
-                origin: string;
-                lineLength: string;
-            }[];
-            hLine: {
-                display: boolean;
-                position: string;
-                origin: string;
-                lineLength: string;
-            }[];
-        };
     }>(),
     {
-        grid: undefined,
-        lineValue: undefined
+        grid: undefined
     }
 );
+
+// const coordsList = computed(() => {
+//     return list.value.map((item) => {
+//         const topLeft = {
+//             x: item.x,
+//             y: item.y
+//         };
+//         const topRight = {
+//             x: item.x + item.w,
+//             y: item.y
+//         };
+//         const bottomLeft = {
+//             x: item.x,
+//             y: item.y + item.h
+//         };
+//         const bottomRight = {
+//             x: item.x + item.w,
+//             y: item.y + item.h
+//         };
+//         const center = {
+//             x: item.x + item.w / 2,
+//             y: item.y + item.h / 2
+//         };
+//         return {
+//             topLeft,
+//             topRight,
+//             bottomLeft,
+//             bottomRight,
+//             center
+//         };
+//     });
+// });
 
 const containerStyle = computed(() => {
     const style: Record<string, any> = {};
@@ -54,6 +102,10 @@ const containerStyle = computed(() => {
     }
     return style;
 });
+
+provide("list", list);
+provide("setMatchedLine", setMatchedLine);
+// provide("coordsList", coordsList);
 </script>
 <style lang="scss" scoped>
 .the-draggable-container {
