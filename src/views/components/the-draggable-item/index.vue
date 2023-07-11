@@ -17,12 +17,10 @@
     </div>
 </template>
 <script lang="ts" setup name="TheDraggableItem">
-import lodash from "@/utils/tools/lodash";
 import { MatchedLine, Position, SetMatchedLine } from "../the-draggable-container/type";
 
 //吸附阈值
 const adsorbValue = 10;
-let adsorbFlag = false;
 
 const props = withDefaults(
     defineProps<{
@@ -117,54 +115,25 @@ function ondragstart(event: DragEvent) {
     event?.dataTransfer?.setDragImage(img, 0, 0);
 }
 
-function wait() {
-    return new Promise((resolve) => {
-        if (!adsorbFlag) {
-            resolve(true);
-        } else {
-            setTimeout(() => {
-                adsorbFlag = false;
-                resolve(true);
-            }, 200);
-        }
-    });
-}
-
 async function ondrag(event: DragEvent) {
-    // await wait();
     if (!parentClientRect || !mouseEl || !event.clientX || !event.clientY) {
         return;
     }
     const scrollTop = scrollRect?.scrollTop || 0;
     const scrollLeft = scrollRect?.scrollLeft || 0;
-    let leftNew = Math.ceil(event.clientX - parentClientRect.left - mouseEl.offsetX);
-    let topNew = Math.ceil(event.clientY - parentClientRect.top - mouseEl.offsetY);
-    //如果超出边界，则禁止拖动
-    if (leftNew >= 0 && leftNew + scrollLeft + Number(props.w) <= parentClientRect.width) {
-        emits("update:x", leftNew + scrollLeft);
+    let leftNew = Math.ceil(event.clientX - parentClientRect.left - mouseEl.offsetX) + scrollLeft;
+    let topNew = Math.ceil(event.clientY - parentClientRect.top - mouseEl.offsetY) + scrollTop;
+    //如果超出父元素边界，则禁止拖动
+    if (leftNew >= 0 && leftNew + Number(props.w) <= parentClientRect.width) {
+        emits("update:x", leftNew);
     }
-    if (topNew >= 0 && topNew + scrollTop + Number(props.h) <= parentClientRect.height) {
-        emits("update:y", topNew + scrollTop);
+    if (topNew >= 0 && topNew + Number(props.h) <= parentClientRect.height) {
+        emits("update:y", topNew);
     }
-    console.log(leftNew + scrollLeft, topNew + scrollTop, "=========");
-    checkSnap();
+    nextTick(() => {
+        checkSnap();
+    });
 }
-
-/** 定义防抖加载 */
-const debounceUpdatePosition = lodash.debounce((value: number, direction: "x" | "y") => {
-    if (direction === "x") {
-        emits("update:x", value);
-    }
-    if (direction === "y") {
-        emits("update:y", value);
-    }
-    adsorbFlag = false;
-}, 800);
-
-const debounceUpdateFlag = lodash.debounce(() => {
-    console.log("debounceUpdateFlag");
-    adsorbFlag = false;
-}, 800);
 
 //检查辅助线和吸附
 function checkSnap() {
@@ -195,7 +164,6 @@ function checkSnap() {
             v2.x.forEach((v3) => {
                 const abs = v1 - v3;
                 if (Math.abs(abs) <= adsorbValue) {
-                    adsorbFlag = true;
                     emits("update:x", props.x - abs);
                     //如果有匹配的x坐标，则存储
                     if (!matchX[v3]) {
@@ -224,16 +192,7 @@ function checkSnap() {
             v2.y.forEach((v3) => {
                 const abs = v1 - v3;
                 if (Math.abs(abs) <= adsorbValue) {
-                    adsorbFlag = true;
                     emits("update:y", props.y - abs);
-                    // if (!adsorbFlag) {
-                    //     adsorbFlag = true;
-                    // }
-                    // if (adsorbFlag) {
-                    //     emits("update:y", props.y - abs);
-                    // }
-                    // console.log("循环debounceUpdateFlag", adsorbFlag);
-                    // debounceUpdateFlag();
                     if (!matchY[v3]) {
                         matchY[v3] = [...anchorPointList[i2].x, ...selfAnchorPoint.value.x];
                     } else {
@@ -286,6 +245,9 @@ watch(
 function ondragend(event: DragEvent) {
     event.stopPropagation();
     mouseEl = null;
+    if (setMatchedLine) {
+        setMatchedLine(null);
+    }
 }
 
 function ondragenter(event: DragEvent) {
@@ -304,7 +266,7 @@ function mousedown(event: MouseEvent) {
 
 function mouseup(event: MouseEvent) {
     event.stopPropagation();
-    // emits("update:active", false);
+    emits("update:active", false);
     mouseEl = null;
 }
 
