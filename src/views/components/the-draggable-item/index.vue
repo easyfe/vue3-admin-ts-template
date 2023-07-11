@@ -158,6 +158,7 @@ const handleList = computed(() => {
     ];
 });
 
+//控制柄位置
 let handleAction = "";
 
 const selfAnchorPoint = computed(() => {
@@ -166,6 +167,34 @@ const selfAnchorPoint = computed(() => {
         y: [props.y, props.y + props.h / 2, props.y + props.h]
     };
 });
+
+watch(
+    () => props,
+    () => {
+        if (!allList.value) return;
+        const index = allList.value.findIndex((item: any) => item._id === props.id);
+        if (index !== -1) {
+            allList.value[index].w = props.w;
+            allList.value[index].h = props.h;
+            allList.value[index].x = props.x;
+            allList.value[index].y = props.y;
+            allList.value[index].active = props.active;
+        } else {
+            allList.value.push({
+                _id: props.id,
+                w: props.w,
+                h: props.h,
+                x: props.x,
+                y: props.y,
+                active: props.active
+            });
+        }
+    },
+    {
+        immediate: true,
+        deep: true
+    }
+);
 
 function ondragstart(event: DragEvent) {
     var img = new Image();
@@ -272,34 +301,6 @@ function checkSnap() {
     setMatchedLine(matchedLine);
 }
 
-watch(
-    () => props,
-    () => {
-        if (!allList.value) return;
-        const index = allList.value.findIndex((item: any) => item._id === props.id);
-        if (index !== -1) {
-            allList.value[index].w = props.w;
-            allList.value[index].h = props.h;
-            allList.value[index].x = props.x;
-            allList.value[index].y = props.y;
-            allList.value[index].active = props.active;
-        } else {
-            allList.value.push({
-                _id: props.id,
-                w: props.w,
-                h: props.h,
-                x: props.x,
-                y: props.y,
-                active: props.active
-            });
-        }
-    },
-    {
-        immediate: true,
-        deep: true
-    }
-);
-
 function ondragend(event: DragEvent) {
     event.stopPropagation();
     mouseEl = null;
@@ -339,9 +340,13 @@ function handleDown(event: MouseEvent, direction: string) {
 }
 //结束控制柄操作
 function handleUp(event: MouseEvent) {
+    handleAction = "";
     event.stopPropagation();
     parentDom?.removeEventListener("mousemove", handleMove, true);
     parentDom?.removeEventListener("mouseup", handleUp, true);
+    if (setMatchedLine) {
+        // setMatchedLine(null);
+    }
 }
 //控制柄移动
 function handleMove(event: MouseEvent) {
@@ -390,6 +395,9 @@ function handleMove(event: MouseEvent) {
         emits("update:w", props.w - x);
     }
     mouseEl = event;
+    nextTick(() => {
+        // checkSnap();
+    });
 }
 
 function mouseup(event: MouseEvent) {
