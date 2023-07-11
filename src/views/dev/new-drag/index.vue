@@ -7,6 +7,7 @@
                 v-model:w="item.w"
                 v-model:x="item.x"
                 v-model:y="item.y"
+                v-model:active="item.active"
             >
                 <div :style="getItemStyle(item)"></div>
             </the-draggable-item>

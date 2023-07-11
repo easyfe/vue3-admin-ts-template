@@ -12,7 +12,15 @@
         @dragenter="ondragenter"
         @dragove="ondragove"
     >
-        <div :class="[props.active && 'active']"></div>
+        <div v-show="props.active" :class="[props.active && 'active']">
+            <div
+                v-for="item in handleList"
+                :key="item.name"
+                class="handle"
+                :style="item.style"
+                @mousedown.stop.prevent="handleDown($event, item.name)"
+            ></div>
+        </div>
         <slot></slot>
     </div>
 </template>
@@ -34,8 +42,8 @@ const props = withDefaults(
         active?: boolean; //是否激活
     }>(),
     {
-        minH: 0,
-        minW: 0,
+        minH: 10,
+        minW: 10,
         active: false
     }
 );
@@ -49,6 +57,7 @@ const myself = ref<HTMLElement | null>(null);
 let parentClientRect = <DOMRect | null>null;
 let mouseEl = <MouseEvent | null>null;
 let scrollRect = <Element | null>null;
+let parentDom = <HTMLElement | null>null;
 
 const emits = defineEmits<{
     (e: "update:active", data: boolean): void;
@@ -65,42 +74,91 @@ const itemStyle = computed<Record<string, any>>(() => {
     const y = isNaN(Number(props.y)) ? props.y : props.y + "px";
     return {
         position: "absolute",
-        overflow: "hidden",
+        // overflow: "hidden",
         width,
         height,
         transform: `translate3d(${x}, ${y}, 0px)`
     };
 });
 
-// const anchorPoint = computed(() => {
-//     const topLeft = {
-//         x: props.x,
-//         y: props.y
-//     };
-//     const topRight = {
-//         x: props.x + props.w,
-//         y: props.y
-//     };
-//     const bottomLeft = {
-//         x: props.x,
-//         y: props.y + props.h
-//     };
-//     const bottomRight = {
-//         x: props.x + props.w,
-//         y: props.y + props.h
-//     };
-//     const center = {
-//         x: props.x + props.w / 2,
-//         y: props.y + props.h / 2
-//     };
-//     return {
-//         topLeft,
-//         topRight,
-//         bottomLeft,
-//         bottomRight,
-//         center
-//     };
-// });
+const handleList = computed(() => {
+    return [
+        {
+            name: "tl",
+            style: {
+                top: "0",
+                left: "0",
+                cursor: "nwse-resize",
+                transform: "translate(-50%, -50%)"
+            }
+        },
+        {
+            name: "tm",
+            style: {
+                top: "0",
+                left: "50%",
+                cursor: "ns-resize",
+                transform: "translate(-50%, -50%)"
+            }
+        },
+        {
+            name: "tr",
+            style: {
+                top: "0",
+                right: "0",
+                cursor: "nesw-resize",
+                transform: "translate(50%, -50%)"
+            }
+        },
+        {
+            name: "ml",
+            style: {
+                top: "50%",
+                left: "0",
+                cursor: "ew-resize",
+                transform: "translate(-50%, -50%)"
+            }
+        },
+        {
+            name: "mr",
+            style: {
+                top: "50%",
+                right: "0",
+                cursor: "ew-resize",
+                transform: "translate(50%, -50%)"
+            }
+        },
+        {
+            name: "bl",
+            style: {
+                bottom: "0",
+                left: "0",
+                cursor: "nesw-resize",
+                transform: "translate(-50%, 50%)"
+            }
+        },
+        {
+            name: "bm",
+            style: {
+                bottom: "0",
+                left: "50%",
+                cursor: "ns-resize",
+                transform: "translate(-50%, 50%)"
+            }
+        },
+        {
+            name: "br",
+            style: {
+                bottom: "0",
+                right: "0",
+                cursor: "nwse-resize",
+                transform: "translate(50%, 50%)"
+            }
+        }
+    ];
+});
+
+let handleAction = "";
 
 const selfAnchorPoint = computed(() => {
     return {
@@ -261,18 +319,89 @@ function ondragove(event: DragEvent) {
 function mousedown(event: MouseEvent) {
     event.stopPropagation();
     emits("update:active", true);
+    if (allList.value?.length) {
+        for (let item of allList.value) {
+            if (item._id !== props.id) {
+                item.active = false;
+            }
+        }
+    }
+    mouseEl = event;
+}
+
+//开始控制柄操作
+function handleDown(event: MouseEvent, direction: string) {
+    handleAction = direction;
+    mouseEl = event;
+    event.stopPropagation();
+    parentDom?.addEventListener("mousemove", handleMove, true);
+    parentDom?.addEventListener("mouseup", handleUp, true);
+}
+//结束控制柄操作
+function handleUp(event: MouseEvent) {
+    event.stopPropagation();
+    parentDom?.removeEventListener("mousemove", handleMove, true);
+    parentDom?.removeEventListener("mouseup", handleUp, true);
+}
+//控制柄移动
+function handleMove(event: MouseEvent) {
+    event.stopPropagation();
+    if (!mouseEl) {
+        console.warn("鼠标移动事件未触发");
+        return;
+    }
+    const { clientX, clientY } = event;
+    const { clientX: mouseClientX, clientY: mouseClientY } = mouseEl;
+    const x = clientX - mouseClientX;
+    const y = clientY - mouseClientY;
+    if (handleAction === "tl") {
+        //左上角
+        emits("update:x", props.x + x);
+        emits("update:y", props.y + y);
+        emits("update:w", props.w - x);
+        emits("update:h", props.h - y);
+    } else if (handleAction === "tm") {
+        //上中
+        emits("update:y", props.y + y);
+        emits("update:h", props.h - y);
+    } else if (handleAction === "tr") {
+        //右上角
+        emits("update:y", props.y + y);
+        emits("update:w", props.w + x);
+        emits("update:h", props.h - y);
+    } else if (handleAction === "mr") {
+        //右中
+        emits("update:w", props.w + x);
+    } else if (handleAction === "br") {
+        //右下角
+        emits("update:w", props.w + x);
+        emits("update:h", props.h + y);
+    } else if (handleAction === "bm") {
+        //下中
+        emits("update:h", props.h + y);
+    } else if (handleAction === "bl") {
+        //左下角
+        emits("update:x", props.x + x);
+        emits("update:w", props.w - x);
+        emits("update:h", props.h + y);
+    } else if (handleAction === "ml") {
+        //左中
+        emits("update:x", props.x + x);
+        emits("update:w", props.w - x);
+    }
     mouseEl = event;
 }
 
 function mouseup(event: MouseEvent) {
+    console.log("触发mouseup");
     event.stopPropagation();
-    emits("update:active", false);
+    // emits("update:active", false);
     mouseEl = null;
 }
 
 onMounted(() => {
     nextTick(() => {
-        const parentDom = document.getElementById("the-draggable-container");
+        parentDom = document.getElementById("the-draggable-container");
         parentClientRect = parentDom?.getBoundingClientRect() || null;
         scrollRect = document.getElementsByClassName("layout-content")[0];
         if (parentDom) {
@@ -300,6 +429,16 @@ onBeforeUnmount(() => {
         width: 100%;
         height: 100%;
         border: 1px dashed #f2f3f5;
+        .handle {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #333;
+            box-shadow: 0 0 2px #bbb;
+            z-index: 1;
+            width: 8px;
+            height: 8px;
+            display: "block";
+        }
     }
 }
 </style>
