@@ -1,12 +1,9 @@
 <template>
     <a-modal
         :visible="computedVisible"
-        :mask-closable="false"
-        :align-center="false"
         top="10vh"
         ok-text="确定"
-        title-align="start"
-        v-bind="props.modalConfig"
+        v-bind="privateModalConfig"
         @ok="handleOk"
         @cancel="handleCancel"
     >
@@ -18,19 +15,19 @@
 <script setup lang="ts" name="BaseModalForm">
 import formHelper from "@/utils/helper/form";
 import lodash from "@/utils/tools/lodash";
-import { ModalConfig } from "@arco-design/web-vue";
+import type { Modal } from "@arco-design/web-vue";
 
 const props = withDefaults(
     defineProps<{
         visible: boolean;
         value?: Record<string, any>;
-        modalConfig?: Partial<ModalConfig>;
+        modalConfig?: InstanceType<typeof Modal>;
         formConfig?: Record<string, any>[];
     }>(),
     {
         visible: () => false,
         value: () => ({}),
-        modalConfig: () => ({}),
+        modalConfig: () => <any>{},
         formConfig: () => []
     }
 );
@@ -45,6 +42,15 @@ const modalForm = ref();
 const computedVisible = computed({
     get: () => props.visible,
     set: (newVal: boolean) => emits("update:visible", newVal)
+});
+
+const privateModalConfig = computed(() => {
+    const defaultConfig = {
+        maskClosable: false,
+        alignCenter: false,
+        titleAlign: "start"
+    };
+    return { ...defaultConfig, ...props.modalConfig };
 });
 
 const computedModel = ref({});

@@ -1,12 +1,9 @@
 <template>
     <a-modal
         :visible="computedVisible"
-        :mask-closable="false"
-        :align-center="false"
         top="10vh"
         ok-text="确定"
-        title-align="start"
-        v-bind="props.modalConfig"
+        v-bind="privateModalConfig"
         @ok="handleOk"
         @cancel="handleCancel"
     >
@@ -27,14 +24,14 @@
 </template>
 <script setup lang="ts" name="BaseModalTable">
 import lodash from "@/utils/tools/lodash";
-import { ModalConfig } from "@arco-design/web-vue";
 import { _TableConfig } from "types/base-table";
+import type { Modal } from "@arco-design/web-vue";
 
 const props = withDefaults(
     defineProps<{
         visible: boolean;
         value?: Record<string, any>;
-        modalConfig?: Partial<ModalConfig>;
+        modalConfig?: InstanceType<typeof Modal>;
         filterConfig?: Record<string, any>[];
         tableConfig?: Partial<_TableConfig>;
         defaultSelected?: any[];
@@ -42,7 +39,7 @@ const props = withDefaults(
     {
         visible: () => false,
         value: () => ({}),
-        modalConfig: () => ({}),
+        modalConfig: () => <any>{},
         filterConfig: () => [],
         tableConfig: () => ({}),
         defaultSelected: () => []
@@ -57,6 +54,15 @@ const emits = defineEmits<{
 const computedVisible = computed({
     get: () => props.visible,
     set: (newVal: boolean) => emits("update:visible", newVal)
+});
+
+const privateModalConfig = computed(() => {
+    const defaultConfig = {
+        maskClosable: false,
+        alignCenter: false,
+        titleAlign: "start"
+    };
+    return { ...defaultConfig, ...props.modalConfig };
 });
 
 const baseModalTable = ref();
