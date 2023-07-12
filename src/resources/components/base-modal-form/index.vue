@@ -1,10 +1,10 @@
 <template>
     <a-modal
         :visible="computedVisible"
+        :on-before-ok="handleOk"
         top="10vh"
         ok-text="确定"
         v-bind="privateModalConfig"
-        @ok="handleOk"
         @cancel="handleCancel"
     >
         <div class="base-modal-content">
@@ -21,14 +21,19 @@ const props = withDefaults(
     defineProps<{
         visible: boolean;
         value?: Record<string, any>;
-        modalConfig?: InstanceType<typeof Modal>;
+        modalConfig?: InstanceType<typeof Modal>["$props"];
         formConfig?: Record<string, any>[];
+        //以下用于函数式调用
+        destroy?: () => void;
+        ok?: (data: Record<string, any>) => Promise<void>;
     }>(),
     {
         visible: () => false,
         value: () => ({}),
         modalConfig: () => <any>{},
-        formConfig: () => []
+        formConfig: () => [],
+        destroy: undefined,
+        ok: undefined
     }
 );
 
@@ -39,12 +44,13 @@ const emits = defineEmits<{
 
 const modalForm = ref();
 
-const computedVisible = computed({
-    get: () => props.visible,
-    set: (newVal: boolean) => emits("update:visible", newVal)
+const fnVisible = ref(true);
+
+const computedVisible = computed(() => {
+    return fnVisible.value && props.visible;
 });
 
-const privateModalConfig = computed(() => {
+const privateModalConfig = computed<any>(() => {
     const defaultConfig = {
         maskClosable: false,
         alignCenter: false,
@@ -71,11 +77,27 @@ async function handleOk() {
     if (modalForm) {
         await formHelper.validate(modalForm.value);
     }
-    emits("ok", computedModel.value);
+    if (props.ok) {
+        await props.ok(computedModel.value);
+    } else {
+        emits("ok", computedModel.value);
+    }
+    onClose();
 }
 
 function handleCancel() {
-    computedVisible.value = false;
+    onClose();
+}
+
+function onClose() {
+    emits("update:visible", false);
+    //如果存在destroy方法，说明是函数式调用，需要手动销毁
+    if (props.destroy) {
+        fnVisible.value = false;
+        setTimeout(() => {
+            props.destroy?.();
+        }, 500);
+    }
 }
 </script>
 <style scoped lang="scss">

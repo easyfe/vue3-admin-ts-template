@@ -1,7 +1,8 @@
 <template>
     <frame-view>
         <a-space>
-            <a-button @click="formVisible1 = true">打开表单</a-button>
+            <a-button @click="formVisible1 = true">组件式表单</a-button>
+            <a-button @click="openForm">函数式表单</a-button>
         </a-space>
         <a-row>
             {{ formData }}
@@ -9,9 +10,9 @@
         <base-modal-form
             v-model:visible="formVisible1"
             :value="formData"
-            :modal-config="{ title: '测试', width: '50%' }"
+            :modal-config="modalConfig"
             :form-config="formConfig"
-            @ok="save1"
+            :ok="save1"
         >
         </base-modal-form>
     </frame-view>
@@ -19,8 +20,18 @@
 <script lang="ts" setup>
 import formHelper from "@/utils/helper/form";
 import ruleHelper from "@/utils/helper/rule";
+import modalForm from "@/resources/components/base-modal-form";
+import { Message } from "@arco-design/web-vue";
+import { reject } from "lodash-es";
 
 const formVisible1 = ref(false);
+
+const modalConfig = computed(() => {
+    return {
+        title: "测试",
+        width: "50%"
+    };
+});
 
 const formConfig = computed(() => {
     return [
@@ -63,16 +74,51 @@ const formConfig = computed(() => {
         formHelper.editor("富文本", "key6")
     ];
 });
-const formData = ref({
+const formData = ref<Record<string, any>>({
+    key2: [1, 2],
+    key1: "文本苏入口",
     key5: [],
     key6: "",
     text: `这是一段介绍文字<font style='color:red;padding-left:10px;font-weight:bold'>支持HTML</font>`
 });
 
-function save1(v: any) {
-    console.log("save1:", v);
-    formData.value = v;
-    formVisible1.value = false;
+async function save1(v: any) {
+    await saveData(v);
+    // console.log("save1:", v);
+    // formData.value = v;
+}
+
+function openForm() {
+    modalForm({
+        modalConfig: modalConfig.value,
+        formConfig: formConfig.value,
+        value: formData.value,
+        ok: async (v) => {
+            await saveData(v);
+        }
+    });
+}
+
+async function saveTest() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("失败");
+        }, 1500);
+    });
+}
+
+async function saveData(value: Record<string, any>) {
+    try {
+        console.log("saveData:", value);
+        await saveTest();
+        Message.success("保存成功");
+        formData.value = value;
+    } catch (e: any) {
+        reject("失败");
+        Message.error("保存失败");
+        //需要通过throw new Error(e)抛出异常，否则会被catch捕获，导致弹窗直接关闭
+        throw new Error(e);
+    }
 }
 </script>
 <style lang="scss" scoped></style>

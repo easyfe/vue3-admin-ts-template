@@ -1,10 +1,10 @@
 <template>
     <a-modal
         :visible="computedVisible"
+        :on-before-ok="handleOk"
         top="10vh"
         ok-text="确定"
         v-bind="privateModalConfig"
-        @ok="handleOk"
         @cancel="handleCancel"
     >
         <div class="base-modal-content">
@@ -31,10 +31,13 @@ const props = withDefaults(
     defineProps<{
         visible: boolean;
         value?: Record<string, any>;
-        modalConfig?: InstanceType<typeof Modal>;
+        modalConfig?: InstanceType<typeof Modal>["$props"];
         filterConfig?: Record<string, any>[];
         tableConfig?: Partial<_TableConfig>;
         defaultSelected?: any[];
+        //以下用于函数式调用
+        destroy?: () => void;
+        ok?: (data: any[]) => Promise<void>;
     }>(),
     {
         visible: () => false,
@@ -42,7 +45,9 @@ const props = withDefaults(
         modalConfig: () => <any>{},
         filterConfig: () => [],
         tableConfig: () => ({}),
-        defaultSelected: () => []
+        defaultSelected: () => [],
+        destroy: undefined,
+        ok: undefined
     }
 );
 
@@ -51,12 +56,11 @@ const emits = defineEmits<{
     (e: "ok", data: any): void;
 }>();
 
-const computedVisible = computed({
-    get: () => props.visible,
-    set: (newVal: boolean) => emits("update:visible", newVal)
+const computedVisible = computed(() => {
+    return fnVisible.value && props.visible;
 });
 
-const privateModalConfig = computed(() => {
+const privateModalConfig = computed<any>(() => {
     const defaultConfig = {
         maskClosable: false,
         alignCenter: false,
@@ -68,6 +72,8 @@ const privateModalConfig = computed(() => {
 const baseModalTable = ref();
 
 const computedModel = ref({});
+
+const fnVisible = ref(true);
 
 const selectList = ref<any[]>([]);
 
@@ -102,12 +108,27 @@ function onSelectionChange(e: any[]) {
 }
 
 async function handleOk() {
-    computedVisible.value = false;
-    emits("ok", selectList.value);
+    if (props.ok) {
+        await props.ok(selectList.value);
+    } else {
+        emits("ok", selectList.value);
+    }
+    onClose();
 }
 
 function handleCancel() {
-    computedVisible.value = false;
+    onClose();
+}
+
+function onClose() {
+    emits("update:visible", false);
+    //如果存在destroy方法，说明是函数式调用，需要手动销毁
+    if (props.destroy) {
+        fnVisible.value = false;
+        setTimeout(() => {
+            props.destroy?.();
+        }, 500);
+    }
 }
 </script>
 <style scoped lang="scss">

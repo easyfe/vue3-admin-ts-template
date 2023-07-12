@@ -3,6 +3,8 @@
 </template>
 
 <script lang="ts" setup name="BaseRichText">
+import { buildVueDompurifyHTMLDirective } from "vue-dompurify-html";
+const vDompurifyHtml = buildVueDompurifyHTMLDirective();
 defineProps({
     content: {
         type: String,

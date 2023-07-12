@@ -1,8 +1,9 @@
 <template>
     <frame-view>
         <a-space>
-            <a-button @click="onOpen(1)">打开表格</a-button>
+            <a-button @click="onOpen(1)">组件打开表格</a-button>
             <a-button @click="onOpen(2)">默认选中</a-button>
+            <a-button @click="onOpen(3)">函数打开表格</a-button>
         </a-space>
         <a-row>
             {{ tableData }}
@@ -10,7 +11,7 @@
         <base-modal-table
             v-model:visible="visible"
             v-model:filter-data="filterData"
-            :modal-config="{ title: '测试', width: '70%' }"
+            :modal-config="modalConfig"
             :filter-config="filterConfig"
             :table-config="getConfig"
             :req="getData"
@@ -18,7 +19,7 @@
             page-key="_page"
             size-key="_size"
             row-key=""
-            @ok="handleOk"
+            :ok="handleOk"
         ></base-modal-table>
     </frame-view>
 </template>
@@ -26,6 +27,7 @@
 import { testList } from "@/config/apis/common";
 import formHelper from "@/utils/helper/form";
 import tableHelper from "@/utils/helper/table";
+import modalTable from "@/resources/components/base-modal-table";
 const visible = ref(false);
 const tableData = ref();
 const selectionKeys = ref<string[] | number[]>([]);
@@ -128,17 +130,38 @@ const getConfig = computed(() => {
     });
 });
 
-function handleOk(e: any[]) {
+const modalConfig = computed(() => {
+    return {
+        title: "测试",
+        width: "70%"
+    };
+});
+
+async function handleOk(e: any[]) {
     tableData.value = e;
 }
 
 function onOpen(type: number) {
-    visible.value = true;
     if (type === 1) {
+        visible.value = true;
         selectionKeys.value = [];
     }
     if (type === 2) {
+        visible.value = true;
         selectionKeys.value = tableData.value.map((item: any) => item.id);
+    }
+    if (type === 3) {
+        modalTable({
+            filterConfig: filterConfig.value,
+            tableConfig: getConfig.value,
+            modalConfig: modalConfig.value,
+            req: getData.value,
+            defaultSelectionKeys: selectionKeys.value,
+            pageKey: "_page",
+            sizeKey: "_size",
+            rowKey: "",
+            onOk: handleOk
+        });
     }
 }
 </script>
