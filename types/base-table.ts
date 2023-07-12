@@ -1,11 +1,6 @@
-import { ButtonProps, TableSortable, TableRowSelection, TableExpandable, ScrollbarProps } from "@arco-design/web-vue";
-import {
-    TableColumnData,
-    TableData,
-    TableDraggable,
-    TableOperationColumn
-} from "@arco-design/web-vue/es/table/interface";
-import { VirtualListProps } from "@arco-design/web-vue/es/_components/virtual-list-v2/interface";
+import { TableSortable, ButtonProps } from "@arco-design/web-vue";
+import type { Table } from "@arco-design/web-vue";
+
 /** 表格配置定义 */
 export type _TableConfig = {
     /** 左上角标签 */
@@ -16,50 +11,7 @@ export type _TableConfig = {
     bats?: _Btn[];
     /** 是否禁用选中行 */
     disableSelectedRow?: boolean;
-    tableProps?: {
-        bordered?: boolean;
-        hoverable?: boolean;
-        striped?: boolean;
-        size?: "mini" | "small" | "medium" | "large";
-        tableLayoutFixed?: boolean;
-        loading?: boolean;
-        rowSelection?: TableRowSelection;
-        expandable?: TableExpandable;
-        scroll?: { x?: number | string; y?: number | string; minWidth?: number | string; maxHeight?: number | string };
-        pagination?: boolean;
-        pagePosition?: "tl" | "top" | "tr" | "bl" | "bottom" | "br";
-        indentSize?: number;
-        rowKey?: string;
-        showHeader?: boolean;
-        virtualListProps?: VirtualListProps;
-        spanMethod?: (data: {
-            record: TableData;
-            column: TableColumnData | TableOperationColumn;
-            rowIndex: number;
-            columnIndex: number;
-        }) => { rowspan?: number; colspan?: number } | void;
-        spanAll?: boolean;
-        loadMore?: (record: TableData, done: (children?: TableData[]) => void) => void;
-        filterIconAlignLeft?: boolean;
-        hideExpandButtonOnEmpty?: boolean;
-        rowClass?: string | any[] | Record<string, any> | ((record: TableData, rowIndex: number) => any);
-        draggable?: TableDraggable;
-        columnResizable?: boolean;
-        summary?: boolean | ((params: { columns: TableColumnData[]; data: TableData[] }) => TableData[]);
-        summaryText?: string;
-        summarySpanMethod?: (data: {
-            record: TableData;
-            column: TableColumnData | TableOperationColumn;
-            rowIndex: number;
-            columnIndex: number;
-        }) => { rowspan?: number; colspan?: number } | void;
-        selectedKeys?: (string | number)[];
-        defaultSelectedKeys?: (string | number)[];
-        expandedKeys?: (string | number)[];
-        defaultExpandAllRows?: boolean;
-        stickyHeader?: boolean | number;
-        scrollbar?: boolean | ScrollbarProps;
-    };
+    tableProps?: InstanceType<typeof Table>["$props"];
     /** 列表组 */
     columns?: {
         /** 类型，默认default */
