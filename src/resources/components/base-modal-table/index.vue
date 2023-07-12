@@ -12,28 +12,22 @@
             <base-table
                 v-else
                 ref="baseModalTable"
-                v-model="computedModel"
-                :filter-config="props.filterConfig"
-                :table-config="props.tableConfig"
-                :default-selection-keys="props.defaultSelected"
-                v-bind="$attrs"
+                v-bind="privateTableConfig"
                 @selection-change="onSelectionChange"
             ></base-table>
         </div>
     </a-modal>
 </template>
 <script setup lang="ts" name="BaseModalTable">
-import lodash from "@/utils/tools/lodash";
-import { _TableConfig } from "types/base-table";
 import type { Modal } from "@arco-design/web-vue";
+import BaseTable from "@/resources/components/base-table/index.vue";
 
 const props = withDefaults(
     defineProps<{
         visible: boolean;
         value?: Record<string, any>;
         modalConfig?: InstanceType<typeof Modal>["$props"];
-        filterConfig?: Record<string, any>[];
-        tableConfig?: Partial<_TableConfig>;
+        tableConfig?: InstanceType<typeof BaseTable>["$props"];
         defaultSelected?: any[];
         //以下用于函数式调用
         destroy?: () => void;
@@ -44,7 +38,7 @@ const props = withDefaults(
         value: () => ({}),
         modalConfig: () => <any>{},
         filterConfig: () => [],
-        tableConfig: () => ({}),
+        tableConfig: undefined,
         defaultSelected: () => [],
         destroy: undefined,
         ok: undefined
@@ -69,36 +63,31 @@ const privateModalConfig = computed<any>(() => {
     return { ...defaultConfig, ...props.modalConfig };
 });
 
-const baseModalTable = ref();
+const privateTableConfig = computed<any>(() => {
+    const defaultConfig = {
+        tableProps: {
+            rowKey: "id"
+        }
+    };
+    return { ...defaultConfig, ...props.tableConfig };
+});
 
-const computedModel = ref({});
+const baseModalTable = ref();
 
 const fnVisible = ref(true);
 
 const selectList = ref<any[]>([]);
 
-const selectionKeys = ref<string[] | number[]>([]);
-
-watch(
-    () => props.value,
-    (newVal) => {
-        if (newVal) {
-            computedModel.value = lodash.cloneDeep(newVal);
-        }
-    },
-    {
-        immediate: true
-    }
-);
+// const selectionKeys = ref<string[] | number[]>([]);
 
 watch(
     () => computedVisible.value,
     (newVal) => {
         if (newVal) {
             baseModalTable.value.refresh();
-            selectionKeys.value = props.defaultSelected?.map(
-                (item: any) => item[props.tableConfig.tableProps?.rowKey || "id"]
-            );
+            // selectionKeys.value = props.defaultSelected?.map(
+            //     (item: any) => item[props.tableConfig.tableProps?.rowKey || "id"]
+            // );
         }
     }
 );

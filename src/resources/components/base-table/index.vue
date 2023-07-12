@@ -424,14 +424,26 @@ const vnodeKey = computed(() => {
     return getCurrentInstance()?.vnode.key;
 });
 /** 双向绑定筛选框数据 */
-const privateFilterData = computed({
-    get: () => {
-        return props.filterData;
+// const privateFilterData = computed({
+//     get: () => {
+//         return props.filterData;
+//     },
+//     set: (e) => {
+//         emits("update:filterData", e);
+//     }
+// });
+const privateFilterData = ref<Record<string, any>>({});
+watch(
+    () => props.filterData,
+    (newVal) => {
+        privateFilterData.value = lodash.cloneDeep(newVal);
+        // listMore(true);
     },
-    set: (e) => {
-        emits("update:filterData", e);
+    {
+        immediate: true,
+        deep: true
     }
-});
+);
 //加载逻辑判断
 const listMore = async (refresh = false): Promise<void> => {
     if (!props.req && !props.list) {

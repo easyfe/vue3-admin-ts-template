@@ -10,6 +10,18 @@
         </a-row>
         <base-modal-table
             v-model:visible="visible"
+            :modal-config="modalConfig"
+            :table-config="{
+                tableConfig: getConfig,
+                filterConfig: filterConfig,
+                req: getData,
+                pageKey: '_page',
+                sizeKey: '_size',
+                rowKey: ''
+            }"
+        ></base-modal-table>
+        <!-- <base-modal-table
+            v-model:visible="visible"
             v-model:filter-data="filterData"
             :modal-config="modalConfig"
             :filter-config="filterConfig"
@@ -20,7 +32,7 @@
             size-key="_size"
             row-key=""
             :ok="handleOk"
-        ></base-modal-table>
+        ></base-modal-table> -->
     </frame-view>
 </template>
 <script lang="ts" setup>
