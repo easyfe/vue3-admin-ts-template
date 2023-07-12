@@ -19,13 +19,13 @@ import type { Modal } from "@arco-design/web-vue";
 
 const props = withDefaults(
     defineProps<{
-        visible: boolean;
-        value?: Record<string, any>;
-        modalConfig?: InstanceType<typeof Modal>["$props"];
-        formConfig?: Record<string, any>[];
+        visible: boolean; //是否显示
+        value?: Record<string, any>; //表单数据
+        modalConfig?: InstanceType<typeof Modal>["$props"]; //modal配置
+        formConfig?: Record<string, any>[]; //表单配置
         //以下用于函数式调用
-        destroy?: () => void;
-        ok?: (data: Record<string, any>) => Promise<void>;
+        destroy?: () => void; //销毁方法
+        ok?: (data: Record<string, any>) => Promise<void>; //确定方法
     }>(),
     {
         visible: () => false,
