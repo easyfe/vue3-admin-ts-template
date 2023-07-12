@@ -11,28 +11,18 @@
         <base-modal-table
             v-model:visible="visible"
             :modal-config="modalConfig"
+            :default-selected="selectionKeys"
             :table-config="{
                 tableConfig: getConfig,
+                filterData: filterData,
                 filterConfig: filterConfig,
                 req: getData,
                 pageKey: '_page',
                 sizeKey: '_size',
                 rowKey: ''
             }"
+            @ok="handleOk"
         ></base-modal-table>
-        <!-- <base-modal-table
-            v-model:visible="visible"
-            v-model:filter-data="filterData"
-            :modal-config="modalConfig"
-            :filter-config="filterConfig"
-            :table-config="getConfig"
-            :req="getData"
-            :default-selection-keys="selectionKeys"
-            page-key="_page"
-            size-key="_size"
-            row-key=""
-            :ok="handleOk"
-        ></base-modal-table> -->
     </frame-view>
 </template>
 <script lang="ts" setup>
@@ -40,11 +30,13 @@ import { testList } from "@/config/apis/common";
 import formHelper from "@/utils/helper/form";
 import tableHelper from "@/utils/helper/table";
 import modalTable from "@/resources/components/base-modal-table";
+import sleep from "@/utils/tools/sleep";
 const visible = ref(false);
 const tableData = ref();
 const selectionKeys = ref<string[] | number[]>([]);
 
 const filterData = ref({
+    test: "草草草草",
     tabsData: "1"
 });
 
@@ -150,6 +142,7 @@ const modalConfig = computed(() => {
 });
 
 async function handleOk(e: any[]) {
+    await sleep(1000);
     tableData.value = e;
 }
 
@@ -164,15 +157,18 @@ function onOpen(type: number) {
     }
     if (type === 3) {
         modalTable({
-            filterConfig: filterConfig.value,
-            tableConfig: getConfig.value,
             modalConfig: modalConfig.value,
-            req: getData.value,
-            defaultSelectionKeys: selectionKeys.value,
-            pageKey: "_page",
-            sizeKey: "_size",
-            rowKey: "",
-            onOk: handleOk
+            defaultSelected: tableData.value?.map((item: any) => item.id),
+            tableConfig: {
+                tableConfig: getConfig.value,
+                filterConfig: filterConfig.value,
+                filterData: filterData.value,
+                req: getData.value,
+                pageKey: "_page",
+                sizeKey: "_size",
+                rowKey: ""
+            },
+            ok: handleOk
         });
     }
 }

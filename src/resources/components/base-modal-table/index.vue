@@ -8,10 +8,9 @@
         @cancel="handleCancel"
     >
         <div class="base-modal-content">
-            <slot v-if="$slots.content" name="content"></slot>
             <base-table
-                v-else
                 ref="baseModalTable"
+                :default-selection-keys="selectionKeys"
                 v-bind="privateTableConfig"
                 @selection-change="onSelectionChange"
             ></base-table>
@@ -25,7 +24,6 @@ import BaseTable from "@/resources/components/base-table/index.vue";
 const props = withDefaults(
     defineProps<{
         visible: boolean;
-        value?: Record<string, any>;
         modalConfig?: InstanceType<typeof Modal>["$props"];
         tableConfig?: InstanceType<typeof BaseTable>["$props"];
         defaultSelected?: any[];
@@ -35,7 +33,6 @@ const props = withDefaults(
     }>(),
     {
         visible: () => false,
-        value: () => ({}),
         modalConfig: () => <any>{},
         filterConfig: () => [],
         tableConfig: undefined,
@@ -78,17 +75,24 @@ const fnVisible = ref(true);
 
 const selectList = ref<any[]>([]);
 
-// const selectionKeys = ref<string[] | number[]>([]);
+const selectionKeys = ref<string[] | number[]>([]);
 
 watch(
     () => computedVisible.value,
     (newVal) => {
         if (newVal) {
-            baseModalTable.value.refresh();
-            // selectionKeys.value = props.defaultSelected?.map(
-            //     (item: any) => item[props.tableConfig.tableProps?.rowKey || "id"]
-            // );
+            baseModalTable.value?.refresh();
+            selectionKeys.value = props.defaultSelected?.map((item: any) => {
+                if (typeof item === "object") {
+                    return item[props.tableConfig?.tableConfig.tableProps?.rowKey || "id"];
+                } else {
+                    return item;
+                }
+            });
         }
+    },
+    {
+        immediate: true
     }
 );
 

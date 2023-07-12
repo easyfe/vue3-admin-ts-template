@@ -1,5 +1,6 @@
 <template>
     <div class="base-table">
+        {{ loading }}
         <!-- 顶部筛选器 -->
         <div v-if="props.filterConfig" class="filter">
             <base-form v-model="privateFilterData" :config="props.filterConfig" layout="row"></base-form>
@@ -424,26 +425,14 @@ const vnodeKey = computed(() => {
     return getCurrentInstance()?.vnode.key;
 });
 /** 双向绑定筛选框数据 */
-// const privateFilterData = computed({
-//     get: () => {
-//         return props.filterData;
-//     },
-//     set: (e) => {
-//         emits("update:filterData", e);
-//     }
-// });
-const privateFilterData = ref<Record<string, any>>({});
-watch(
-    () => props.filterData,
-    (newVal) => {
-        privateFilterData.value = lodash.cloneDeep(newVal);
-        // listMore(true);
+const privateFilterData = computed({
+    get: () => {
+        return props.filterData;
     },
-    {
-        immediate: true,
-        deep: true
+    set: (e) => {
+        emits("update:filterData", e);
     }
-);
+});
 //加载逻辑判断
 const listMore = async (refresh = false): Promise<void> => {
     if (!props.req && !props.list) {
@@ -468,6 +457,8 @@ const listMore = async (refresh = false): Promise<void> => {
     }
     try {
         loading.value = true;
+        //TODO: 1.函数式打开的时候，req的params变化时loading没有响应式，但是切换页数的时候是正常的？看不懂。2.函数式打开的时候，params变更是通过引用关系触发的。
+        console.log("listMorelistMorelistMorelistMore", loading.value);
         error.value = false;
         const params = { ...props.req?.params };
         if (props.pageKey) {

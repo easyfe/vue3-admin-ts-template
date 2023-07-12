@@ -1,12 +1,10 @@
 import { Modal } from "@arco-design/web-vue";
-import { _TableConfig } from "types/base-table";
 import { render, h } from "vue";
 import mainVue from "./index.vue";
+import BaseTable from "@/resources/components/base-table/index.vue";
 type Options = {
-    value?: Record<string, any>;
     modalConfig?: InstanceType<typeof Modal>["$props"];
-    filterConfig?: Record<string, any>[];
-    tableConfig?: Partial<_TableConfig>;
+    tableConfig?: InstanceType<typeof BaseTable>["$props"];
     defaultSelected?: any[];
     ok?: (data: any[]) => Promise<void>;
 } & Record<string, any>;
