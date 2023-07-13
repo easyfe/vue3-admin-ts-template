@@ -371,7 +371,7 @@ const selectedKeys = ref<string[] | number[]>([]);
 /** 请求参数修改 */
 watch(
     [() => props.req, () => props.filterData],
-    (n, o) => {
+    () => {
         if (loading.value) {
             return;
         }

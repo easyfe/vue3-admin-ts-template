@@ -48,7 +48,7 @@ export default defineStore({
             this.navTags.splice(index, 1);
             /** 同步删除缓存标签 */
             const tag = this.navTags[index];
-            const tagIndex = this.cachedTags.findIndex((item) => item === tag.name);
+            const tagIndex = this.cachedTags.findIndex((item) => item === tag?.name);
             if (index !== -1) {
                 this.cachedTags.splice(tagIndex, 1);
             }
