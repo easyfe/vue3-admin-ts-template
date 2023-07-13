@@ -10,6 +10,7 @@
         <div class="base-modal-content">
             <base-table
                 ref="baseModalTable"
+                v-model:filter-data="privateFilterData"
                 :default-selection-keys="selectionKeys"
                 v-bind="privateTableConfig"
                 @selection-change="onSelectionChange"
@@ -20,6 +21,7 @@
 <script setup lang="ts" name="BaseModalTable">
 import type { Modal } from "@arco-design/web-vue";
 import BaseTable from "@/resources/components/base-table/index.vue";
+import lodash from "@/utils/tools/lodash";
 
 const props = withDefaults(
     defineProps<{
@@ -66,7 +68,13 @@ const privateTableConfig = computed<any>(() => {
             rowKey: "id"
         }
     };
-    return { ...defaultConfig, ...props.tableConfig };
+    const tableConfig = lodash.cloneDeep(props.tableConfig);
+    privateFilterData.value = tableConfig?.filterData || {};
+    if (tableConfig?.req) {
+        tableConfig.req.params = privateFilterData.value;
+    }
+    delete tableConfig?.filterData;
+    return { ...defaultConfig, ...tableConfig };
 });
 
 const baseModalTable = ref();
@@ -76,6 +84,8 @@ const fnVisible = ref(true);
 const selectList = ref<any[]>([]);
 
 const selectionKeys = ref<string[] | number[]>([]);
+
+const privateFilterData = ref({});
 
 watch(
     () => computedVisible.value,
