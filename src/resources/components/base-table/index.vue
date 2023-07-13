@@ -610,6 +610,7 @@ onMounted(() => {
         console.warn("存在req请求时候，将过滤双向绑定的初始值，请在请求后进行处理");
     }
     if (props.list?.length && !props.req) {
+        console.warn("不存在req请求，将直接进行双向绑定的初始值");
         privateList.value = props.list;
     }
     selectedKeys.value = [];
