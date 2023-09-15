@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid";
-import SyyRequest from "@syyfe/web-request";
+import WebRequest from "@easyfe/web-request";
 import loading from "./loading";
 
-const service = new SyyRequest({
+const service = new WebRequest({
     base: {
         timeout: 60 * 1000,
         baseURL: "",

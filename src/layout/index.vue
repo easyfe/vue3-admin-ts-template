@@ -24,6 +24,7 @@ import AppHeader from "./components/app-header/index.vue";
 import AppMain from "./components/app-main/index.vue";
 import router, { getDefaultRoute } from "@/packages/vue-router";
 import global from "@/config/pinia/global";
+import { Svg as BaseSvg } from "@easyfe/admin-component";
 const collapsed = ref(global().collapsed);
 
 function onCollapse(e: boolean) {

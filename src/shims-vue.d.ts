@@ -5,14 +5,13 @@ declare module "*.vue" {
     export default component;
 }
 
-declare module "vue-dompurify-html";
-declare module "weixin-js-sdk";
-declare module "@caohenghu/vue-colorpicker";
-declare module "vue-gpickr";
-
 declare module "*.json" {
     const value: any;
     export default value;
 }
 
 declare module "vue-plyr";
+declare module "*.png";
+declare module "*.jpg";
+declare module "*.jpeg";
+declare module "*.svg";

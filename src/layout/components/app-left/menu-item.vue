@@ -29,6 +29,7 @@
 </template>
 <script setup lang="ts" name="MenuItem">
 import { RouteConfig } from "types";
+import { Svg as BaseSvg } from "@easyfe/admin-component";
 
 const router = useRouter();
 

@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import app from "./App.vue";
+import app from "./app.vue";
 import router from "@/packages/vue-router/index";
 /***************** 样式相关 ***************/
 import "virtual:svg-icons-register";

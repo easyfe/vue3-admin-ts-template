@@ -51,6 +51,7 @@
 <script lang="ts" setup name="AppHeader">
 import { RouteLocationMatched } from "vue-router";
 import global from "@/config/pinia/global";
+import { Svg as BaseSvg } from "@easyfe/admin-component";
 const router = useRouter();
 const route = useRoute();
 

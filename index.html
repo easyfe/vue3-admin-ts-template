@@ -23,35 +23,60 @@
             }
             .index-loading {
                 z-index: 2147483647;
-                background-color: #fff;
+                background-color: transparent;
                 width: 100vw;
                 height: 100vh;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
-            .spin {
+
+            .gk-loading {
                 display: flex;
-                align-items: center;
                 justify-content: center;
-                width: 8vw;
-                height: 8vw;
-                margin-bottom: 10vh;
+                flex-direction: column;
+                align-items: center;
+                word-wrap: break-word;
+                text-align: center;
+                color: #fff;
             }
-            .inner {
-                width: 4vw;
-                height: 4vw;
-                border-radius: 50%;
-                border: 0.2vw solid transparent;
-                border-color: #409eff transparent;
-                animation: spin 1.2s linear infinite;
+            .gk-loading .gk-loading-spinner {
+                animation: circle-rotator 1.4s linear infinite;
             }
-            @keyframes spin {
+            .gk-loading .gk-loading-path {
+                stroke-dasharray: 187;
+                stroke-dashoffset: 0;
+                transform-origin: center;
+                -webkit-animation: circle-dash 1.4s ease-in-out infinite;
+                animation: circle-dash 1.4s ease-in-out infinite;
+            }
+            .gk-loading .gk-loading-spinner * {
+                line-height: 0;
+                box-sizing: border-box;
+            }
+            .blue-loading {
+                stroke: #1458d4;
+            }
+            @keyframes circle-rotator {
                 0% {
-                    transform: rotate(0deg);
+                    transform: rotate(0);
+                }
+
+                100% {
+                    transform: rotate(270deg);
+                }
+            }
+            @keyframes circle-dash {
+                0% {
+                    stroke-dashoffset: 187;
+                }
+                50% {
+                    stroke-dashoffset: 46.75;
+                    transform: rotate(135deg);
                 }
                 100% {
-                    transform: rotate(360deg);
+                    stroke-dashoffset: 187;
+                    transform: rotate(450deg);
                 }
             }
         </style>
@@ -59,13 +84,27 @@
     <body>
         <noscript>
             <strong
-                >We're sorry but we doesn't work properly without JavaScript enabled. Please enable it to
-                continue.</strong
+                >We're sorry but doesn't work properly without JavaScript enabled. Please enable it to continue.</strong
             >
         </noscript>
         <div id="index-loading" class="index-loading">
-            <div class="spin">
-                <div class="inner"></div>
+            <div data-v-cfd6b112="" class="gk-loading" loading="">
+                <svg
+                    viewBox="0 0 66 66"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="gk-loading-spinner"
+                    style="width: 40px; height: 40px"
+                >
+                    <circle
+                        fill="none"
+                        stroke-width="6"
+                        stroke-linecap="round"
+                        cx="33"
+                        cy="33"
+                        r="30"
+                        class="gk-loading-path blue-loading"
+                    ></circle>
+                </svg>
             </div>
         </div>
         <div id="app" style="height: 100%"></div>
