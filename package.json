@@ -12,7 +12,7 @@
         "prepare": "husky install"
     },
     "dependencies": {
-        "@arco-design/web-vue": "~2.48.0",
+        "@arco-design/web-vue": "~2.51.2",
         "@easyfe/admin-component": "^0.2.4",
         "@easyfe/web-request": "^1.0.1",
         "@types/dush": "~3.0.1",
@@ -85,13 +85,5 @@
         "vite-plugin-restart": "~0.3.1",
         "vite-plugin-svg-icons": "~2.0.1",
         "vite-plugin-vue-setup-extend-plus": "~0.1.0"
-    },
-    "vite": {
-        "optimizeDeps": {
-            "include": [
-                "vue",
-                "vue-router"
-            ]
-        }
     }
 }

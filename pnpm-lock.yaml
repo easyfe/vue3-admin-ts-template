@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@arco-design/web-vue':
-    specifier: ~2.48.0
-    version: 2.48.0(vue@3.3.4)
+    specifier: ~2.51.2
+    version: 2.51.2(vue@3.3.4)
   '@easyfe/admin-component':
     specifier: ^0.2.4
     version: 0.2.4(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1)
@@ -111,7 +111,7 @@ devDependencies:
     version: 1.4.5
   '@arco-themes/vue-easyfe':
     specifier: ~0.0.5
-    version: 0.0.5(@arco-design/web-vue@2.48.0)
+    version: 0.0.5(@arco-design/web-vue@2.51.2)
   '@commitlint/cli':
     specifier: ~17.6.6
     version: 17.6.6
@@ -246,21 +246,6 @@ packages:
     dependencies:
       color: 3.2.1
 
-  /@arco-design/web-vue@2.48.0(vue@3.3.4):
-    resolution: {integrity: sha512-v9i2ID491RG4/q9Gm7Nq4Xa9LTiVU+VBqrHuZc/IaKLimFzot+RJ7ktGETI6IiKMTcdortpjlYoMX/2j0vqIww==}
-    peerDependencies:
-      vue: ^3.1.0
-    dependencies:
-      '@arco-design/color': 0.4.0
-      b-tween: 0.3.3
-      b-validate: 1.5.2
-      compute-scroll-into-view: 1.0.20
-      dayjs: 1.11.9
-      number-precision: 1.6.0
-      resize-observer-polyfill: 1.5.1
-      scroll-into-view-if-needed: 2.2.31
-      vue: 3.3.4
-
   /@arco-design/web-vue@2.51.2(vue@3.3.4):
     resolution: {integrity: sha512-EG1X+PCraINq2541p8E0lEueGwvfr3PjjlKiPT2j+maw/tnEmGpq/qDHG5h9eBPDbWahi5pqPSpqi969EWXyoA==}
     peerDependencies:
@@ -275,7 +260,6 @@ packages:
       resize-observer-polyfill: 1.5.1
       scroll-into-view-if-needed: 2.2.31
       vue: 3.3.4
-    dev: false
 
   /@arco-plugins/vite-vue@1.4.5:
     resolution: {integrity: sha512-2pJ9mpZP9mRD7NGZwRsZTS9C/US5ilEBBUqxN5Qgnd3Td50u9apJVKAABCZjG2K2eHiyZg7Fd9XhgHJXVJJmsw==}
@@ -290,12 +274,12 @@ packages:
       - supports-color
     dev: true
 
-  /@arco-themes/vue-easyfe@0.0.5(@arco-design/web-vue@2.48.0):
+  /@arco-themes/vue-easyfe@0.0.5(@arco-design/web-vue@2.51.2):
     resolution: {integrity: sha512-s8GM6PaatoW3EH6bMxtqqqRS9XdBgh8ERPRaMSRKHjNiIJDCG5L+oYKpj7orAPGrZR2guuyxOLWVHgV49pfGaA==}
     peerDependencies:
       '@arco-design/web-vue': ^2.45.1
     dependencies:
-      '@arco-design/web-vue': 2.48.0(vue@3.3.4)
+      '@arco-design/web-vue': 2.51.2(vue@3.3.4)
     dev: true
 
   /@babel/code-frame@7.12.11:
@@ -3645,6 +3629,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
@@ -4894,6 +4879,7 @@ packages:
   /pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -5100,6 +5086,7 @@ packages:
 
   /prr@1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
+    requiresBuild: true
     dev: true
     optional: true
 

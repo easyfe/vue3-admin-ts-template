@@ -3,7 +3,7 @@
         <img class="info" src="@/assets/images/login/login.png" />
         <div class="content">
             <h3>管理系统 - 登录</h3>
-            <base-form ref="baseForm1" v-model="formData" :config="formConfig" size="medium"></base-form>
+            <arco-form ref="baseForm1" v-model="formData" :config="formConfig" size="medium"></arco-form>
             <a-button type="primary" long :loading="loading" :disabled="loading" @click="handleSubmit">登录</a-button>
         </div>
     </div>
@@ -12,8 +12,7 @@
 // import { login, autoLogin } from "@/config/apis/login";
 import storage from "@/utils/tools/storage";
 import cookie from "@/utils/tools/cookie";
-import formHelper from "@/utils/helper/form";
-import ruleHelper from "@/utils/helper/rule";
+import { ArcoForm, formHelper, ruleHelper } from "@easyfe/admin-component";
 import sleep from "@/utils/tools/sleep";
 import { Message } from "@arco-design/web-vue";
 // const router = useRouter();
@@ -25,23 +24,19 @@ cookie.set("X-Token", "");
 const loading = ref(false);
 
 const formData = ref({
-    username: "testTshopMaxpre101",
-    password: "Zhendao2020"
+    username: "",
+    password: ""
 });
 const formConfig = computed(() => {
     return [
         formHelper.input("11", "username", {
             placeholder: "用户名",
             span: 24,
-            rules: [ruleHelper.require("用户名必填", "blur")],
-            hideLabel: true,
-            hideAsterisk: true
+            rules: [ruleHelper.require("用户名必填", "blur")]
         }),
         formHelper.input("", "password", {
             span: 24,
-            placeholder: "密码",
-            hideLabel: true,
-            hideAsterisk: true
+            placeholder: "密码"
         })
     ];
 });
