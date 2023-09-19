@@ -12,8 +12,15 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     // 环境文件对象
     const envMap = loadEnv(mode, process.cwd());
     const ossConfig = getOssConfig(envMap);
+    //设置资源路径
+    let base = "";
+    if (envMap.VITE_APP_MODE === "development") {
+        base = "./";
+    } else {
+        base = ossConfig.enableUpload ? ossConfig.uploadPath : "./";
+    }
     return {
-        base: envMap.VITE_APP_MODE === "development" || !ossConfig.uploadOption.secretId ? "./" : ossConfig.uploadPath,
+        base,
         resolve: {
             alias: {
                 "@": resolvePath("src"),
@@ -21,7 +28,10 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             }
         },
         // 插件加载
-        plugins: createVitePlugins({ envMap, uploadOption: ossConfig.uploadOption }),
+        plugins: createVitePlugins({
+            envMap,
+            uploadOption: ossConfig.enableUpload ? ossConfig.uploadOption : undefined
+        }),
         // 全局样式引用
         css: {
             preprocessorOptions: {
