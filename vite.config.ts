@@ -13,7 +13,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     const envMap = loadEnv(mode, process.cwd());
     const ossConfig = getOssConfig(envMap);
     return {
-        base: envMap.VITE_APP_MODE === "development" || !ossConfig.uploadOption.SecretId ? "./" : ossConfig.uploadPath,
+        base: envMap.VITE_APP_MODE === "development" || !ossConfig.uploadOption.secretId ? "./" : ossConfig.uploadPath,
         resolve: {
             alias: {
                 "@": resolvePath("src"),
@@ -80,7 +80,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             //     // https://rollupjs.org/guide/en/#watch-options
             // },
             // Turning off brotliSize display can slightly reduce packaging time
-            brotliSize: false,
             chunkSizeWarningLimit: 2000
         }
     };
