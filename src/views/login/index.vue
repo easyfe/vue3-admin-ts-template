@@ -29,7 +29,7 @@ const formData = ref({
 });
 const formConfig = computed(() => {
     return [
-        formHelper.input("11", "username", {
+        formHelper.input("", "username", {
             placeholder: "用户名",
             span: 24,
             rules: [ruleHelper.require("用户名必填", "blur")]
@@ -107,11 +107,10 @@ const handleSubmit = async (): Promise<any> => {
 
     .content {
         position: fixed;
-        top: 50%;
-        right: 22%;
-        width: 300px;
-        margin: -200px 0 0 0;
-        padding: 24px 24px 14px 24px;
+        top: 30%;
+        right: 15%;
+        width: 400px;
+        padding: 60px 30px;
         border-radius: 8px;
         background-color: #ffffff;
         z-index: 9999;

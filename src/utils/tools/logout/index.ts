@@ -1,15 +1,11 @@
 import router from "@/packages/vue-router";
-import global from "@/config/pinia/global";
-import env from "@/utils/tools/env";
+import envHelper from "@/utils/helper/env";
 
 export default function logout(): void {
-    if (env.dev()) {
+    if (envHelper.dev()) {
         router.replace({
             name: "login",
-            query: {
-                templateId: global().templateId,
-                customPageId: global().customPageId
-            }
+            query: {}
         });
     } else {
         window.location.href = `${location.origin}/login`;

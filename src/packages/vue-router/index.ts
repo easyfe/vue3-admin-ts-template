@@ -1,4 +1,4 @@
-import env from "@/utils/tools/env";
+import envHelper from "@/utils/helper/env";
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import piniaRoutes from "@/config/pinia/routes";
@@ -72,10 +72,10 @@ router.beforeEach(async (to, from, next) => {
     start = new Date().getTime();
     /** 资源没有加载完成的时候，给loading，为防止资源已加载完毕，加上延迟避免闪屏 */
     timer = window.setTimeout(() => {
-        if (env.dev()) {
+        if (envHelper.dev()) {
             console.warn(`执行路由定时器：${timer}`);
         }
-        if (timer && env.dev()) {
+        if (timer && envHelper.dev()) {
             document.getElementById("index-loading")?.setAttribute("style", "display:auto");
         }
     }, 500);
@@ -84,11 +84,11 @@ router.beforeEach(async (to, from, next) => {
 });
 
 router.afterEach((to) => {
-    if (env.dev()) {
+    if (envHelper.dev()) {
         console.warn(`路由耗时：${new Date().getTime() - start}，定时器：${timer}`);
     }
     if (timer) {
-        if (env.dev()) {
+        if (envHelper.dev()) {
             console.warn(`清除路由定时器：${timer}`);
         }
         clearTimeout(timer);

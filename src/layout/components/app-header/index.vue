@@ -4,7 +4,12 @@
             <a-breadcrumb>
                 <a-breadcrumb-item v-for="(item, index) in breadList" :key="item.name">
                     <div class="bre-item">
-                        <base-svg v-if="item.meta?.icon" :name="item.meta.icon" :width="20" :height="20"></base-svg>
+                        <base-svg
+                            v-if="item.meta?.icon"
+                            :name="String(item.meta.icon)"
+                            :width="20"
+                            :height="20"
+                        ></base-svg>
                         <div v-if="checkDidsable(item, index)">{{ item.meta.title }}</div>
                         <a-link v-else @click="onClick(item)"> {{ item.meta.title }}</a-link>
                     </div>

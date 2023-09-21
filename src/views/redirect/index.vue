@@ -2,11 +2,11 @@
     <frame-view></frame-view>
 </template>
 <script lang="ts" setup>
-import getUrlkey from "@/utils/tools/get-url-key";
+import qs from "@/utils/tools/qs";
 
 const router = useRouter();
 onMounted(() => {
-    router.replace(decodeURIComponent(getUrlkey("url")));
+    router.replace(decodeURIComponent(qs.getUrlkey("url")));
 });
 </script>
 <style lang="scss" scoped></style>

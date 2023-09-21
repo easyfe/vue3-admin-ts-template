@@ -1,5 +1,5 @@
 const VITE_APP_MODE = import.meta.env.VITE_APP_MODE;
-export default {
+const envHelper = {
     //开发者环境
     dev(): boolean {
         return VITE_APP_MODE === "development";
@@ -21,3 +21,5 @@ export default {
         return import.meta.env[key];
     }
 };
+
+export default envHelper;

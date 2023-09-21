@@ -5,7 +5,7 @@
  * @Last Modified time: 2023-06-16 14:34:35
  */
 import { RouteRecordRaw } from "vue-router";
-import env from "@/utils/tools/env";
+import envHelper from "@/utils/helper/env";
 
 const modulesFiles: Record<string, any> = import.meta.globEager("/src/config/router/*.ts");
 const modules: any = {};
@@ -21,7 +21,7 @@ for (const key in modules) {
     }
 }
 
-if (modules?.dev && env.dev()) {
+if (modules?.dev && envHelper.dev()) {
     routers.push(...modules.dev);
 }
 

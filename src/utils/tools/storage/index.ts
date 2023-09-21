@@ -6,7 +6,7 @@
  */
 
 import validatorHelper from "@/utils/helper/validator";
-import env from "../env";
+import envHelper from "@/utils/helper/env";
 
 const TOKEN_KEY = "access_token"; //token存储key
 const USER_INFO_KEY = "user_info";
@@ -76,7 +76,7 @@ const storage = {
     },
     getBaseUrl(): string {
         let uername = "";
-        if (env.dev()) {
+        if (envHelper.dev()) {
             uername = storageUtil.get<any>("user_info")?.username;
         } else {
             const str = localStorage.getItem("SYSTEM__user_info");
@@ -87,7 +87,7 @@ const storage = {
                 uername = uerInfo?.username;
             }
         }
-        if (env.prod() || env.uat()) {
+        if (envHelper.prod() || envHelper.uat()) {
             return `https://${uername}.v2.syy.nbseo.cn`;
         } else {
             return `https://${uername}.presyy.nbseo.cn`;
