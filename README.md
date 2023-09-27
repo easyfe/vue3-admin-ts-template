@@ -179,14 +179,14 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  │  │  ├─date		                    #日期处理
 │  │  │  ├─type		                    #类型判断
 │  │  │  ├─ua		                    #ua判断
-│  │  │  └─validator	                #验证器
+│  │  │  ├─validator	                #验证器
+│  │  │  ├─env		                	#开发、生产、测试环境判断
 │  │  │  └─float	                	#浮点运算
 │  │  └─tools		                    #工具库
 │  │      ├─back		                #路由返回
 │  │      ├─canvas		                #画图工具
 │  │      ├─copy		                #复制
-│  │      ├─env		                	#开发、生产、测试环境判断
-│  │      ├─geolocation		            #原生地理位置信息
+│  │      ├─cookie		                #cookie工具
 │  │      ├─get-realpx	                #px根据屏幕自适应
 │  │      ├─lodash	                	#lodash相关功能，防抖、节流、深拷贝...
 │  │      ├─nanoid	                	#唯一ID获取
