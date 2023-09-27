@@ -203,8 +203,8 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 
 ## 赞助商
 
--   感谢 [JetBrains](https://www.jetbrains.com/?from=gaowei-space/markdown-blog) 对本项目的支持！
+-   感谢 [JetBrains](https://www.jetbrains.com/?from=easyfe/efe-vue3-admin-ts-template) 对本项目的支持！
 
-<a href="https://www.jetbrains.com/?from=gaowei-space/markdown-blog" target="_blank">
+<a href="https://www.jetbrains.com/?from=easyfe/efe-vue3-admin-ts-template" target="_blank">
     <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" height="100">
 </a>
