@@ -4,7 +4,7 @@
 
 该框架旨在帮助开发者方便、规范的进行业务逻辑开发，能够开箱使用。
 
-基于vue3.3(使用setup语法)+ typescript+pinia状态库+eslint 校验+arco-design组件库，支持暗黑模式、自定义主题色。
+基于 vue3.3(使用 setup 语法)+ typescript+pinia 状态库+eslint 校验+arco-design 组件库，支持暗黑模式、自定义主题色。
 
 > 基于当前框架，作为开发者只需要关心以下目录：
 >
@@ -12,13 +12,13 @@
 >
 > **src/config/api：** 接口请求存放
 >
-> **src/config/pinia：** pinia状态机存放，每个文件代表一个模块
+> **src/config/pinia：** pinia 状态机存放，每个文件代表一个模块
 >
 > **src/config/router：** 路由配置存放，会自动引入多个路由文件
 >
 > **src/views：** 视图开发目录
 
-## Node版本
+## Node 版本
 
 `node v14+`
 
@@ -38,11 +38,11 @@ npm run lint --fix	eslint检查
 
 ### 常用命名
 
--   **大驼峰：**BaseButton
--   **小驼峰：**baseButton
--   **中划线：**base-button
--   **下划线：**base_button
--   **常量：**BASE_BUTTON,BASEBUTTON
+-   **大驼峰：** BaseButton
+-   **小驼峰：** baseButton
+-   **中划线：** base-button
+-   **下划线：** base_button
+-   **常量：** BASE_BUTTON,BASEBUTTON
 
 ### 全局规范
 
@@ -52,31 +52,29 @@ npm run lint --fix	eslint检查
 
 路由命名需要简短，并能准确定位到对应的视图目录中。
 
--   **路由 path：**/order/list
+-   **路由 path：** /order/list
 
--   **路由 name：**order-list
+-   **路由 name：** order-list
 
--   **路由对应文件夹：**/views/order/list
+-   **路由对应文件夹：** /views/order/list
 
 ### 组件命名
 
 组件 name 全部以大坨峰命名，组件引入全部以大坨峰引入，组件在 template 模板中使用全部以中划线引入。
 
-**src\resources\components**和**src\views\components**下的组件可以直接使用，无需手动引入。
+**src\resources\components** 和 **src\views\components** 下的组件可以直接使用，无需手动引入。
 
 ```javascript
 <template>
-    <base-list>
-        xxx
-    </base-list>
+    <base-list>xxx</base-list>
 </template>
 ```
 
--   **基础组件(可脱离当前项目使用)：**放置在 src\resources\components 目录下，以 base-xxx 命名，同时需要补充 README 文件，描述组件内容、参数、文档。
+-   **基础组件(可脱离当前项目使用)：** 放置在 src\resources\components 目录下，以 base-xxx 命名，同时需要补充 README 文件，描述组件内容、参数、文档。
 
--   **全局业务组件：**放置在 src\views\components 目录下，以 the-xxx 命名。
+-   **全局业务组件：** 放置在 src\views\components 目录下，以 the-xxx 命名。
 
--   **模块组件：**在对应 views 模块下，建立 components 目录存放，目录命名规格：中划线。
+-   **模块组件：** 在对应 views 模块下，建立 components 目录存放，目录命名规格：中划线。
 
 ### API 接口
 
@@ -202,3 +200,11 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  └─views	                            #视图文件夹
 └─types	                                #类型定义文件夹
 ```
+
+## 赞助商
+
+-   感谢 [JetBrains](https://www.jetbrains.com/?from=gaowei-space/markdown-blog) 对本项目的支持！
+
+<a href="https://www.jetbrains.com/?from=gaowei-space/markdown-blog" target="_blank">
+    <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" height="100">
+</a>
