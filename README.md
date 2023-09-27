@@ -113,7 +113,7 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 -   refactor (重构老的代码)
 -   test (测试相关代码)
 -   perf (性能、代码、样式、用户体验等方面的优化)
--   build (影响构建系统或外部依赖项的更改,例如 webpack\package.json 相关的修改
+-   build (影响构建系统或外部依赖项的更改,例如 webpack\package.json 相关的修改)
 -   temp (临时的代码暂存性提交,尽量少,功能未完成前尽量不要提交)
 -   revert (回滚某次提交)
 
