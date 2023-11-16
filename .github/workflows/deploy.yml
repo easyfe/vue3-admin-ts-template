@@ -19,7 +19,7 @@ jobs:
 
             - name: Build
               run: |
-                  pnpm build:prod
+                  pnpm build:test
                   cp dist/index.html dist/404.html
 
             - name: Deploy

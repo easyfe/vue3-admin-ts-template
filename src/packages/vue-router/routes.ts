@@ -21,7 +21,7 @@ for (const key in modules) {
     }
 }
 
-if (modules?.dev && envHelper.dev()) {
+if (modules?.dev && (envHelper.dev() || envHelper.test())) {
     routers.push(...modules.dev);
 }
 
