@@ -120,7 +120,7 @@ const handleSubmit = async (): Promise<any> => {
         width: 400px;
         padding: 60px 30px;
         border-radius: 8px;
-        background-color: #ffffff;
+        background-color: var(--color-bg-1);
         z-index: 9999;
         h3 {
             margin: 0 0 32px 0;

@@ -16,7 +16,7 @@ const { hasPermission, permissions } = usePermission();
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory("vue3-admin-ts-template"),
     routes
 });
 

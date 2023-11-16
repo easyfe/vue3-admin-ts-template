@@ -3,6 +3,10 @@ import Layout from "@/layout/index.vue";
 
 const routers: RouteConfig[] = [
     {
+        path: "/",
+        redirect: "/login"
+    },
+    {
         path: "/index",
         redirect: "/index",
         meta: {
