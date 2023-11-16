@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <meta name="renderer" content="webkit" />
+        <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
+        <link rel="dns-prefetch" href="//syycdn.dongchali.net" />
+        <link rel="icon" type="image/x-icon" href="/vue3-admin-ts-template/assets/icon-e5dc0f34.png" />
+        <link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css" />
+        <link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" />
+        <title>加载中...</title>
+        <style>
+            body {
+                margin: 0 auto;
+            }
+            .index-loading {
+                z-index: 2147483647;
+                background-color: transparent;
+                width: 100vw;
+                height: 100vh;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                    -ms-flex-pack: center;
+                        justify-content: center;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                    -ms-flex-align: center;
+                        align-items: center;
+            }
+
+            .gk-loading {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                    -ms-flex-pack: center;
+                        justify-content: center;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -webkit-flex-direction: column;
+                    -ms-flex-direction: column;
+                        flex-direction: column;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                    -ms-flex-align: center;
+                        align-items: center;
+                word-wrap: break-word;
+                text-align: center;
+                color: #fff;
+            }
+            .gk-loading .gk-loading-spinner {
+                -webkit-animation: circle-rotator 1.4s linear infinite;
+                        animation: circle-rotator 1.4s linear infinite;
+            }
+            .gk-loading .gk-loading-path {
+                stroke-dasharray: 187;
+                stroke-dashoffset: 0;
+                -webkit-transform-origin: center;
+                    -ms-transform-origin: center;
+                        transform-origin: center;
+                -webkit-animation: circle-dash 1.4s ease-in-out infinite;
+                animation: circle-dash 1.4s ease-in-out infinite;
+            }
+            .gk-loading .gk-loading-spinner * {
+                line-height: 0;
+                box-sizing: border-box;
+            }
+            .blue-loading {
+                stroke: #1458d4;
+            }
+            @-webkit-keyframes circle-rotator {
+                0% {
+                    -webkit-transform: rotate(0);
+                            transform: rotate(0);
+                }
+
+                100% {
+                    -webkit-transform: rotate(270deg);
+                            transform: rotate(270deg);
+                }
+            }
+            @keyframes circle-rotator {
+                0% {
+                    -webkit-transform: rotate(0);
+                            transform: rotate(0);
+                }
+
+                100% {
+                    -webkit-transform: rotate(270deg);
+                            transform: rotate(270deg);
+                }
+            }
+            @-webkit-keyframes circle-dash {
+                0% {
+                    stroke-dashoffset: 187;
+                }
+                50% {
+                    stroke-dashoffset: 46.75;
+                    -webkit-transform: rotate(135deg);
+                            transform: rotate(135deg);
+                }
+                100% {
+                    stroke-dashoffset: 187;
+                    -webkit-transform: rotate(450deg);
+                            transform: rotate(450deg);
+                }
+            }
+            @keyframes circle-dash {
+                0% {
+                    stroke-dashoffset: 187;
+                }
+                50% {
+                    stroke-dashoffset: 46.75;
+                    -webkit-transform: rotate(135deg);
+                            transform: rotate(135deg);
+                }
+                100% {
+                    stroke-dashoffset: 187;
+                    -webkit-transform: rotate(450deg);
+                            transform: rotate(450deg);
+                }
+            }
+        </style>
+      <script type="module" crossorigin src="/vue3-admin-ts-template/assets/index-23a3793d.js"></script>
+      <link rel="modulepreload" crossorigin href="/vue3-admin-ts-template/assets/core-e904f21d.js">
+      <link rel="modulepreload" crossorigin href="/vue3-admin-ts-template/assets/ui-af5be32f.js">
+      <link rel="stylesheet" href="/vue3-admin-ts-template/assets/index-0fcfdf17.css">
+    </head>
+    <body>
+        <noscript>
+            <strong
+                >We're sorry but doesn't work properly without JavaScript enabled. Please enable it to continue.</strong
+            >
+        </noscript>
+        <div id="index-loading" class="index-loading">
+            <div data-v-cfd6b112="" class="gk-loading" loading="">
+                <svg
+                    viewBox="0 0 66 66"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="gk-loading-spinner"
+                    style="width: 40px; height: 40px"
+                >
+                    <circle
+                        fill="none"
+                        stroke-width="6"
+                        stroke-linecap="round"
+                        cx="33"
+                        cy="33"
+                        r="30"
+                        class="gk-loading-path blue-loading"
+                    ></circle>
+                </svg>
+            </div>
+        </div>
+        <div id="app" style="height: 100%"></div>
+        
+        <!-- built files will be auto injected -->
+    </body>
+</html>
