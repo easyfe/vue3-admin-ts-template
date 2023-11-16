@@ -5,9 +5,6 @@
             :filter-config="filterConfig"
             :table-config="getConfig"
             :req="getData"
-            page-key="_page"
-            size-key="_size"
-            row-key=""
         ></arco-table>
     </frame-view>
 </template>
@@ -45,7 +42,10 @@ const filterConfig = computed(() => {
 
 const getConfig = computed(() => {
     return tableHelper.create({
-        tableProps: {
+        pageKey: "_page",
+        sizeKey: "_size",
+        rowKey: "",
+        arcoProps: {
             rowKey: "id",
             bordered: false,
             rowSelection: {
@@ -53,7 +53,7 @@ const getConfig = computed(() => {
                 showCheckedAll: true
             }
         },
-        bats: [
+        blBtns: [
             {
                 label: "编辑",
                 type: "primary"
@@ -63,7 +63,7 @@ const getConfig = computed(() => {
                 status: "danger"
             }
         ],
-        tabs: [
+        tlBtns: [
             {
                 label: "全部",
                 value: "0"
@@ -77,7 +77,7 @@ const getConfig = computed(() => {
                 value: "2"
             }
         ],
-        btns: [
+        trBtns: [
             {
                 label: "新增",
                 type: "primary"

@@ -6,7 +6,6 @@
  */
 
 import validatorHelper from "@/utils/helper/validator";
-import envHelper from "@/utils/helper/env";
 
 const TOKEN_KEY = "access_token"; //token存储key
 const USER_INFO_KEY = "user_info";
@@ -64,34 +63,10 @@ const storage = {
      * @returns
      */
     getToken: (): string => {
-        //获取业务中台A端的tken
-        const token = localStorage.getItem("SYSTEM__access_token");
-        if (validatorHelper.isStrExist(token)) {
-            return token || "";
-        }
         return storageUtil.get<string>(TOKEN_KEY) || "";
     },
     setUserInfo(info: Record<string, any>): void {
         storageUtil.set(USER_INFO_KEY, info);
-    },
-    getBaseUrl(): string {
-        let uername = "";
-        if (envHelper.dev()) {
-            uername = storageUtil.get<any>("user_info")?.username;
-        } else {
-            const str = localStorage.getItem("SYSTEM__user_info");
-            if (!str) {
-                uername = "";
-            } else {
-                const uerInfo = JSON.parse(str);
-                uername = uerInfo?.username;
-            }
-        }
-        if (envHelper.prod() || envHelper.uat()) {
-            return `https://${uername}.v2.syy.nbseo.cn`;
-        } else {
-            return `https://${uername}.presyy.nbseo.cn`;
-        }
     },
     /** 清除token */
     clear: (): void => {

@@ -4,32 +4,57 @@
             <a-breadcrumb>
                 <a-breadcrumb-item v-for="(item, index) in breadList" :key="item.name">
                     <div class="bre-item">
-                        <base-svg
-                            v-if="item.meta?.icon"
-                            :name="String(item.meta.icon)"
-                            :width="20"
-                            :height="20"
-                        ></base-svg>
-                        <div v-if="checkDidsable(item, index)">{{ item.meta.title }}</div>
-                        <a-link v-else @click="onClick(item)"> {{ item.meta.title }}</a-link>
+                        <Svg v-if="item.meta?.icon" :name="String(item.meta.icon)" :width="20" :height="20"></Svg>
+                        <div v-if="checkDidsable(item, index)">{{ $t(item.meta.title) }}</div>
+                        <a-link v-else @click="onClick(item)"> {{ $t(item.meta.title) }}</a-link>
                     </div>
                 </a-breadcrumb-item>
             </a-breadcrumb>
         </div>
         <div class="right-side">
             <div class="side-item">
-                <a-tooltip :content="theme === 'light' ? '点击切换为暗黑模式' : '点击切换为亮色模式'">
-                    <a-button class="nav-btn" type="outline" :shape="'circle'" @click="handleToggleTheme">
-                        <template #icon>
-                            <icon-moon-fill v-if="theme === 'dark'" />
-                            <icon-sun-fill v-else />
-                        </template>
-                    </a-button>
-                </a-tooltip>
+                <a-dropdown @select="changeLocale">
+                    <div class="nav-btn">
+                        <a-tooltip :content="$t('语言')">
+                            <a-button class="nav-btn" type="outline" :shape="'circle'">
+                                <template #icon>
+                                    <icon-language />
+                                </template>
+                            </a-button>
+                        </a-tooltip>
+                    </div>
+                    <template #content>
+                        <a-doption v-for="item in LOCALE_OPTIONS" :key="item.value" :value="item.value">
+                            <icon-check :style="{ opacity: item.value === currentLocale ? 1 : 0 }" />
+                            {{ item.label }}
+                        </a-doption>
+                    </template>
+                </a-dropdown>
+            </div>
+            <div class="side-item">
+                <a-dropdown @select="handleThemeChange">
+                    <div class="nav-btn">
+                        <a-tooltip :content="$t('主题模式')">
+                            <a-button class="nav-btn" type="outline" :shape="'circle'">
+                                <template #icon>
+                                    <icon-moon-fill v-if="currentThemeMode === 'dark'" />
+                                    <icon-sun-fill v-if="currentThemeMode === 'light'" />
+                                    <icon-desktop v-if="currentThemeMode === 'auto'" />
+                                </template>
+                            </a-button>
+                        </a-tooltip>
+                    </div>
+                    <template #content>
+                        <a-doption v-for="item in themeModeOptions" :key="item.value" :value="item.value">
+                            <icon-check :style="{ opacity: item.value === currentThemeMode ? 1 : 0 }" />
+                            {{ $t(item.label) }}
+                        </a-doption>
+                    </template>
+                </a-dropdown>
             </div>
             <div class="side-item">
                 <a-popover trigger="click">
-                    <a-tooltip content="切换主题色">
+                    <a-tooltip :content="$t('主题色')">
                         <a-button class="nav-btn" type="outline" :shape="'circle'">
                             <template #icon>
                                 <icon-skin />
@@ -50,13 +75,30 @@
                     </template>
                 </a-popover>
             </div>
+            <a-divider direction="vertical" />
+            <a-dropdown trigger="hover">
+                <a-link>Admin</a-link>
+                <template #content>
+                    <a-doption @click="changepassword"><icon-edit style="margin-right: 6px" />修改密码</a-doption>
+                    <a-doption @click="logout"><icon-import style="margin-right: 6px" />退出登录</a-doption>
+                </template>
+            </a-dropdown>
         </div>
     </div>
 </template>
 <script lang="ts" setup name="AppHeader">
 import { RouteLocationMatched } from "vue-router";
-import global from "@/config/pinia/global";
-import { Svg as BaseSvg } from "@easyfe/admin-component";
+import { ArcoModalFormShow, Svg, formHelper } from "@easyfe/admin-component";
+import { LOCALE_OPTIONS } from "@/locales";
+import { useLocale } from "@/hooks/useLocale";
+import { Modal } from "@arco-design/web-vue";
+import storage from "@/utils/tools/storage";
+import { useTheme } from "@/hooks/useTheme";
+
+const { themeModeOptions, currentThemeMode, handleThemeChange } = useTheme();
+
+const { changeLocale, currentLocale } = useLocale();
+
 const router = useRouter();
 const route = useRoute();
 
@@ -68,7 +110,6 @@ const skinList = [
     { name: "orangered", color: "#f77234" },
     { name: "gold", color: "#f7ba1e" },
     { name: "yellow", color: "#fadc19" },
-    { name: "lime", color: "#fadc19" },
     { name: "cyan", color: "#14c9c9" },
     { name: "blue", color: "#3491fa" },
     { name: "purple", color: "#722ed1" },
@@ -79,31 +120,12 @@ const skinList = [
 const breadList = computed(() => {
     return route.matched.filter((item) => item.path !== "/" && item.meta.title);
 });
-const theme = computed(() => {
-    return global().theme;
-});
+
 const onClick = (item: RouteLocationMatched) => {
     router.push(item);
 };
 
-const isDark = useDark({
-    selector: "body",
-    attribute: "arco-theme",
-    valueDark: "dark",
-    valueLight: "light",
-    storageKey: "arco-theme",
-    onChanged(dark: boolean) {
-        global().toggleTheme(dark);
-    }
-});
-
-const toggleTheme = useToggle(isDark);
-
-function handleToggleTheme() {
-    toggleTheme();
-}
-
-function checkDidsable(item: RouteLocationMatched & { permission?: () => boolean }, index: number) {
+function checkDidsable(item: RouteLocationMatched, index: number) {
     if (index === breadList.value.length - 1) {
         return true;
     }
@@ -111,7 +133,7 @@ function checkDidsable(item: RouteLocationMatched & { permission?: () => boolean
         return false;
     }
     //如果子路由全部都是隐藏的，则认为没有子路由
-    const hideRouters = item.children.filter((v: any) => v.meta?.hidden === true || v.permission?.() === false);
+    const hideRouters = item.children.filter((v: any) => v.meta?.hidden === true || v.meta?.permission?.() === false);
     if (hideRouters.length === item.children.length) {
         return false;
     }
@@ -121,6 +143,38 @@ function checkDidsable(item: RouteLocationMatched & { permission?: () => boolean
 function handleToggleSkin(item: { name: string; color: string }) {
     Array.from({ length: 10 }).forEach((_, index) => {
         document.body.style.setProperty(`--primary-${index + 1}`, `var(--${item.name}-${index + 1})`);
+    });
+}
+
+function logout() {
+    Modal.confirm({
+        title: "提示",
+        content: "确定退出登录吗？",
+        onOk: () => {
+            storage.setToken("");
+            router.replace({
+                path: "/login"
+            });
+        }
+    });
+}
+
+function changepassword() {
+    ArcoModalFormShow({
+        modalConfig: {
+            title: "修改密码"
+        },
+        formConfig: [
+            formHelper.input("原密码", "oldPassword", {
+                rules: [{ required: true, message: "请输入原密码" }]
+            }),
+            formHelper.input("新密码", "newPassword", {
+                rules: [{ required: true, message: "请输入新密码" }]
+            }),
+            formHelper.input("确认密码", "confirmPassword", {
+                rules: [{ required: true, message: "请输入确认密码" }]
+            })
+        ]
     });
 }
 </script>

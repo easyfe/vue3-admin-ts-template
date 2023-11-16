@@ -35,14 +35,22 @@ const props = withDefaults(
 const baseChart = ref(null);
 let charts = ref<null | any>(null);
 
+const emits = defineEmits<{
+    (e: "init", value: echarts.ECharts): void;
+    (e: "click", value: any): void;
+}>();
+
 watch(
-    () => props.option,
-    () => {
-        nextTick(() => {
-            initChart();
-        });
+    [() => props.option, baseChart],
+    (v1) => {
+        if (v1[0] && v1[1]) {
+            nextTick(() => {
+                initChart();
+            });
+        }
     },
     {
+        deep: true,
         immediate: true
     }
 );
@@ -52,6 +60,9 @@ const resizeChart = lodash.debounce(() => {
 }, 150);
 
 function initChart() {
+    if (!props.option) {
+        return;
+    }
     /**
      * 根据 chartsType 判断是当前图表类型是否是地图(map)
      * 注意：该动作必须放在 init 之前执行
@@ -66,8 +77,15 @@ function initChart() {
         console.error("base-chart元素不存在");
         return;
     }
+    if (charts) {
+        charts.dispose?.();
+    }
     charts = echarts.init(baseChart.value, props.isDark ? "dark" : "light");
     charts.setOption(props.option);
+    charts.on("click", (e: any) => {
+        emits("click", e);
+    });
+    emits("init", charts);
 
     //ECharts自适应宽度(resize)
     // 监听窗口变化 - 多个图表同时刷新

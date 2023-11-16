@@ -21,6 +21,9 @@
 import { ArcoModalForm, formHelper, ruleHelper, ArcoModalFormShow } from "@easyfe/admin-component";
 import { Message } from "@arco-design/web-vue";
 import { cloneDeep, reject } from "lodash-es";
+import { useTheme } from "@/hooks/useTheme";
+
+const { currentTheme } = useTheme();
 
 const formVisible1 = ref(false);
 
@@ -89,7 +92,9 @@ const formConfig = computed(() => {
             type: "date"
         }),
         formHelper.time("时间", "key11"),
-        formHelper.editor("富文本", "key6")
+        formHelper.editor("富文本", "key6", {
+            theme: currentTheme.value
+        })
     ];
 });
 const formData = ref<Record<string, any>>({

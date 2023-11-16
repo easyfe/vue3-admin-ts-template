@@ -8,6 +8,8 @@ import "virtual:svg-icons-register";
 import "@/styles/index.scss";
 import ArcoVueIcon from "@arco-design/web-vue/es/icon";
 
+import i18n from "./locales";
+
 /***************** vue相关 ***************/
 //导入布局相关初始化处理
 import "@/packages/init/index";
@@ -17,13 +19,26 @@ import directive from "@/resources/directive";
 import VuePlyr from "vue-plyr";
 import "vue-plyr/dist/vue-plyr.css";
 
+declare global {
+    interface Window {
+        BMap: any;
+    }
+}
+
 const App = createApp(app);
+
+//解决国际化问题
+import { Modal, Message } from "@arco-design/web-vue";
+Modal._context = App._context;
+Message._context = App._context;
+
 App.use(createPinia());
 App.use(router);
 App.use(VuePlyr, {
     plyr: {}
 });
 App.use(ArcoVueIcon);
+App.use(i18n);
 Object.keys(directive).forEach((key) => {
     App.directive(key, directive[key]);
 });

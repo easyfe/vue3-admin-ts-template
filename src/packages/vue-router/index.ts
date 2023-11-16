@@ -6,6 +6,12 @@ import { RouteConfig } from "types";
 import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css";
 import typeHelper from "@/utils/helper/type";
+import { logout } from "@/views/utils";
+import global from "@/config/pinia/global";
+import storage from "@/utils/tools/storage";
+import { usePermission } from "@/hooks/usePermission";
+
+const { hasPermission, permissions } = usePermission();
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
@@ -61,11 +67,35 @@ const getDefaultRoute = (): RouteConfig | undefined => {
     return fn(piniaRoutes().routes);
 };
 
+const initGlobal = (): Promise<boolean> => {
+    return new Promise(async (resolve, reject) => {
+        // if (!storage.getToken()) {
+        //     logout();
+        //     return;
+        // }
+        //TODO:获取用户权限信息，填充到permissions里面
+        // console.log("初始化全局数据", hasPermission("system:menu:edit"));
+        global().initSuccess = true;
+        resolve(true);
+    });
+};
+
 //路由前置守卫
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to: RouteConfig, from, next) => {
     NProgress.start();
     if (!piniaRoutes().routes.length) {
         initRoute();
+    }
+    if (to.name === "login") {
+        next();
+        return;
+    }
+    if (!global().initSuccess) {
+        await initGlobal();
+    }
+    if (to.meta?.permission?.() === false) {
+        next({ name: "404" });
+        return;
     }
     // console.log("路由前置守卫：", to, from);
     document.title = <string>to.meta?.title || "";

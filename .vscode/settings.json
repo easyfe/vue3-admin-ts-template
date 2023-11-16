@@ -7,13 +7,7 @@
     "editor.formatOnType": true,
     "eslint.packageManager": "npm",
     "eslint.run": "onSave",
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "vue",
-        "typescript",
-        "typescriptreact"
-    ],
+    "eslint.validate": ["javascript", "javascriptreact", "vue", "typescript", "typescriptreact"],
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },

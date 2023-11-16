@@ -1,0 +1,23 @@
+{
+    "语言": "language",
+    "首页": "Home",
+    "自由拖拽": "Draggable",
+    "重构自由拖拽": "Rebuild Draggable",
+    "开发者工具": "Developer",
+    "普通表单": "BaseForm",
+    "弹窗表单": "ModalForm",
+    "普通表格": "BaseTable",
+    "弹窗表格": "ModalTable",
+    "Echarts图表": "Echarts",
+    "列表跳详情": "Jump Detail",
+    "滚动数字": "Number",
+    "工作流": "Bnmp",
+    "主题模式": "theme mode",
+    "主题色": "theme color",
+    "加载中...": "loading...",
+    "亮色模式": "Light Mode",
+    "暗色模式": "Dark Mode",
+    "跟随系统": "Follow System",
+    "删除": "Delete",
+    "提示": "Tips"
+}

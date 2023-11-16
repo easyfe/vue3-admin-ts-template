@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@arco-design/web-vue':
-    specifier: ~2.51.2
-    version: 2.51.2(vue@3.3.4)
+    specifier: ~2.53.2
+    version: 2.53.2(vue@3.3.4)
   '@easyfe/admin-component':
-    specifier: ^0.2.4
-    version: 0.2.4(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1)
+    specifier: ^0.3.3
+    version: 0.3.3(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1)
   '@easyfe/web-request':
     specifier: ^1.0.1
     version: 1.0.1
@@ -95,6 +95,9 @@ dependencies:
   vue-countup-v3:
     specifier: ^1.3.0
     version: 1.3.0(vue@3.3.4)
+  vue-i18n:
+    specifier: ^9.7.0
+    version: 9.7.0(vue@3.3.4)
   vue-plyr:
     specifier: ~7.0.0
     version: 7.0.0
@@ -111,7 +114,7 @@ devDependencies:
     version: 1.4.5
   '@arco-themes/vue-easyfe':
     specifier: ~0.0.5
-    version: 0.0.5(@arco-design/web-vue@2.51.2)
+    version: 0.0.5(@arco-design/web-vue@2.53.2)
   '@commitlint/cli':
     specifier: ~17.6.6
     version: 17.6.6
@@ -246,8 +249,8 @@ packages:
     dependencies:
       color: 3.2.1
 
-  /@arco-design/web-vue@2.51.2(vue@3.3.4):
-    resolution: {integrity: sha512-EG1X+PCraINq2541p8E0lEueGwvfr3PjjlKiPT2j+maw/tnEmGpq/qDHG5h9eBPDbWahi5pqPSpqi969EWXyoA==}
+  /@arco-design/web-vue@2.53.2(vue@3.3.4):
+    resolution: {integrity: sha512-hcrlCkvyjDD9xwWgXLnE48+TEpappP6e8TSLSrlmD9xVQNes4uZIBs+xR90zAUDHOyCokRrJsY1kG+OsZU+FSg==}
     peerDependencies:
       vue: ^3.1.0
     dependencies:
@@ -274,12 +277,12 @@ packages:
       - supports-color
     dev: true
 
-  /@arco-themes/vue-easyfe@0.0.5(@arco-design/web-vue@2.51.2):
+  /@arco-themes/vue-easyfe@0.0.5(@arco-design/web-vue@2.53.2):
     resolution: {integrity: sha512-s8GM6PaatoW3EH6bMxtqqqRS9XdBgh8ERPRaMSRKHjNiIJDCG5L+oYKpj7orAPGrZR2guuyxOLWVHgV49pfGaA==}
     peerDependencies:
       '@arco-design/web-vue': ^2.45.1
     dependencies:
-      '@arco-design/web-vue': 2.51.2(vue@3.3.4)
+      '@arco-design/web-vue': 2.53.2(vue@3.3.4)
     dev: true
 
   /@babel/code-frame@7.12.11:
@@ -572,10 +575,10 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@easyfe/admin-component@0.2.4(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1):
-    resolution: {integrity: sha512-SnfJ7h8Hh8Iro6Vqw3jdtV/0AEnrmY/s/7yuWDCYNKiAFKnhfegcDDTNH4S/5WEFmKAFflPQLASw/EkLjLhK8w==}
+  /@easyfe/admin-component@0.3.3(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1):
+    resolution: {integrity: sha512-nD+eX9ZIXn4mXSCj5t1z9t2nXnisw4PHG2OrDKYj8XwOUEQYgHvTHEjaJFz9YNJssBhKXLKo58GdWBxz82lfIA==}
     dependencies:
-      '@arco-design/web-vue': 2.51.2(vue@3.3.4)
+      '@arco-design/web-vue': 2.53.2(vue@3.3.4)
       '@tinymce/tinymce-vue': 5.1.0(vue@3.3.4)
       dayjs: 1.11.9
       hex-to-css-filter: 5.4.0
@@ -918,6 +921,27 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@intlify/core-base@9.7.0:
+    resolution: {integrity: sha512-1tBnfnCI23jXqGW15cagCjn2GgD487VST1dMG8P5LRzrSfx+kUzqFyTrjMNIwgq1tVaF4HnDpFMUuyrzTLKphw==}
+    engines: {node: '>= 16'}
+    dependencies:
+      '@intlify/message-compiler': 9.7.0
+      '@intlify/shared': 9.7.0
+    dev: false
+
+  /@intlify/message-compiler@9.7.0:
+    resolution: {integrity: sha512-/YdZCio2L2tCM5bZ2eMHbSEIQNPh1QqvZIOLI/yCVKXLscis7O0SsR2nmuU/DfCJ3iSeI8juw82C2wLvfsAeww==}
+    engines: {node: '>= 16'}
+    dependencies:
+      '@intlify/shared': 9.7.0
+      source-map-js: 1.0.2
+    dev: false
+
+  /@intlify/shared@9.7.0:
+    resolution: {integrity: sha512-PUkEuk//YKu4CHS5ah3mNa3XL/+TZj6rAY/6yYN+GCNFd2u+uWUkeuwE4Q6t8dydRWlErOePHHS0KyNoof/oBw==}
+    engines: {node: '>= 16'}
+    dev: false
+
   /@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
     engines: {node: '>=6.0.0'}
@@ -1014,7 +1038,7 @@ packages:
     peerDependencies:
       vue: ^3.0.0
     dependencies:
-      tinymce: 6.5.1
+      tinymce: 6.7.0
       vue: 3.3.4
     dev: false
 
@@ -6342,10 +6366,6 @@ packages:
     resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
     dev: false
 
-  /tinymce@6.5.1:
-    resolution: {integrity: sha512-J67fxJiX3tjvVqer1dg1+cOxMeE2P55ESGhaakvqGPbAUU45HnCMLSioaOsxV1KfcXustw9WJo0rtn1SNQlVKQ==}
-    dev: false
-
   /tinymce@6.7.0:
     resolution: {integrity: sha512-Wf2RSobIXQ7XNw3/v4z1lPGiH3Pjsmc/6/7fG28aIS6uVWj/7IhvOPuwfJJDeOx0o0D3nSnoLHgR2KU8JAdE+w==}
     dev: false
@@ -6949,6 +6969,18 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-i18n@9.7.0(vue@3.3.4):
+    resolution: {integrity: sha512-8Z8kSz9U2juzuAf+6mjW1HTd5pIlYuFJZkC+HvYOglFdpzwc2rTUGjxKwN8xGdtGur1MFnyJ44TSr+TksJtY8A==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@intlify/core-base': 9.7.0
+      '@intlify/shared': 9.7.0
+      '@vue/devtools-api': 6.5.0
+      vue: 3.3.4
+    dev: false
 
   /vue-plyr@7.0.0:
     resolution: {integrity: sha512-NvbO/ZzV1IxlBQQbQlon5Sk8hKuGAj3k4k0XVdi7gM4oSqu8mZMhJ3WM3FfAtNfV790jbLnb8P3dHYqaBqIv6g==}

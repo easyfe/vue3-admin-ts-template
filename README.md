@@ -4,7 +4,7 @@
 
 该框架旨在帮助开发者方便、规范的进行业务逻辑开发，能够开箱使用。
 
-基于 vue3.3(使用 setup 语法)+ typescript+pinia 状态库+eslint 校验+arco-design 组件库，支持暗黑模式、自定义主题色。
+基于 vue3.3(使用 setup 语法)+ typescript+pinia 状态库+eslint 校验+arco-design 组件库，支持深色模式、国际化、自定义主题色。
 
 > 基于当前框架，作为开发者只需要关心以下目录：
 >
@@ -89,7 +89,7 @@ npm run lint --fix	eslint检查
 ```javascript
 /**
  * 获取代理商资料填写字段
- * http://yapi.syy.dongchali.cn/project/631/interface/api/25882
+ * http://yapi.cn/project/631/interface/api/25882
  * @param brandId 品牌ID
  * @param inviteCode 邀请码
  * @returns
@@ -155,7 +155,9 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  │  ├─router		                    #路由配置文件夹
 │  │  └─pinia		                    #pinia状态机文件
 │  │  └─vite		                    #vite插件文件夹
+│  ├─hooks			                    #自定义hooks文件夹
 │  ├─layout			                    #布局公共文件夹
+│  ├─locales			                #国际化文件夹
 │  ├─packages
 │  │  ├─request		                    #请求库配置
 │  │  ├─vue-router	                    #路由核心配置
@@ -163,14 +165,9 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  ├─resources		                    #核心资源文件夹
 │  │  ├─components		                #基础组件库（可脱离业务使用），基于base开头，非基础组件请勿存放在该目录下
 │  │  │  ├─base-chart		            #echarts图表控件
-│  │  │  ├─base-form		            #表单组件
-│  │  │  ├─base-modal-form		        #弹窗表单组件
-│  │  │  ├─base-table	            	#表格组件
-│  │  │  ├─base-rich-text	            #富文本组件
-│  │  │  ├─base-svg		            	#svg图标
-│  │  │  ├─base-modal-table		        #弹窗表格
 │  │  ├─directive	                    #自定义指令文件夹
 │  │  │  └─copy				            #复制
+│  │  │  └─permission				    #权限指令
 │  ├─styles		                        #样式文件夹
 │  │  │  index.scss			            #全局基础样式
 │  │  └─utils			                #样式工具

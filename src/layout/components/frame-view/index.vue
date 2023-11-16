@@ -1,6 +1,6 @@
 <template>
-    <div :class="['frame-view', $slots.bottom ? 'frame-view-pdm' : '']">
-        <div class="frame-view-content">
+    <div :class="['frame-view', $slots.bottom ? 'frame-view-pdm' : '', props.fixedHeight ? 'frame-fixed-height' : '']">
+        <div :class="['frame-view-content', props.contentClass]">
             <slot></slot>
         </div>
         <div v-if="$slots.bottom" class="frame-view-bottom" :style="bottomStyle">
@@ -12,6 +12,17 @@
 <script lang="ts" setup name="FrameView">
 import global from "@/config/pinia/global";
 
+const props = withDefaults(
+    defineProps<{
+        contentClass?: string;
+        fixedHeight?: boolean;
+    }>(),
+    {
+        contentClass: "",
+        fixedHeight: false
+    }
+);
+
 const bottomStyle = computed(() => {
     return {
         width: global().collapsed ? "calc(100% - 48px)" : "calc(100% - 200px)"
@@ -22,10 +33,20 @@ const bottomStyle = computed(() => {
 .frame-view-pdm {
     padding-bottom: 60px;
 }
+.frame-fixed-height {
+    height: calc(100vh - 94px);
+    overflow: hidden;
+    .frame-view-content {
+        height: calc(100% - 40px);
+    }
+}
 .frame-view {
     display: flex;
     flex-direction: column;
     position: relative;
+    min-height: 100%;
+    //height设置为100%会导致margin 底部的失效
+    // height: 100%;
 
     .frame-view-content {
         background-color: var(--color-bg-2);

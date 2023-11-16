@@ -1,4 +1,5 @@
 import { Message } from "@arco-design/web-vue";
+import i18n from "@/locales";
 
 let reqNum = 0;
 const loading = {
@@ -7,7 +8,10 @@ const loading = {
     },
     showLoading(): void {
         if (reqNum === 0) {
-            console.log("loading");
+            Message.loading({
+                content: i18n.global.t("加载中..."),
+                duration: 0
+            });
         }
         reqNum++;
     },

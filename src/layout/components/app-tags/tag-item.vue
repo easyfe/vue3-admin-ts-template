@@ -3,11 +3,11 @@
         <a-dropdown trigger="contextMenu" :popup-max-height="false" @select="actionSelect">
             <span
                 class="arco-tag arco-tag-size-medium arco-tag-checked"
-                :class="{ 'link-activated': props.data.fullPath === route.fullPath }"
+                :class="{ 'link-activated': props.data.path === route.path }"
                 @click="goto(props.data)"
             >
                 <span class="tag-link">
-                    {{ props.data.meta?.title }}
+                    {{ $t(props.data.meta?.title) }}
                 </span>
                 <span
                     class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
@@ -81,7 +81,7 @@ const goto = (tag: RouteConfig) => {
 };
 
 const disabledReload = computed(() => {
-    return props.data.fullPath !== route.fullPath;
+    return props.data.path !== route.path;
 });
 
 const disabledCurrent = computed(() => {
@@ -98,14 +98,14 @@ const disabledRight = computed(() => {
 
 const tagClose = (tag: RouteConfig, idx: number) => {
     routes().DELETE_NAVTAG(idx);
-    if (props.data.fullPath === route.fullPath) {
+    if (props.data.path === route.path) {
         const latest = tagList.value[idx - 1]; // 获取队列的前一个tab
         router.push(latest);
     }
 };
 
 const findCurrentRouteIndex = () => {
-    return tagList.value.findIndex((el) => el.fullPath === route.fullPath);
+    return tagList.value.findIndex((el) => el.path === route.path);
 };
 
 const actionSelect = async (value: any) => {
@@ -139,7 +139,7 @@ const actionSelect = async (value: any) => {
         router.replace({
             name: "redirect",
             query: {
-                url: encodeURIComponent(route.fullPath)
+                url: encodeURIComponent(route.path)
             }
         });
     } else {

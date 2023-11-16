@@ -15,7 +15,8 @@ import cookie from "@/utils/tools/cookie";
 import { ArcoForm, formHelper, ruleHelper } from "@easyfe/admin-component";
 import sleep from "@/utils/tools/sleep";
 import { Message } from "@arco-design/web-vue";
-// const router = useRouter();
+import { getDefaultRoute } from "@/packages/vue-router";
+const router = useRouter();
 
 // 清空本地存储
 storage.clear();
@@ -30,13 +31,19 @@ const formData = ref({
 const formConfig = computed(() => {
     return [
         formHelper.input("", "username", {
+            onPressEnter: handleSubmit,
+            hideLabel: true,
             placeholder: "用户名",
             span: 24,
             rules: [ruleHelper.require("用户名必填", "blur")]
         }),
         formHelper.input("", "password", {
+            onPressEnter: handleSubmit,
+            hideLabel: true,
             span: 24,
-            placeholder: "密码"
+            type: "password",
+            placeholder: "密码",
+            inputTips: "用户名admin，密码dmin"
         })
     ];
 });
@@ -48,6 +55,7 @@ const handleSubmit = async (): Promise<any> => {
     await sleep(3000);
     Message.success("登录成功");
     loading.value = false;
+    router.push(getDefaultRoute());
 
     // if (!res?.errors) {
     //     /**

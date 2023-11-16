@@ -9,6 +9,9 @@
 <script lang="ts" setup name="DevForm">
 import { ArcoForm, formHelper, ruleHelper } from "@easyfe/admin-component";
 import { Message } from "@arco-design/web-vue";
+import { useTheme } from "@/hooks/useTheme";
+
+const { currentTheme } = useTheme();
 
 const formConfig = computed(() => {
     return [
@@ -83,7 +86,9 @@ const formConfig = computed(() => {
             placeholder: ["开始时间1", "结束时间1"]
         }),
         formHelper.time("时间", "key11"),
-        formHelper.editor("富文本", "key6")
+        formHelper.editor("富文本", "key6", {
+            theme: currentTheme.value
+        })
     ];
 });
 const formData = ref({

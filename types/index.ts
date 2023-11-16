@@ -1,4 +1,4 @@
-import { RouteLocation, RouteMeta } from "vue-router";
+import { RouteLocation, RouteMeta, RouteRecordName } from "vue-router";
 
 //类型覆盖方法，后面覆盖前面的
 export type Override<P, S> = Omit<P, keyof S> & S;
@@ -12,11 +12,12 @@ interface RouteMetaAll extends RouteMeta {
     key?: string;
     navTag?: boolean;
     cache?: boolean;
+    permission?: () => boolean;
 }
 
 export interface RouteConfig {
     path: string;
-    name?: string | symbol;
+    name?: RouteRecordName | null;
     children?: RouteConfig[];
     redirect?: string | RouteLocation;
     alias?: string | string[];
@@ -26,7 +27,6 @@ export interface RouteConfig {
     query?: RouteLocation["query"];
     params?: RouteLocation["params"];
     component?: any;
-    permission?: () => boolean;
 }
 
 export type _TouchEvent = TouchEvent & {

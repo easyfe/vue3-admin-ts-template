@@ -18,10 +18,7 @@
                 tableConfig: getConfig,
                 filterData: filterData,
                 filterConfig: filterConfig,
-                req: getData,
-                pageKey: '_page',
-                sizeKey: '_size',
-                rowKey: ''
+                req: getData
             }"
             @ok="handleOk"
         ></arco-modal-table>
@@ -67,7 +64,10 @@ const filterConfig = computed(() => {
 const getConfig = computed(() => {
     return tableHelper.create({
         disableSelectedRow: true,
-        tableProps: {
+        pageKey: "_page",
+        sizeKey: "_size",
+        rowKey: "",
+        arcoProps: {
             rowKey: "id",
             bordered: false,
             rowSelection: {
@@ -75,7 +75,7 @@ const getConfig = computed(() => {
                 showCheckedAll: true
             }
         },
-        bats: [
+        blBtns: [
             {
                 label: "编辑",
                 type: "primary"
@@ -85,7 +85,7 @@ const getConfig = computed(() => {
                 status: "danger"
             }
         ],
-        tabs: [
+        tlBtns: [
             {
                 label: "全部",
                 value: "0"
@@ -99,7 +99,7 @@ const getConfig = computed(() => {
                 value: "2"
             }
         ],
-        btns: [
+        trBtns: [
             {
                 label: "新增",
                 type: "primary"
