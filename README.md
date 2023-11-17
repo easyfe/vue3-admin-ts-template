@@ -185,9 +185,7 @@ export function getAgentDataField(brandId: string, id: string): Promise<_AgentDa
 │  │      ├─copy		                #复制
 │  │      ├─cookie		                #cookie工具
 │  │      ├─get-realpx	                #px根据屏幕自适应
-│  │      ├─lodash	                	#lodash相关功能，防抖、节流、深拷贝...
 │  │      ├─nanoid	                	#唯一ID获取
-│  │      ├─native-bridge	            #app交互
 │  │      ├─qs	                		#qs相关处理，链接参数获取
 │  │      ├─retry		                #promise重试
 │  │      ├─session		                #session处理

@@ -12,7 +12,7 @@
 import echarts from "@/config/echarts/index";
 import chinaJSON from "@/config/echarts/map/chinaChange.json";
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
-import lodash from "@/utils/tools/lodash";
+import { debounce } from "lodash-es";
 
 const props = withDefaults(
     defineProps<{
@@ -55,7 +55,7 @@ watch(
     }
 );
 
-const resizeChart = lodash.debounce(() => {
+const resizeChart = debounce(() => {
     charts.resize();
 }, 150);
 

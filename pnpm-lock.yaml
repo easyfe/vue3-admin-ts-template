@@ -9,8 +9,8 @@ dependencies:
     specifier: ~2.53.2
     version: 2.53.2(vue@3.3.4)
   '@easyfe/admin-component':
-    specifier: ^0.3.4
-    version: 0.3.4(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1)
+    specifier: ^0.3.13
+    version: 0.3.13(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1)
   '@easyfe/web-request':
     specifier: ^1.0.1
     version: 1.0.1
@@ -575,8 +575,8 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@easyfe/admin-component@0.3.4(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1):
-    resolution: {integrity: sha512-W+QlUiUhQVFKUS7tQq+k+Ekg7MhB48I5O60fPChCUrploSx90x4RjCnlFNLJ4/8IwDeHCEd92tuvBQHywVQuCw==}
+  /@easyfe/admin-component@0.3.13(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@10.2.1)(gradient-parser@1.0.2)(tinycolor2@1.6.0)(vue-types@4.2.1):
+    resolution: {integrity: sha512-BqqnDxfX9uRh8w2AF13aHXH95laeCuwMJndLRAEoFP+1RpCvFgO98BO4VakfVT7D02N+3ibh7vq+MkYalZ61EA==}
     dependencies:
       '@arco-design/web-vue': 2.53.2(vue@3.3.4)
       '@tinymce/tinymce-vue': 5.1.0(vue@3.3.4)

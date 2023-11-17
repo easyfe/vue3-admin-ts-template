@@ -7,6 +7,7 @@ import "virtual:svg-icons-register";
 //引入全局样式
 import "@/styles/index.scss";
 import ArcoVueIcon from "@arco-design/web-vue/es/icon";
+import "@arco-design/web-vue/es/time-picker/style/css.js";
 
 import i18n from "./locales";
 
