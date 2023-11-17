@@ -8,8 +8,6 @@ import { ConfigSvgIconsPlugin } from "./modules/svg";
 import { AutoImportDeps } from "./modules/autoImport";
 import { AutoRegistryComponents } from "./modules/component";
 import { ConfigRestartPlugin } from "./modules/restart";
-import OptimizationPersist from "vite-plugin-optimize-persist";
-import PkgConfig from "vite-plugin-package-config";
 import { ConfigVisualizerConfig } from "./modules/visualizer";
 import { ConfigCompressPlugin } from "./modules/compress";
 import VueSetupExtend from "vite-plugin-vue-setup-extend-plus";
@@ -33,9 +31,6 @@ export function createVitePlugins(params: { envMap: Record<string, any>; uploadO
         AutoRegistryComponents(),
         // 监听配置文件改动重启
         ConfigRestartPlugin(),
-        // 加速首次构建
-        PkgConfig(),
-        OptimizationPersist(),
         /**
          * 扩展setup插件，支持在script标签中使用name属性
          * usage: <script setup name="MyComp"></script>

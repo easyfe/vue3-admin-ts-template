@@ -208,12 +208,6 @@ devDependencies:
   vite-plugin-compression:
     specifier: ~0.5.1
     version: 0.5.1(vite@4.3.9)
-  vite-plugin-optimize-persist:
-    specifier: ~0.1.2
-    version: 0.1.2(vite-plugin-package-config@0.1.1)(vite@4.3.9)
-  vite-plugin-package-config:
-    specifier: ~0.1.1
-    version: 0.1.1(vite@4.3.9)
   vite-plugin-restart:
     specifier: ~0.3.1
     version: 0.3.1(vite@4.3.9)
@@ -6804,31 +6798,6 @@ packages:
       chalk: 4.1.2
       debug: 4.3.4
       fs-extra: 10.1.0
-      vite: 4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6)(terser@5.18.2)
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /vite-plugin-optimize-persist@0.1.2(vite-plugin-package-config@0.1.1)(vite@4.3.9):
-    resolution: {integrity: sha512-H/Ebn2kZO8PvwUF08SsT5K5xMJNCWKoGX71+e9/ER3yNj7GHiFjNQlvGg5ih/zEx09MZ9m7WCxOwmEKbeIVzww==}
-    peerDependencies:
-      vite: ^2.0.0
-      vite-plugin-package-config: ^0.1.0
-    dependencies:
-      debug: 4.3.4
-      fs-extra: 10.1.0
-      vite: 4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6)(terser@5.18.2)
-      vite-plugin-package-config: 0.1.1(vite@4.3.9)
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /vite-plugin-package-config@0.1.1(vite@4.3.9):
-    resolution: {integrity: sha512-w9B3I8ZnqoyhlbzimXjXNk85imrMZgvI9m8f6j3zonK5IVA5KXzpT+PZOHlDz8lqh1vqvoEI1uhy+ZDoLAiA/w==}
-    peerDependencies:
-      vite: ^2.0.0
-    dependencies:
-      debug: 4.3.4
       vite: 4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6)(terser@5.18.2)
     transitivePeerDependencies:
       - supports-color
