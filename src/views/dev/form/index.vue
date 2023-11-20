@@ -10,6 +10,7 @@
 import { ArcoForm, formHelper, ruleHelper } from "@easyfe/admin-component";
 import { Message } from "@arco-design/web-vue";
 import { useTheme } from "@/hooks/useTheme";
+import { uploadFile } from "@/config/apis/common";
 
 const { currentTheme } = useTheme();
 
@@ -53,9 +54,9 @@ const formConfig = computed(() => {
                 ]
             }
         ),
-        formHelper.uploadPic("图片", "key12", {
-            remove: true,
-            inputTips: "推荐使用400*400的图片"
+        formHelper.upload("图片", "key12", {
+            inputTips: "推荐使用400*400的图片",
+            customRequest: uploadFile
         }),
         formHelper.radio(
             "单选框",
@@ -87,7 +88,10 @@ const formConfig = computed(() => {
         }),
         formHelper.time("时间", "key11"),
         formHelper.editor("富文本", "key6", {
-            theme: currentTheme.value
+            theme: currentTheme.value,
+            uploadProps: {
+                customRequest: uploadFile
+            }
         })
     ];
 });
