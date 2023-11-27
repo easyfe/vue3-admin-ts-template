@@ -1,0 +1,1 @@
+import{_ as o}from"./index-bb383311.js";import{_ as s}from"./index-7826123e.js";import{e as n,k as r,w as t,z as e}from"./core-ade0485a.js";import"./admin-component-7dd8806f.js";import"./ui-0054cf0a.js";const i={},a=e("div",null,"这是详情页",-1);const m=s(i,[["render",function(s,e){const i=o;return n(),r(i,null,{default:t((()=>[a])),_:1})}]]);export{m as default};
