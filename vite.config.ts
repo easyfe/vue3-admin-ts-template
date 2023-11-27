@@ -78,6 +78,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
                 output: {
                     manualChunks: {
                         echart: ["echarts"],
+                        "admin-component": ["@easyfe/admin-component"],
                         ui: ["@arco-design/web-vue", "@arco-plugins/vite-vue"],
                         core: ["vue", "vue-router"]
                     }
