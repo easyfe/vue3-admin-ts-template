@@ -36,8 +36,7 @@ function handleRetry() {
     justify-content: center;
     align-items: center;
     img {
-        width: 40%;
-        height: 40%;
+        width: 400px;
     }
 }
 </style>
