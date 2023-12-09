@@ -27,20 +27,39 @@ let start = 0;
  * 递归设置路由
  */
 const initRoute = (): void => {
-    const setRoutes = (tmpRoutes: RouteConfig[]) => {
-        let cloneData: RouteConfig[] = [];
-        tmpRoutes.sort((a, b) => (b.meta?.sort || 1) - (a.meta?.sort || 1));
-        // tmpRoutes = tmpRoutes.filter((item) => !item.meta?.hidden);
-        cloneData = [...tmpRoutes];
-        for (const key in tmpRoutes) {
-            if (tmpRoutes[key].children?.length) {
-                cloneData[key].children = setRoutes(tmpRoutes[key].children || []);
+    const filterRoutes = (routes: RouteConfig[]) => {
+        const cloneData: RouteConfig[] = [];
+        routes.sort((a, b) => (b.meta?.sort || 1) - (a.meta?.sort || 1));
+        for (let i = 0; i < routes.length; i++) {
+            const item = routes[i];
+            //处理一级路由，从/释放出来
+            if (!item.meta?.title && item.children?.length) {
+                cloneData.push(...filterRoutes(item.children));
+                continue;
+            }
+            //处理有父级路由的情况，主要是三级页面
+            if (item.meta?.parentName) {
+                const parent = routes.find((r) => r.name === item.meta?.parentName);
+                if (parent) {
+                    parent.children = parent.children || [];
+                    parent.children.push(item);
+                }
+                continue;
+            }
+            if (item.children) {
+                cloneData.push({
+                    ...item,
+                    children: filterRoutes(item.children)
+                });
+            } else {
+                cloneData.push(item);
             }
         }
         return cloneData;
     };
-    const res = setRoutes(routes as RouteConfig[]);
-    piniaRoutes().SET_ROUTES(res);
+    const staticRoutes = routes as RouteConfig[];
+    const filterRoutesRes = filterRoutes(staticRoutes);
+    piniaRoutes().SET_ROUTES(filterRoutesRes);
 };
 
 /**
@@ -67,6 +86,41 @@ const getDefaultRoute = (): RouteConfig | undefined => {
     return fn(piniaRoutes().routes);
 };
 
+/**
+ * 递归获取父级路由
+ * @param targetRoute
+ * @returns
+ */
+const getRouteParent = (targetRoute?: any) => {
+    function findParent(data: RouteConfig[], target: RouteConfig, result: RouteConfig[]) {
+        for (const item of data) {
+            if (item.name === target.name) {
+                //将查找到的目标数据加入结果数组中
+                result.unshift(item);
+                return true;
+            }
+            if (item.children && item.children.length > 0) {
+                //根据查找到的结果往上找父级节点
+                const isFind = findParent(item.children, target, result);
+                if (isFind) {
+                    result.unshift(item);
+                    return true;
+                }
+            }
+        }
+        //走到这说明没找到目标
+        return false;
+    }
+    const result: RouteConfig[] = [];
+    const currentRoute = router.currentRoute.value;
+    findParent(piniaRoutes().routes, targetRoute || currentRoute.matched[currentRoute.matched.length - 1], result);
+    return result;
+};
+
+/**
+ * 全局初始化
+ * @returns
+ */
 const initGlobal = (): Promise<boolean> => {
     return new Promise(async (resolve, reject) => {
         // if (!storage.getToken()) {
@@ -85,6 +139,8 @@ router.beforeEach(async (to: RouteConfig, from, next) => {
     NProgress.start();
     if (!piniaRoutes().routes.length) {
         initRoute();
+        next({ ...to, replace: true });
+        return;
     }
     if (to.name === "login") {
         next();
@@ -132,4 +188,4 @@ router.afterEach((to) => {
 });
 
 export default router;
-export { getDefaultRoute, initRoute };
+export { getDefaultRoute, getRouteParent, initRoute };

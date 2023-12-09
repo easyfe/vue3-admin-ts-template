@@ -1,6 +1,5 @@
 import { RouteConfig } from "types";
 import Layout from "@/layout/index.vue";
-import LayoutMain from "@/layout/main.vue";
 
 const routers: RouteConfig[] = [
     {
@@ -61,35 +60,38 @@ const routers: RouteConfig[] = [
                 component: () => import("@/views/dev/echarts/index.vue")
             },
             {
-                path: "/dev/hide-menu/index",
-                name: "dev-hide-menu-index",
+                path: "/dev/pages/lv1",
+                name: "dev-pages-lv1",
                 meta: {
-                    title: "列表跳详情",
+                    title: "多级页面缓存",
                     sort: 5
                 },
-                redirect: "/dev/hide-menu/index",
-                component: LayoutMain,
-                children: [
-                    {
-                        path: "/dev/hide-menu/index",
-                        name: "dev-hide-menu-index",
-                        meta: {
-                            hidden: true,
-                            navTag: true
-                        },
-                        component: () => import("@/views/dev/hide-menu/index/index.vue")
-                    },
-                    {
-                        path: "/dev/hide-menu/detail",
-                        name: "dev-hide-menu-detail",
-                        meta: {
-                            title: "详情菜单",
-                            hidden: true,
-                            navTag: true
-                        },
-                        component: () => import("@/views/dev/hide-menu/detail/index.vue")
-                    }
-                ]
+                component: () => import("@/views/dev/pages/lv1/index.vue")
+            },
+            {
+                path: "/dev/pages/lv2",
+                name: "dev-pages-lv2",
+                meta: {
+                    title: "二级页面",
+                    parentName: "dev-pages-lv1",
+                    hidden: true,
+                    navTag: true,
+                    sort: 5
+                },
+                component: () => import("@/views/dev/pages/lv2/index.vue")
+            },
+            {
+                path: "/dev/pages/lv3",
+                name: "dev-pages-lv3",
+                meta: {
+                    title: "三级页面缓存",
+                    parentName: "dev-pages-lv2",
+                    hidden: true,
+                    navTag: true,
+                    keepAliveName: "DevPagesLv3",
+                    sort: 5
+                },
+                component: () => import("@/views/dev/pages/lv3/index.vue")
             },
             {
                 path: "/dev/count-up",

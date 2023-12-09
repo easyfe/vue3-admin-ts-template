@@ -12,6 +12,7 @@ interface RouteMetaAll extends RouteMeta {
     key?: string;
     navTag?: boolean;
     cache?: boolean;
+    parentName?: string;
     permission?: () => boolean;
 }
 

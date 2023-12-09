@@ -6,6 +6,7 @@
 <script lang="ts" setup name="AppLeft">
 import routes from "@/config/pinia/routes";
 import MenuItem from "./menu-item.vue";
+import { getRouteParent } from "@/packages/vue-router";
 const route = useRoute();
 
 const routeList = computed(() => {
@@ -18,9 +19,9 @@ const selectedKeys = ref<string[]>([]);
 watch(
     () => route.path,
     () => {
-        const matched = route.matched.map((item) => item.path);
-        openKeys.value = matched;
-        selectedKeys.value = matched;
+        const matched = getRouteParent();
+        openKeys.value = matched.map((item) => item.path);
+        selectedKeys.value = matched.map((item) => item.path);
     },
     {
         immediate: true

@@ -94,13 +94,13 @@ import { useLocale } from "@/hooks/useLocale";
 import { Modal } from "@arco-design/web-vue";
 import storage from "@/utils/tools/storage";
 import { useTheme } from "@/hooks/useTheme";
+import { getRouteParent } from "@/packages/vue-router/index";
 
 const { themeModeOptions, currentThemeMode, handleThemeChange } = useTheme();
 
 const { changeLocale, currentLocale } = useLocale();
 
 const router = useRouter();
-const route = useRoute();
 
 const skinList = [
     { name: "arcoblue", color: "#165dff" },
@@ -118,7 +118,7 @@ const skinList = [
 ];
 
 const breadList = computed(() => {
-    return route.matched.filter((item) => item.path !== "/" && item.meta.title);
+    return getRouteParent();
 });
 
 const onClick = (item: RouteLocationMatched) => {

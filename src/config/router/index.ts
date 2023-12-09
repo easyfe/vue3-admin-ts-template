@@ -4,15 +4,9 @@ import Layout from "@/layout/index.vue";
 const routers: RouteConfig[] = [
     {
         path: "/",
-        redirect: "/login"
-    },
-    {
-        path: "/index",
-        redirect: "/index",
+        redirect: "/login",
         meta: {
-            title: "首页",
-            icon: "menu-home",
-            sort: 9
+            sort: 100
         },
         component: Layout,
         children: [
@@ -20,20 +14,13 @@ const routers: RouteConfig[] = [
                 path: "/index",
                 name: "index",
                 meta: {
-                    sort: 1,
-                    keepAliveName: "AppIndex",
-                    hidden: true,
-                    navTag: true
+                    title: "首页",
+                    icon: "menu-home",
+                    sort: 19,
+                    keepAliveName: "AppIndex"
                 },
                 component: () => import("@/views/index/index.vue")
-            }
-        ]
-    },
-    {
-        path: "/redirect",
-        redirect: "/redirect",
-        component: Layout,
-        children: [
+            },
             {
                 path: "/redirect",
                 name: "redirect",
