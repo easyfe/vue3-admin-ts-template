@@ -1,10 +1,18 @@
 import request from "@/packages/request";
+import router from "@/packages/vue-router";
 import { RequestOption } from "@arco-design/web-vue";
 
 export function testList(params: Record<string, any>): Promise<{ title: string }> {
     return request({
         url: "https://jsonplaceholder.typicode.com/posts",
         params
+    });
+}
+
+export function getVersion(): Promise<{ version: string }> {
+    return request({
+        url: `${location.origin}/${router.resolve({ path: "version.json" }).href}`,
+        notify: false
     });
 }
 

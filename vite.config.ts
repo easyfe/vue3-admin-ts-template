@@ -12,6 +12,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     // 环境文件对象
     const envMap = loadEnv(mode, process.cwd());
     const ossConfig = getOssConfig(envMap);
+    const now = new Date().getTime().toString();
     //设置资源路径
     let base = envMap.VITE_APP_BASE_ROUTE;
     if (envMap.VITE_APP_MODE !== "development" && ossConfig.enableUpload) {
@@ -24,6 +25,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
                 "@": resolvePath("src"),
                 types: resolvePath("types")
             }
+        },
+        define: {
+            __APP_VERSION__: now
         },
         // 插件加载
         plugins: createVitePlugins({

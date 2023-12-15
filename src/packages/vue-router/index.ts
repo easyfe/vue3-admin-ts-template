@@ -10,6 +10,9 @@ import { logout } from "@/views/utils";
 import global from "@/config/pinia/global";
 import storage from "@/utils/tools/storage";
 import { usePermission } from "@/hooks/usePermission";
+import { getVersion } from "@/config/apis/common";
+import { Message } from "@arco-design/web-vue";
+import { getOssConfig } from "@/config/oss";
 
 const { hasPermission, permissions } = usePermission();
 
@@ -134,8 +137,25 @@ const initGlobal = (): Promise<boolean> => {
     });
 };
 
+// 版本监控
+const versionCheck = async () => {
+    if (envHelper.dev() || getOssConfig({}).enableUpload) return;
+    const response = await getVersion();
+    if (String(__APP_VERSION__) !== String(response.version)) {
+        console.log("APP_VERSION", String(__APP_VERSION__), "====", String(response.version));
+        Message.info({
+            content: "发现新内容，自动更新中...",
+            duration: 1500,
+            onClose: () => {
+                window.location.reload();
+            }
+        });
+    }
+};
+
 //路由前置守卫
 router.beforeEach(async (to: RouteConfig, from, next) => {
+    versionCheck();
     NProgress.start();
     if (!piniaRoutes().routes.length) {
         initRoute();
