@@ -1,10 +1,10 @@
 import { generateVersion, AliConfig } from "@easyfe/vite-plugin-upload";
 
-export function getOssConfig(envMap: Record<string, any>): {
-    uploadOption: Record<string, any>;
-    uploadPath: string;
-    enableUpload: boolean;
-} {
+//是否允许上传到CDN
+export const enableUpload = false;
+
+//获取oss配置
+export function getOssConfig(envMap: Record<string, any>) {
     //上传配置
     const uploadOption: AliConfig = {
         accessKeyId: "",
@@ -12,13 +12,11 @@ export function getOssConfig(envMap: Record<string, any>): {
         bucket: "",
         region: "",
         bucketName: envMap.VITE_APP_MODE === "production" ? "dist" : "test",
-        remoteDir: `efe-vue3-admin-ts-template/${generateVersion()}`,
+        remoteDir: `vue3-admin-ts-template/${generateVersion()}`,
         from: "dist",
         excludesExtra: ["map"]
     };
     //上传路径
     const uploadPath = `${envMap.VITE_APP_CDN_URL}/${uploadOption.bucketName}/${uploadOption.remoteDir}/`;
-    //是否允许上传
-    const enableUpload = false;
-    return { uploadPath, uploadOption, enableUpload };
+    return { uploadPath, uploadOption };
 }

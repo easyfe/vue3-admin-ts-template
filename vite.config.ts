@@ -1,7 +1,7 @@
 import { UserConfig, ConfigEnv, loadEnv } from "vite";
 import path from "path";
 import { createVitePlugins } from "./src/config/vite";
-import { getOssConfig } from "./src/config/oss";
+import { getOssConfig, enableUpload } from "./src/config/oss";
 
 function resolvePath(paths: string): string {
     return path.resolve(__dirname, paths);
@@ -15,7 +15,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     const now = new Date().getTime().toString();
     //设置资源路径
     let base = envMap.VITE_APP_BASE_ROUTE;
-    if (envMap.VITE_APP_MODE !== "development" && ossConfig.enableUpload) {
+    if (envMap.VITE_APP_MODE !== "development" && enableUpload) {
         base = ossConfig.uploadPath;
     }
     return {
@@ -26,13 +26,15 @@ export default ({ mode }: ConfigEnv): UserConfig => {
                 types: resolvePath("types")
             }
         },
+        // 全局变量
         define: {
+            __APP_UPLOAD__: enableUpload,
             __APP_VERSION__: now
         },
         // 插件加载
         plugins: createVitePlugins({
             envMap,
-            uploadOption: ossConfig.enableUpload ? ossConfig.uploadOption : undefined
+            uploadOption: enableUpload ? ossConfig.uploadOption : undefined
         }),
         // 全局样式引用
         css: {

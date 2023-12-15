@@ -16,3 +16,4 @@ declare module "*.jpg";
 declare module "*.jpeg";
 declare module "*.svg";
 declare var __APP_VERSION__: string;
+declare var __APP_UPLOAD__: boolean;

@@ -12,7 +12,6 @@ import storage from "@/utils/tools/storage";
 import { usePermission } from "@/hooks/usePermission";
 import { getVersion } from "@/config/apis/common";
 import { Message } from "@arco-design/web-vue";
-import { getOssConfig } from "@/config/oss";
 
 const { hasPermission, permissions } = usePermission();
 
@@ -139,7 +138,7 @@ const initGlobal = (): Promise<boolean> => {
 
 // 版本监控
 const versionCheck = async () => {
-    if (envHelper.dev() || getOssConfig({}).enableUpload) return;
+    if (envHelper.dev() || __APP_UPLOAD__) return;
     const response = await getVersion();
     if (String(__APP_VERSION__) !== String(response.version)) {
         console.log("APP_VERSION", String(__APP_VERSION__), "====", String(response.version));
