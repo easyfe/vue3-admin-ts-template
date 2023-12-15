@@ -19,6 +19,7 @@ jobs:
 
             - name: Build
               run: |
+                  sed -i 's|VITE_APP_BASE_ROUTE=./|VITE_APP_BASE_ROUTE=/vue3-admin-ts-template/|' $(pwd)/.env.test
                   pnpm build:test
                   cp dist/index.html dist/404.html
 

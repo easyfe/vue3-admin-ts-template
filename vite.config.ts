@@ -13,7 +13,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     const envMap = loadEnv(mode, process.cwd());
     const ossConfig = getOssConfig(envMap);
     //设置资源路径
-    let base = "/vue3-admin-ts-template/"; //如果是根目录相对路径，需要设置为 ./
+    let base = envMap.VITE_APP_BASE_ROUTE;
     if (envMap.VITE_APP_MODE !== "development" && ossConfig.enableUpload) {
         base = ossConfig.uploadPath;
     }
