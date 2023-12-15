@@ -13,13 +13,18 @@ import { ConfigCompressPlugin } from "./modules/compress";
 import VueSetupExtend from "vite-plugin-vue-setup-extend-plus";
 import { vitePluginForArco } from "@arco-plugins/vite-vue";
 import { AliUploadPlugin } from "@easyfe/vite-plugin-upload";
+import versionPlugin from "./modules/version";
 
 /**
  * 创建vite插件
  * @param params compress：是否开启打包压缩，analyzer：是否开启打包分析，envMap：构建传递的环境变量
  * @returns
  */
-export function createVitePlugins(params: { envMap: Record<string, any>; uploadOption?: any }): (Plugin | Plugin[])[] {
+export function createVitePlugins(params: {
+    envMap: Record<string, any>;
+    uploadOption?: any;
+    now: string;
+}): (Plugin | Plugin[])[] {
     const vitePlugins: (Plugin | Plugin[])[] = [
         // vue支持
         vue(),
@@ -50,6 +55,7 @@ export function createVitePlugins(params: { envMap: Record<string, any>; uploadO
     }
     // 依赖分析
     if (params.envMap.VITE_APP_MODE !== "development") {
+        vitePlugins.push(versionPlugin({ version: params.now }));
         vitePlugins.push(ConfigVisualizerConfig());
     }
     return vitePlugins;

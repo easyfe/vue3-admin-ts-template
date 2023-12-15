@@ -21,6 +21,9 @@ const service = new WebRequest({
             return Promise.resolve(config);
         },
         response: (response): Promise<any> => {
+            if (response.config.url?.includes("/version.json")) {
+                return Promise.resolve(response.data);
+            }
             return Promise.resolve(response.data);
         },
         responseError: (errorResponse): Promise<any> => {

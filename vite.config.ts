@@ -34,7 +34,8 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         // 插件加载
         plugins: createVitePlugins({
             envMap,
-            uploadOption: enableUpload ? ossConfig.uploadOption : undefined
+            uploadOption: enableUpload ? ossConfig.uploadOption : undefined,
+            now
         }),
         // 全局样式引用
         css: {
