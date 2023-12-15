@@ -11,7 +11,7 @@ export function testList(params: Record<string, any>): Promise<{ title: string }
 
 export function getVersion(): Promise<{ version: string }> {
     return request({
-        url: `${location.origin}/${router.resolve({ path: "version.json" }).href}`,
+        url: `${location.origin}${router.options.history.base}/version.json}`,
         notify: false
     });
 }
