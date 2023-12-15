@@ -25,8 +25,8 @@ cookie.set("X-Token", "");
 const loading = ref(false);
 
 const formData = ref({
-    username: "",
-    password: ""
+    username: "admin",
+    password: "admin"
 });
 const formConfig = computed(() => {
     return [
