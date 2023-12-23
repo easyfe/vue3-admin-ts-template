@@ -8,15 +8,22 @@
         }"
     ></div>
 </template>
-<script lang="ts" setup name="BaseChart">
+<script lang="ts" setup name="TheChart">
 import echarts from "@/config/echarts/index";
 import chinaJSON from "@/config/echarts/map/chinaChange.json";
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
-import { debounce } from "lodash-es";
+import theme from "@/views/utils/theme";
+import { cloneDeepWith, isString, debounce } from "lodash-es";
+import i18n from "@/locales";
+import { useLocale } from "@/hooks/useLocale";
+import { useTheme } from "@/hooks/useTheme";
+
+const { currentLocale } = useLocale();
+const { currentTheme } = useTheme();
 
 const props = withDefaults(
     defineProps<{
-        option: echarts.EChartsCoreOption;
+        option: Record<string, any>;
         width?: string | number;
         height?: string | number;
         isMap?: boolean;
@@ -27,13 +34,13 @@ const props = withDefaults(
         width: "100%",
         height: "100%",
         isMap: false,
-        isDark: false,
+        isDark: undefined,
         id: ""
     }
 );
 
 const baseChart = ref(null);
-let charts = ref<null | any>(null);
+let charts = <echarts.ECharts | null>null;
 
 const emits = defineEmits<{
     (e: "init", value: echarts.ECharts): void;
@@ -56,7 +63,7 @@ watch(
 );
 
 const resizeChart = debounce(() => {
-    charts.resize();
+    charts?.resize();
 }, 150);
 
 function initChart() {
@@ -80,9 +87,31 @@ function initChart() {
     if (charts) {
         charts.dispose?.();
     }
-    charts = echarts.init(baseChart.value, props.isDark ? "dark" : "light");
-    charts.setOption(props.option);
-    charts.on("click", (e: any) => {
+    let themeMode = "";
+    if (props.isDark !== undefined) {
+        themeMode = props.isDark ? "dark" : "light";
+    } else {
+        themeMode = currentTheme.value;
+    }
+    charts = echarts.init(baseChart.value, themeMode, { renderer: "svg" });
+    const cloneOption = cloneDeepWith(props.option, (v, k) => {
+        if (isString(v) && v.startsWith("var(--")) {
+            return theme.getCustom(v.replaceAll("var(", "").replaceAll(")", ""));
+        }
+        if (isString(v) && v.startsWith("$t(")) {
+            const regex = /\$t\('(.+?)'\)/;
+            const match = v.match(regex);
+            if (match) {
+                const result = match[1]; // 获取匹配到的第一个括号内的内容
+                return i18n.global.t(result);
+            }
+        }
+        if (isString(k) && ["name"].includes(k)) {
+            return i18n.global.t(v);
+        }
+    });
+    charts.setOption(cloneOption);
+    charts.on("click", (e) => {
         emits("click", e);
     });
     emits("init", charts);
@@ -96,8 +125,22 @@ function initChart() {
 eventBus.on(EVENT_CHART_RESIZE, (id: string) => {
     if (id && id === props.id) {
         //这里取消了防抖，优化体验
-        charts.resize();
+        charts?.resize();
         // resizeChart();
+    }
+});
+
+watch([() => currentTheme.value, () => currentLocale.value], () => {
+    nextTick(() => {
+        initChart();
+    });
+});
+
+defineExpose({
+    setOption: (option: any) => {
+        if (charts) {
+            charts.setOption(option);
+        }
     }
 });
 

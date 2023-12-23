@@ -41,7 +41,8 @@
 import genrateNanoid from "@/utils/tools/nanoid";
 import { ChartBar, ChartLine, ChartOverview } from "../echarts/components/index";
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
-import { useDragLine } from "@/views/components/the-draggable-line/hook";
+import { useDragLine } from "./the-draggable-line/hook";
+import TheDraggableResizable from "./the-draggable-resizable/index.vue";
 
 const sourceList = [
     {
@@ -179,3 +180,4 @@ function onDeactivated(e: MouseEvent, index: number) {
     }
 }
 </style>
+@/views/dev/drag/the-draggable-line/hook

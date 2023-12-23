@@ -16,7 +16,8 @@
 </template>
 <script lang="ts" setup>
 import genrateNanoid from "@/utils/tools/nanoid";
-// import { RefLine } from "./ref-line";
+import TheDraggableContainer from "./the-draggable-container/index.vue";
+import TheDraggableItem from "./the-draggable-item/index.vue";
 
 const list = ref([
     {

@@ -12,7 +12,7 @@
                     </a-statistic>
                 </a-col>
             </a-row>
-            <base-chart :id="props.id" :option="option" height="500px"></base-chart>
+            <the-chart :id="props.id" :option="option" height="500px"></the-chart>
         </a-card>
     </a-spin>
 </template>

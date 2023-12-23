@@ -1,7 +1,7 @@
 <template>
     <a-spin style="width: 100%">
         <a-card title="柱状图" class="general-card">
-            <base-chart :id="props.id" :option="option" height="200px"></base-chart>
+            <the-chart :id="props.id" :option="option" height="200px"></the-chart>
         </a-card>
     </a-spin>
 </template>
