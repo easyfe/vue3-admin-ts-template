@@ -95,19 +95,24 @@ function initChart() {
     }
     charts = echarts.init(baseChart.value, themeMode, { renderer: "svg" });
     const cloneOption = cloneDeepWith(props.option, (v, k) => {
+        //适配深色模式
         if (isString(v) && v.startsWith("var(--")) {
             return theme.getCustom(v.replaceAll("var(", "").replaceAll(")", ""));
         }
+        //适配国际化
         if (isString(v) && v.startsWith("$t(")) {
             const regex = /\$t\('(.+?)'\)/;
             const match = v.match(regex);
             if (match) {
                 const result = match[1]; // 获取匹配到的第一个括号内的内容
-                return i18n.global.t(result);
+                return result;
+                // return i18n.global.t(result);
             }
         }
+        //适配国际化
         if (isString(k) && ["name"].includes(k)) {
-            return i18n.global.t(v);
+            return v;
+            // return i18n.global.t(v);
         }
     });
     charts.setOption(cloneOption);

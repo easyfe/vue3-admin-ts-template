@@ -1,10 +1,10 @@
 <template>
     <div class="content">
-        <div class="drag-column">
+        <!-- <div class="drag-column">
             <div v-for="item in sourceList" :key="item.label" class="drag-item">
                 {{ item.label }}
             </div>
-        </div>
+        </div> -->
         <div class="target-coulumn">
             <template v-for="(item, index) in targetList" :key="item.id">
                 <the-draggable-resizable
@@ -43,6 +43,7 @@ import { ChartBar, ChartLine, ChartOverview } from "../echarts/components/index"
 import eventBus, { EVENT_CHART_RESIZE } from "@/utils/tools/event-bus";
 import { useDragLine } from "./the-draggable-line/hook";
 import TheDraggableResizable from "./the-draggable-resizable/index.vue";
+import TheDraggableLine from "./the-draggable-line/index.vue";
 
 const sourceList = [
     {

@@ -6,6 +6,7 @@
     </a-spin>
 </template>
 <script lang="ts" setup>
+import echartsHelper from "@/utils/helper/echarts";
 import { EChartsOption } from "echarts";
 
 const props = withDefaults(
@@ -55,7 +56,7 @@ const option = computed(() => {
             }
         };
     });
-    return v;
+    return echartsHelper.option(v);
 });
 </script>
 <style lang="scss" scoped></style>

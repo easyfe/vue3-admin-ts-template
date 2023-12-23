@@ -17,6 +17,7 @@
     </a-spin>
 </template>
 <script lang="ts" setup>
+import echartsHelper from "@/utils/helper/echarts";
 import { EChartsOption, LineSeriesOption } from "echarts";
 
 const props = withDefaults(
@@ -132,7 +133,7 @@ const option = computed(() => {
             }
         ]
     };
-    return v;
+    return echartsHelper.option(v);
 });
 
 const generateSeries = (name: string, lineColor: string, itemBorderColor: string, data: number[]): LineSeriesOption => {
