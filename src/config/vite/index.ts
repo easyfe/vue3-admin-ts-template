@@ -50,7 +50,7 @@ export function createVitePlugins(params: {
         vitePlugins.push(AliUploadPlugin(params.uploadOption));
     }
     // 代码压缩 .gzip之类
-    if (params.envMap.VITE_APP_COMPRESS) {
+    else if (params.envMap.VITE_APP_COMPRESS) {
         vitePlugins.push(ConfigCompressPlugin(params.envMap.VITE_APP_COMPRESS));
     }
     // 依赖分析

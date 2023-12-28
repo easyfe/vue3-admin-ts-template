@@ -125,8 +125,8 @@ devDependencies:
     specifier: ~0.0.4
     version: 0.0.4(typescript@4.5.2)
   '@easyfe/vite-plugin-upload':
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^1.0.2
+    version: 1.0.2
   '@syyfe/eslint-plugin':
     specifier: ~0.0.2
     version: 0.0.2(eslint@8.44.0)
@@ -611,11 +611,12 @@ packages:
       - typescript
     dev: true
 
-  /@easyfe/vite-plugin-upload@1.0.0:
-    resolution: {integrity: sha512-Lvuul/yEaw7CC21EKr6TH3j/gpGXYx+6qG0RkK9Bh8kOae5hYzo+c554zyGMX9EH4vHiHa9qfAmhR/ew66Yjgw==}
+  /@easyfe/vite-plugin-upload@1.0.2:
+    resolution: {integrity: sha512-ZCdJehgAkKNwFGr0G/wL/8KrT73uA3EUzMT+8eka8Gfe+2NJxP40DqmO/7TI7weZQTtIl3BcGePOqpa074bw5g==}
     dependencies:
       ali-oss: 6.18.1
       cos-nodejs-sdk-v5: 2.12.4
+      esdk-obs-nodejs: 3.23.11
       glob: 7.2.0
       minio: 7.1.3
     transitivePeerDependencies:
@@ -2343,6 +2344,11 @@ packages:
       assert-plus: 1.0.0
     dev: true
 
+  /date-format@4.0.14:
+    resolution: {integrity: sha512-39BOQLs9ZjKh0/patS9nrT8wc3ioX3/eA/zgbKNopnF2wCqJEoxywwwElATYvRsXdnOxA/OQeQoFZ3rFjVajhg==}
+    engines: {node: '>=4.0'}
+    dev: true
+
   /dateformat@2.2.0:
     resolution: {integrity: sha512-GODcnWq3YGoTnygPfi02ygEiRxqUxpJwuRHjdhJYuxpcZmDq4rjBiXYmbCCzStxo176ixfLT6i4NPwQooRySnw==}
     dev: true
@@ -2821,6 +2827,16 @@ packages:
   /escape-string-regexp@5.0.0:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
+    dev: true
+
+  /esdk-obs-nodejs@3.23.11:
+    resolution: {integrity: sha512-Al9W/B6XvW3SC2GNM00VXywcRfPf7yW4AvZXHX0uudeCAY0kkubJSnepj2quF7cC/ecrKBpmWic58TeC8atjww==}
+    engines: {node: '>=0.12.7'}
+    dependencies:
+      fast-xml-parser: 4.2.7
+      log4js: 6.9.1
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /eslint-config-prettier@8.3.0(eslint@7.32.0):
@@ -3440,6 +3456,15 @@ packages:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
       universalify: 2.0.0
+    dev: true
+
+  /fs-extra@8.1.0:
+    resolution: {integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==}
+    engines: {node: '>=6 <7 || >=8'}
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 4.0.0
+      universalify: 0.1.2
     dev: true
 
   /fs.realpath@1.0.0:
@@ -4306,6 +4331,12 @@ packages:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
 
+  /jsonfile@4.0.0:
+    resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
+    optionalDependencies:
+      graceful-fs: 4.2.11
+    dev: true
+
   /jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
     dependencies:
@@ -4533,6 +4564,19 @@ packages:
       cli-cursor: 3.1.0
       slice-ansi: 4.0.0
       wrap-ansi: 6.2.0
+    dev: true
+
+  /log4js@6.9.1:
+    resolution: {integrity: sha512-1somDdy9sChrr9/f4UlzhdaGfDR2c/SaD2a4T7qEkG4jTS57/B3qmnjLYePwQ8cqWnUHZI0iAKxMBpCZICiZ2g==}
+    engines: {node: '>=8.0'}
+    dependencies:
+      date-format: 4.0.14
+      debug: 4.3.4
+      flatted: 3.2.7
+      rfdc: 1.3.0
+      streamroller: 3.1.5
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /lru-cache@6.0.0:
@@ -6045,6 +6089,17 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: true
 
+  /streamroller@3.1.5:
+    resolution: {integrity: sha512-KFxaM7XT+irxvdqSP1LGLgNWbYN7ay5owZ3r/8t77p+EtSUAfUgtl7be3xtqtOmGUl9K9YPO2ca8133RlTjvKw==}
+    engines: {node: '>=8.0'}
+    dependencies:
+      date-format: 4.0.14
+      debug: 4.3.4
+      fs-extra: 8.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /strict-uri-encode@1.1.0:
     resolution: {integrity: sha512-R3f198pcvnB+5IpnBlRkphuE9n46WyVl8I39W/ZUTZLz4nqSP/oLYUrcnJrw462Ds8he4YKMov2efsTIw1BDGQ==}
     engines: {node: '>=0.10.0'}
@@ -6600,6 +6655,11 @@ packages:
       get-value: 2.0.6
       is-extendable: 0.1.1
       set-value: 2.0.1
+    dev: true
+
+  /universalify@0.1.2:
+    resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
+    engines: {node: '>= 4.0.0'}
     dev: true
 
   /universalify@2.0.0:
