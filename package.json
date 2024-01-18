@@ -1,5 +1,5 @@
 {
-    "name": "efe-vue3-admin-ts-template",
+    "name": "vue3-admin-ts-template",
     "version": "0.0.1",
     "scripts": {
         "start": "vite --mode development",
