@@ -9,7 +9,7 @@ export const LOCALE_OPTIONS = [
 ];
 const defaultLocale = localStorage.getItem("arco-locale") || "zh-CN";
 
-const i18n = createI18n({
+const i18n = createI18n<false>({
     locale: defaultLocale,
     fallbackLocale: "en-US",
     legacy: false,
