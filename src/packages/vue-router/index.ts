@@ -6,14 +6,10 @@ import { RouteConfig } from "types";
 import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css";
 import typeHelper from "@/utils/helper/type";
-import { logout } from "@/views/utils";
 import global from "@/config/pinia/global";
-import storage from "@/utils/tools/storage";
-import { usePermission } from "@/hooks/usePermission";
+import { initGlobal } from "@/views/utils";
 import { getVersion } from "@/config/apis/common";
 import { Message } from "@arco-design/web-vue";
-
-const { hasPermission, permissions } = usePermission();
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
@@ -72,7 +68,10 @@ const getDefaultRoute = (): RouteConfig | undefined => {
     const fn = (list: RouteConfig[]) => {
         let result: RouteConfig | undefined;
         for (const item of list) {
-            if (item.meta?.navTag || (!item.meta?.hidden && typeHelper.isFunction(item.component))) {
+            if (item.meta?.permission?.() === false || item.meta?.hidden) {
+                continue;
+            }
+            if (item.meta?.navTag || typeHelper.isFunction(item.component)) {
                 result = item;
                 break;
             }
@@ -119,23 +118,6 @@ const getRouteParent = (targetRoute?: any) => {
     return result;
 };
 
-/**
- * 全局初始化
- * @returns
- */
-const initGlobal = (): Promise<boolean> => {
-    return new Promise(async (resolve, reject) => {
-        // if (!storage.getToken()) {
-        //     logout();
-        //     return;
-        // }
-        //TODO:获取用户权限信息，填充到permissions里面
-        // console.log("初始化全局数据", hasPermission("system:menu:edit"));
-        global().initSuccess = true;
-        resolve(true);
-    });
-};
-
 // 版本监控
 const versionCheck = async () => {
     if (envHelper.dev() || __APP_UPLOAD__) return;
@@ -169,7 +151,11 @@ router.beforeEach(async (to: RouteConfig, from, next) => {
         await initGlobal();
     }
     if (to.meta?.permission?.() === false) {
-        next({ name: "404" });
+        if (from.path === "/") {
+            next(getDefaultRoute() || { name: "404" });
+        } else {
+            next({ name: "404" });
+        }
         return;
     }
     // console.log("路由前置守卫：", to, from);
