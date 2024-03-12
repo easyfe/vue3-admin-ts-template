@@ -45,3 +45,58 @@ export function initGlobal() {
         resolve(true);
     });
 }
+
+/**
+ * 树状结构查询
+ * @param fn
+ * @param sourceData
+ * @param childrenKey
+ * @returns
+ */
+export function recuTree(fn: (v: any) => boolean, sourceData: any[], childrenKey = "children") {
+    const loop = (data: any[]) => {
+        const result: any[] = [];
+        data.forEach((item) => {
+            if (fn(item)) {
+                result.push({ ...item });
+            } else if (item[childrenKey]) {
+                const filterData = loop(item[childrenKey]);
+                if (filterData.length) {
+                    const tmp = {
+                        ...item
+                    };
+                    tmp[childrenKey] = filterData;
+                    result.push(tmp);
+                }
+            }
+        });
+        return result;
+    };
+    return loop(sourceData);
+}
+
+/**
+ * 树状结构单条查询
+ * @param fn
+ * @param sourceData
+ * @param childrenKey
+ * @returns
+ */
+export function recuFind(fn: (v: any) => boolean, sourceData: any[], childrenKey = "children") {
+    const loop = (data: any[]) => {
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            if (fn(item)) {
+                return item;
+            } else {
+                if (item[childrenKey]) {
+                    const tmp: any = loop(item[childrenKey]);
+                    if (tmp) {
+                        return tmp;
+                    }
+                }
+            }
+        }
+    };
+    return loop(sourceData);
+}
