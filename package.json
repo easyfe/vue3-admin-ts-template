@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@arco-design/web-vue": "~2.54.6",
-        "@easyfe/admin-component": "^0.4.1",
+        "@easyfe/admin-component": "^0.4.2",
         "@easyfe/web-request": "^1.0.1",
         "@types/dush": "~3.0.1",
         "@vueuse/components": "~10.2.1",
