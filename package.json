@@ -15,7 +15,7 @@
         "@amap/amap-jsapi-loader": "^1.0.1",
         "@arco-design/web-vue": "latest",
         "@easyfe/admin-component": "latest",
-        "@easyfe/web-request": "^1.0.1",
+        "@easyfe/web-request": "^1.0.2",
         "@skjnldsv/vue-plyr": "^7.4.0",
         "@types/dush": "^3.0.1",
         "@vueuse/components": "^10.2.1",

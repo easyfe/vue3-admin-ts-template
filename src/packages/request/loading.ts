@@ -4,7 +4,7 @@ import i18n from "@/locales";
 let reqNum = 0;
 const loading = {
     showToast(err: any): void {
-        Message.error(err.message || err.msg || err);
+        Message.error(err?.message || err?.msg || err);
     },
     showLoading(): void {
         if (reqNum === 0) {
