@@ -9,7 +9,7 @@ const routerHelper = {
         if (typeof data === "string") {
             path = data;
         } else {
-            path = router.resolve(data as any)?.fullPath;
+            path = router.resolve(data as any)?.href;
         }
         window.open(path, "_blank");
     },
