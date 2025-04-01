@@ -27,14 +27,17 @@ export default defineStore({
                 console.warn("路由未设置name属性，无法添加导航标签");
                 return;
             }
-            const inTag = this.navTags.findIndex((item: RouteConfig) => item.path === res.path) > -1;
+            const existingTagIndex = this.navTags.findIndex((item: RouteConfig) => item.path === res.path);
             const inCache =
                 this.cachedTags.findIndex((item: string) => item === (res.meta?.keepAliveName || res.name)) > -1;
-            if (inTag && inCache) {
-                return;
-            }
+
             const { name, meta, path, hash, query, params, fullPath } = res;
-            if (!inTag) {
+
+            if (existingTagIndex > -1) {
+                // Update the existing tag
+                this.navTags[existingTagIndex] = { name, meta, path, hash, query, params, fullPath };
+            } else {
+                // Add new tag if it doesn't exist
                 this.navTags.push({ name, meta, path, hash, query, params, fullPath });
             }
 
