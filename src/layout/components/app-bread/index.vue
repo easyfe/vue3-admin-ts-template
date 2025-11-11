@@ -4,8 +4,8 @@
             <a-breadcrumb-item v-for="(item, index) in breadList" :key="item.name">
                 <div class="bre-item">
                     <Svg v-if="item.meta?.icon" :name="String(item.meta.icon)" :width="20" :height="20"></Svg>
-                    <div v-if="checkDidsable(item, index)">{{ $t(item.meta.title) }}</div>
-                    <a-link v-else @click="onClick(item)"> {{ $t(item.meta.title) }}</a-link>
+                    <div v-if="checkDidsable(item, index)">{{ $t(item.meta?.title || "") }}</div>
+                    <a-link v-else @click="onClick(item)"> {{ $t(item.meta?.title || "") }}</a-link>
                 </div>
             </a-breadcrumb-item>
         </a-breadcrumb>
@@ -14,12 +14,12 @@
 <script lang="ts" setup>
 import router, { getRouteParent } from "@/packages/vue-router/index";
 import { Svg } from "@easyfe/admin-component";
-import { RouteLocationMatched } from "vue-router";
+import { RouteConfig } from "types";
 const breadList = computed(() => {
     return getRouteParent();
 });
 
-function checkDidsable(item: RouteLocationMatched, index: number) {
+function checkDidsable(item: RouteConfig, index: number) {
     if (index === breadList.value.length - 1) {
         return true;
     }
@@ -34,7 +34,7 @@ function checkDidsable(item: RouteLocationMatched, index: number) {
     return true;
 }
 
-const onClick = (item: RouteLocationMatched) => {
+const onClick = (item: RouteConfig) => {
     router.push(item);
 };
 </script>

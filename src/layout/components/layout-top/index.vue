@@ -48,5 +48,4 @@ const routeList = computed(() => {
     return routes().routes;
 });
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

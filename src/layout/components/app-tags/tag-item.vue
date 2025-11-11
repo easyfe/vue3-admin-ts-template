@@ -7,7 +7,7 @@
                 @click="goto(props.data)"
             >
                 <span class="tag-link">
-                    {{ $t(props.data.meta?.title) }}
+                    {{ $t(props.data.meta?.title || "") }}
                 </span>
                 <span
                     class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
@@ -50,7 +50,6 @@ import routes from "@/config/pinia/routes";
 import { getDefaultRoute } from "@/packages/vue-router";
 import { Message } from "@arco-design/web-vue";
 import { RouteConfig } from "types";
-import "@arco-design/web-vue/es/tag/style/css.js";
 
 enum Eaction {
     reload = "reload",
