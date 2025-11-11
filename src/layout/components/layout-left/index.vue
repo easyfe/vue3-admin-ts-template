@@ -1,6 +1,14 @@
 <template>
     <a-layout style="height: 100vh">
-        <a-layout-sider v-model:collapsed="collapsed" collapsible style="z-index: 200" @collapse="onCollapse">
+        <a-layout-sider
+            v-model:collapsed="collapsed"
+            collapsible
+            :style="{
+                zIndex: 200,
+                width: siderWidth
+            }"
+            @collapse="onCollapse"
+        >
             <app-logo></app-logo>
             <div class="menu-wrapper">
                 <app-menu mode="vertical" :collapsed="collapsed" :route-list="routeList" @collapse="onCollapse" />
@@ -49,6 +57,13 @@ const collapsed = ref(global().collapsed);
 // 左侧布局显示所有路由
 const routeList = computed(() => {
     return routes().routes;
+});
+
+const siderWidth = computed(() => {
+    if (collapsed.value) {
+        return `${LAYOUT_SIZE.SIDER_COLLAPSED_WIDTH}px`;
+    }
+    return `${LAYOUT_SIZE.SIDER_WIDTH}px`;
 });
 
 function onCollapse(e: boolean) {

@@ -1,5 +1,5 @@
 <template>
-    <div class="logo" :style="{ maxWidth: !collapsed ? '200px' : '' }" @click="toDefaultPage">
+    <div class="logo" :style="{ maxWidth: !collapsed ? `${LAYOUT_SIZE.SIDER_WIDTH}px` : '' }" @click="toDefaultPage">
         <Svg name="vue" width="36" height="36"></Svg>
         <h2 v-show="!collapsed" class="title">Easyfe Admin</h2>
     </div>
@@ -8,6 +8,7 @@
 import router, { getDefaultRoute } from "@/packages/vue-router";
 import global from "@/config/pinia/global";
 import { Svg } from "@easyfe/admin-component";
+import { LAYOUT_SIZE } from "@/layout/constants";
 
 const collapsed = computed(() => global().collapsed);
 
