@@ -75,23 +75,41 @@ const collapsed = ref(global().collapsed);
 // 顶部菜单：只显示一级菜单（不包含children）
 const topMenuList = computed(() => {
     const tempList = cloneDeep(routes().routes);
+    // 移除所有子菜单，只保留一级菜单项
     const list = tempList.map((item) => {
-        if (item.children?.length) {
-            delete item.children;
-        }
-        return item;
+        const newItem = { ...item };
+        // 删除 children，使其在顶部菜单中不显示下拉
+        delete newItem.children;
+        return newItem;
     });
+    console.log("topMenuList", JSON.stringify(list));
     return list;
 });
 
 // 左侧菜单：显示当前一级路由的子路由
 const siderMenuList = computed(() => {
     const matched = getRouteParent();
-    const matchedChildren = matched[0]?.children || [];
-    if (matchedChildren[0]?.meta?.hidden) {
+    // 获取第一级路由（顶部菜单对应的路由）
+    const firstLevelRoute = matched[0];
+
+    if (!firstLevelRoute) {
         return [];
     }
-    return matchedChildren;
+
+    // 从原始路由数据中找到完整的一级路由（包含children）
+    const fullRoute = routes().routes.find((r) => r.path === firstLevelRoute.path);
+
+    if (!fullRoute || !fullRoute.children || fullRoute.children.length === 0) {
+        return [];
+    }
+
+    // 如果第一个子路由是隐藏的，返回空数组
+    if (fullRoute.children[0]?.meta?.hidden) {
+        return [];
+    }
+
+    // 返回一级路由的所有子路由（二级及以下）
+    return fullRoute.children;
 });
 
 function onCollapse(e: boolean) {
