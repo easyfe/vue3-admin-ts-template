@@ -12,7 +12,7 @@
                 justifyContent: 'space-between'
             }"
         >
-            <div style="display: flex; align-items: center">
+            <div style="display: flex; align-items: center; flex: 1">
                 <app-logo />
                 <!-- 顶部一级菜单 -->
                 <div style="margin-left: 24px; flex: 1">
@@ -74,15 +74,14 @@ const collapsed = ref(global().collapsed);
 
 // 顶部菜单：只显示一级菜单（不包含children）
 const topMenuList = computed(() => {
-    const tempList = cloneDeep(routes().routes);
     // 移除所有子菜单，只保留一级菜单项
+    const tempList = cloneDeep(routes().routes);
     const list = tempList.map((item) => {
-        const newItem = { ...item };
-        // 删除 children，使其在顶部菜单中不显示下拉
-        delete newItem.children;
-        return newItem;
+        if (item.children?.length) {
+            delete item.children;
+        }
+        return item;
     });
-    console.log("topMenuList", JSON.stringify(list));
     return list;
 });
 
