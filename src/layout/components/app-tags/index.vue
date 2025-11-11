@@ -1,5 +1,10 @@
 <template>
-    <div class="app-tags">
+    <div
+        class="app-tags"
+        :style="{
+            height: `${LAYOUT_SIZE.TAGS_HEIGHT}px`
+        }"
+    >
         <div class="tab-bar-box">
             <div class="tab-bar-scroll">
                 <draggable :list="tagList" class="tags-wrap" item-key="path" animation="200">
@@ -15,6 +20,7 @@
 import draggable from "vuedraggable";
 import routes from "@/config/pinia/routes";
 import AppTagItem from "./tag-item.vue";
+import { LAYOUT_SIZE } from "@/layout/constants";
 
 const tagList = computed(() => {
     return routes().navTags;

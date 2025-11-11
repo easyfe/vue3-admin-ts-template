@@ -1,11 +1,11 @@
 <template>
-    <div :class="['frame-view', $slots.bottom ? 'frame-view-pdm' : '', props.fixedHeight ? 'frame-fixed-height' : '']">
+    <div class="frame-view" :style="{ height: frameViewHeight, paddingBottom: $slots.footer ? '60px' : '0' }">
         <div ref="myFrameContent" :class="['frame-view-content', props.contentClass]">
             <a-page-header v-if="pageHeader" v-bind="pageHeader" @back="routerHelper.back()" />
             <slot></slot>
         </div>
-        <div v-if="$slots.bottom" class="frame-view-bottom" :style="bottomStyle">
-            <slot name="bottom"></slot>
+        <div v-if="$slots.footer" class="frame-view-footer" :style="footerStyle">
+            <slot name="footer"></slot>
         </div>
     </div>
 </template>
@@ -13,37 +13,35 @@
 <script lang="ts" setup name="FrameView">
 import global from "@/config/pinia/global";
 import routerHelper from "@/utils/helper/router";
+import { LAYOUT_SIZE } from "@/layout/constants";
 import { PageHeader } from "@arco-design/web-vue";
+
+const props = withDefaults(
+    defineProps<{
+        contentClass?: string;
+        pageHeader?: InstanceType<typeof PageHeader>["$props"];
+        footer?: boolean;
+    }>(),
+    {
+        contentClass: "",
+        pageHeader: undefined,
+        footer: false
+    }
+);
 
 const route = useRoute();
 
 const myFrameContent = ref();
 
-const layoutModeHeight = computed(() => {
-    const mode = global().app.layout;
-    if (mode === "left") {
-        return "calc(100vh - 94px)";
-    } else {
-        return "calc(100vh - 120px)";
-    }
+// 计算 frame-view 的高度：100vh - Header高度 - Tags高度
+const frameViewHeight = computed(() => {
+    return `calc(100vh - ${LAYOUT_SIZE.HEADER_HEIGHT}px - ${LAYOUT_SIZE.TAGS_HEIGHT}px)`;
 });
 
-const props = withDefaults(
-    defineProps<{
-        contentClass?: string;
-        fixedHeight?: boolean;
-        pageHeader?: InstanceType<typeof PageHeader>["$props"];
-    }>(),
-    {
-        contentClass: "",
-        fixedHeight: false,
-        pageHeader: undefined
-    }
-);
-
-const bottomStyle = computed(() => {
+const footerStyle = computed(() => {
+    const { SIDER_WIDTH, SIDER_COLLAPSED_WIDTH } = LAYOUT_SIZE;
     return {
-        width: global().collapsed ? "calc(100% - 48px)" : "calc(100% - 200px)"
+        width: global().collapsed ? `calc(100% - ${SIDER_COLLAPSED_WIDTH}px)` : `calc(100% - ${SIDER_WIDTH}px)`
     };
 });
 
@@ -60,37 +58,33 @@ onActivated(() => {
 });
 </script>
 <style lang="scss" scoped>
-.frame-view-pdm {
-    padding-bottom: 60px;
-}
-.frame-fixed-height {
-    height: v-bind(layoutModeHeight);
-    overflow: hidden;
-    .frame-view-content {
-        height: calc(100% - 40px);
-    }
-}
 .frame-view {
     display: flex;
     flex-direction: column;
     position: relative;
+    width: 100%;
+    overflow-x: hidden;
+
     .frame-view-content {
         background-color: var(--color-bg-2);
         flex: 1;
         padding: 24px;
         margin: 20px;
-        overflow-y: auto;
+        overflow: visible; // 不需要滚动
     }
-    .frame-view-bottom {
+
+    .frame-view-footer {
+        width: 100%;
         position: fixed;
         bottom: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 60px;
         background-color: var(--color-bg-2);
+        height: 60px;
         border-top: 1px solid var(--color-border);
-        z-index: 100;
+        flex-shrink: 0; // 防止footer被压缩
+        z-index: 10;
     }
 }
 </style>

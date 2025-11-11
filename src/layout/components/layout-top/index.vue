@@ -1,81 +1,52 @@
 <template>
-    <div class="app-layout">
-        <div class="layout-header">
-            <app-logo></app-logo>
-            <div class="app-top">
-                <div class="horizontal-header">
-                    <div class="app-header-menu-wrap">
-                        <app-header-menu></app-header-menu>
-                    </div>
-                    <app-header-right></app-header-right>
+    <a-layout style="height: 100vh">
+        <a-layout-header
+            :style="{
+                height: `${LAYOUT_SIZE.HEADER_HEIGHT}px`,
+                backgroundColor: 'var(--color-bg-2)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: '0 24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+            }"
+        >
+            <div style="display: flex; align-items: center; flex: 1">
+                <app-logo />
+                <!-- 顶部菜单 -->
+                <div style="margin-left: 24px; flex: 1">
+                    <app-menu mode="horizontal" :route-list="routeList" />
                 </div>
-                <!-- <app-tags></app-tags> -->
             </div>
-        </div>
-        <div class="app-layout-body">
-            <div class="layout-content">
+            <app-header-right />
+        </a-layout-header>
+
+        <a-layout>
+            <a-layout-content
+                :style="{
+                    backgroundColor: 'rgb(var(--gray-2))',
+                    overflow: 'auto'
+                }"
+            >
                 <app-bread style="margin-left: 20px; margin-top: 20px"></app-bread>
                 <app-main></app-main>
-            </div>
-        </div>
-    </div>
+            </a-layout-content>
+        </a-layout>
+    </a-layout>
 </template>
 <script lang="ts" setup name="LayoutTop">
 import AppLogo from "../app-logo/index.vue";
-import AppHeaderMenu from "../app-header-menu/index.vue";
+import AppMenu from "../app-menu/index.vue";
 import AppHeaderRight from "../app-header-right/index.vue";
 import AppMain from "../app-main/index.vue";
 import AppBread from "../app-bread/index.vue";
-import AppTags from "../app-tags/index.vue";
+import routes from "@/config/pinia/routes";
+import { LAYOUT_SIZE } from "@/layout/constants";
+
+// 顶部布局显示所有路由
+const routeList = computed(() => {
+    return routes().routes;
+});
 </script>
 <style lang="scss" scoped>
-.app-layout {
-    height: 100%;
-    :deep(.arco-layout-sider-children) {
-        @include scroll-y();
-    }
-    .layout-header {
-        display: flex;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        z-index: 100;
-        border-bottom: 1px solid rgb(var(--gray-3));
-        box-shadow: 0 2px 8px 2px rgba(29, 33, 41, 0.02), 0 2px 4px rgba(29, 33, 41, 0.02),
-            0 1px 2px -2px rgba(29, 33, 41, 0.02);
-        .app-header {
-            height: 60px;
-        }
-        .app-tags {
-            height: 34px;
-        }
-        .app-top {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-        }
-        .horizontal-header {
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            .app-header-menu-wrap {
-                flex: 1;
-                .app-menu {
-                    height: 100%;
-                }
-            }
-        }
-    }
-    .app-layout-body {
-        display: flex;
-        height: calc(100vh - 60px);
-        .layout-content {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            @include scroll-y(6);
-            background-color: rgb(var(--gray-2));
-        }
-    }
-}
 </style>

@@ -127,7 +127,7 @@ const actionSelect = async (value: any) => {
         }
     } else if (value === Eaction.others) {
         const filterList = tagList.value.filter((el, idx) => {
-            return idx === 0 || idx === props.index;
+            return idx === props.index;
         });
         routes().navTags = filterList;
         router.push(data);

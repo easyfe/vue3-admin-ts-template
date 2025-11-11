@@ -5,7 +5,7 @@
                 <a-form-item label="插槽"> 这是自定义插槽 {{ formData }}</a-form-item>
             </template>
         </arco-form>
-        <template #bottom>
+        <template #footer>
             <a-button type="primary" @click="save">保存</a-button>
         </template>
     </frame-view>
