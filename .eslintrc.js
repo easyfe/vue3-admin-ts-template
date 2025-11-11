@@ -3,6 +3,8 @@ module.exports = {
     plugins: ["@syyfe"],
     rules: {
         //检验路由命名规则
-        "@syyfe/validate-router": "error"
+        "@syyfe/validate-router": "error",
+        //禁止使用any类型
+        "@typescript-eslint/no-explicit-any": "on"
     }
 };

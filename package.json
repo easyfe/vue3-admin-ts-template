@@ -7,9 +7,7 @@
         "build:test": "vite build --mode test",
         "build:prod": "vite build --mode production",
         "lint": "eslint --fix \"src/**/*.{js,vue,ts}\"",
-        "lint:error": "eslint --fix --quiet \"src/**/*.{js,vue,ts}\"",
-        "svgo": "svgo -f src/assets/svg --config=src/config/svgo.js",
-        "prepare": "husky install"
+        "lint:error": "eslint --fix --quiet \"src/**/*.{js,vue,ts}\""
     },
     "dependencies": {
         "@amap/amap-jsapi-loader": "^1.0.1",
@@ -76,14 +74,13 @@
         "postcss": "^8.4.24",
         "postcss-pxtorem": "^6.0.0",
         "rollup-plugin-visualizer": "^5.9.2",
-        "sass": "^1.63.6",
-        "svgo": "^3.0.2",
+        "sass": "^1.94.0",
         "terser": "^5.18.2",
         "tslib": "^2.6.0",
-        "typescript": "4.5.2",
+        "typescript": "^5.9.3",
         "unplugin-auto-import": "^0.18.3",
         "unplugin-vue-components": "^0.27.4",
-        "vite": "^4.5.3",
+        "vite": "^7.2.2",
         "vite-plugin-compression": "^0.5.1",
         "vite-plugin-restart": "^0.3.1",
         "vite-plugin-svg-icons": "^2.0.1",

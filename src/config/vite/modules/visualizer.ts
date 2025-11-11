@@ -1,6 +1,7 @@
 import visualizer from "rollup-plugin-visualizer";
+import { Plugin } from "vite";
 
-export function ConfigVisualizerConfig(): any {
+export function ConfigVisualizerConfig(): Plugin {
     return visualizer({
         filename: "stats.html",
         open: false,

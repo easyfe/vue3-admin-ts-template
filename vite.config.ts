@@ -43,8 +43,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         css: {
             preprocessorOptions: {
                 scss: {
-                    javascriptEnabled: true,
-                    additionalData: `@import "@/styles/utils/index.scss";`
+                    additionalData: `@use "@/styles/utils/index.scss" as *;`
                 }
             }
         },

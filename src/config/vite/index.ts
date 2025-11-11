@@ -12,7 +12,7 @@ import { ConfigVisualizerConfig } from "./modules/visualizer";
 import { ConfigCompressPlugin } from "./modules/compress";
 import VueSetupExtend from "vite-plugin-vue-setup-extend-plus";
 import { vitePluginForArco } from "@arco-plugins/vite-vue";
-import { AliUploadPlugin } from "@easyfe/vite-plugin-upload";
+import { AliUploadPlugin, AliConfig } from "@easyfe/vite-plugin-upload";
 import versionPlugin from "./modules/version";
 
 /**
@@ -22,7 +22,7 @@ import versionPlugin from "./modules/version";
  */
 export function createVitePlugins(params: {
     envMap: Record<string, any>;
-    uploadOption?: any;
+    uploadOption?: AliConfig;
     now: string;
 }): (Plugin | Plugin[])[] {
     const vitePlugins: (Plugin | Plugin[])[] = [
@@ -47,7 +47,7 @@ export function createVitePlugins(params: {
     ];
     // 上传oss
     if (params.envMap.VITE_APP_MODE !== "development" && params.envMap.VITE_APP_ENABLE_OSS === "true") {
-        vitePlugins.push(AliUploadPlugin(params.uploadOption));
+        vitePlugins.push(AliUploadPlugin(params.uploadOption as AliConfig));
     }
     // 代码压缩 .gzip之类
     else if (params.envMap.VITE_APP_COMPRESS) {
