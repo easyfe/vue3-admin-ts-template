@@ -24,3 +24,9 @@ p {
 * {
     box-sizing: border-box;
 }
+
+// 自定义进度条颜色
+#nprogress {
+    position: fixed;
+    z-index: 99999 !important;
+}
