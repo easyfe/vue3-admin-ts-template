@@ -1,5 +1,5 @@
 import visualizer from "rollup-plugin-visualizer";
-import { Plugin } from "vite";
+import type { Plugin } from "vite";
 
 export function ConfigVisualizerConfig(): Plugin {
     return visualizer({

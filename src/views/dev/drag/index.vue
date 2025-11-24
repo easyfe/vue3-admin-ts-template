@@ -22,11 +22,11 @@
                     :is-conflict-check="false"
                     :snap="true"
                     :snap-tolerance="10"
-                    @dragging="(left:number, top:number) => onDragging(index, left, top)"
-                    @dragstop="(left:number, top:number) => onDragstop(index, left, top)"
+                    @dragging="(left: number, top: number) => onDragging(index, left, top)"
+                    @dragstop="(left: number, top: number) => onDragstop(index, left, top)"
                     @resizing="resizeEndHandle(item.id)"
                     @deactivated="onDeactivated($event, index)"
-                    @refLineParams="useDragLine().setValue"
+                    @ref-line-params="useDragLine().setValue"
                 >
                     <div class="vdr-content">
                         <component :is="item.component" :id="item.id" />

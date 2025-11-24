@@ -1,5 +1,5 @@
 import router from "@/packages/vue-router";
-import { RouteConfig } from "types";
+import type { RouteConfig } from "types";
 const routerHelper = {
     back() {
         router.back();

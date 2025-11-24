@@ -1,4 +1,5 @@
-import { UserConfig, ConfigEnv, loadEnv } from "vite";
+import type { UserConfig, ConfigEnv } from "vite";
+import { loadEnv } from "vite";
 import path from "path";
 import { createVitePlugins } from "./src/config/vite";
 import { getOssConfig } from "./src/config/oss";

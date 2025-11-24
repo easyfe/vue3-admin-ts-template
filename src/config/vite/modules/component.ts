@@ -4,7 +4,7 @@
  */
 import Components from "unplugin-vue-components/vite";
 import { ArcoResolver } from "unplugin-vue-components/resolvers";
-import { Plugin } from "vite";
+import type { Plugin } from "vite";
 
 export const AutoRegistryComponents = (): Plugin => {
     return Components({

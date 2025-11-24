@@ -49,9 +49,9 @@
 import routes from "@/config/pinia/routes";
 import { getDefaultRoute } from "@/packages/vue-router";
 import { Message } from "@arco-design/web-vue";
-import { RouteConfig } from "types";
+import type { RouteConfig } from "types";
 
-enum Eaction {
+const enum Eaction {
     reload = "reload",
     current = "current",
     left = "left",

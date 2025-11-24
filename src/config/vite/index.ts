@@ -12,8 +12,9 @@ import { ConfigVisualizerConfig } from "./modules/visualizer";
 import { ConfigCompressPlugin } from "./modules/compress";
 import VueSetupExtend from "vite-plugin-vue-setup-extend-plus";
 import { vitePluginForArco } from "@arco-plugins/vite-vue";
-import { AliUploadPlugin, AliConfig } from "@easyfe/vite-plugin-upload";
+import { AliUploadPlugin } from "@easyfe/vite-plugin-upload";
 import versionPlugin from "./modules/version";
+import type { AliConfig } from "@easyfe/vite-plugin-upload";
 
 /**
  * 创建vite插件

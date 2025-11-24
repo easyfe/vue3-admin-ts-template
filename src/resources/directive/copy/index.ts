@@ -6,7 +6,7 @@
  * @param {string} onError 【非必传】失败的回调，回调参数: {e}  注：默认使用vant Toast 轻提示,该方法里面可以自定义交互
  *  使用方法：v-copy="Options"
  */
-import { ObjectDirective } from "vue";
+import type { ObjectDirective } from "vue";
 import typeHelper from "@/utils/helper/type/index";
 import handlerCopy from "@/utils/tools/copy";
 import { Message } from "@arco-design/web-vue";

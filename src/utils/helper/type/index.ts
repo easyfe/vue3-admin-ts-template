@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** 检测对象类型 */
 const typeHelper = {
     /**

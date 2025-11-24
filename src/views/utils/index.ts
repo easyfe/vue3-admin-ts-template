@@ -185,13 +185,18 @@ export function hasMenu(menu: string) {
  * @returns 数组
  */
 export function treeToArray<T>(tree: T[], childrenKey: keyof T): Omit<T, keyof T>[] {
-    return tree.reduce((res, item) => {
-        const { [childrenKey]: children, ...i } = item;
-        return res.concat(
-            i,
-            children && (children as unknown as T[]).length ? treeToArray(children as unknown as T[], childrenKey) : []
-        );
-    }, [] as Omit<T, keyof T>[]);
+    return tree.reduce(
+        (res, item) => {
+            const { [childrenKey]: children, ...i } = item;
+            return res.concat(
+                i,
+                children && (children as unknown as T[]).length
+                    ? treeToArray(children as unknown as T[], childrenKey)
+                    : []
+            );
+        },
+        [] as Omit<T, keyof T>[]
+    );
 }
 
 /**

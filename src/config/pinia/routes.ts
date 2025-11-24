@@ -1,16 +1,16 @@
-import { RouteConfig } from "types";
+import type { RouteConfig } from "types";
 import { defineStore } from "pinia";
-import { RouteLocationNormalized } from "vue-router";
+import type { RouteLocationNormalized } from "vue-router";
 
 export default defineStore({
     id: "routes",
     state: () => ({
         //路由列表
-        routes: <RouteConfig[]>[],
+        routes: [] as RouteConfig[],
         // 导航栏标签
-        navTags: <RouteConfig[]>[],
+        navTags: [] as RouteConfig[],
         // 缓存的tags
-        cachedTags: <string[]>[]
+        cachedTags: [] as string[]
     }),
     actions: {
         SET_ROUTES(res: RouteConfig[]) {
@@ -43,7 +43,7 @@ export default defineStore({
 
             /** 同步添加缓存标签 */
             if (!inCache && res.meta?.cache !== false && res.meta?.keepAliveName !== undefined) {
-                this.cachedTags.push(<string>res.meta?.keepAliveName || <string>name);
+                this.cachedTags.push((res.meta?.keepAliveName as string) || (name as string));
             }
         },
         // 根据index删除导航标签

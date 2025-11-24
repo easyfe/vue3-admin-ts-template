@@ -1,7 +1,7 @@
 // versionUpdatePlugin.js
 import fs from "fs";
 import path from "path";
-import { Plugin, ResolvedConfig } from "vite";
+import type { Plugin, ResolvedConfig } from "vite";
 
 const writeVersion = (versionFile: string, content: string) => {
     // 写入文件

@@ -20,7 +20,7 @@
     </template>
 </template>
 <script setup lang="ts" name="MenuItem">
-import { RouteConfig } from "types";
+import type { RouteConfig } from "types";
 import { Svg } from "@easyfe/admin-component";
 
 const router = useRouter();

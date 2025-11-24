@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import router, { getRouteParent } from "@/packages/vue-router/index";
 import { Svg } from "@easyfe/admin-component";
-import { RouteConfig } from "types";
+import type { RouteConfig } from "types";
 const breadList = computed(() => {
     return getRouteParent();
 });

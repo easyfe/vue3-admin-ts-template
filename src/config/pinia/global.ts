@@ -5,12 +5,12 @@ export default defineStore({
     state: () => ({
         //项目配置
         app: {
-            layout: <"left" | "top" | "mix">"left"
+            layout: "left" as "left" | "top" | "mix"
         },
         // 滚动条位置
-        scrollTop: <Record<string, number>>{},
-        userInfo: <Record<string, any> | null>null,
-        userMenu: <{ path: string }[]>[],
+        scrollTop: {} as Record<string, number>,
+        userInfo: null as Record<string, any> | null,
+        userMenu: [] as { path: string }[],
         //是否收起菜单
         collapsed: false,
         initSuccess: false

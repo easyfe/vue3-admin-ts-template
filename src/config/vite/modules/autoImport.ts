@@ -4,13 +4,13 @@
  * https://github.com/antfu/unplugin-auto-import#configuration
  */
 import AutoImport from "unplugin-auto-import/vite";
-import { Plugin } from "vite";
+import type { Plugin } from "vite";
 import { ArcoResolver } from "unplugin-vue-components/resolvers";
 
 export const AutoImportDeps = (): Plugin => {
     return AutoImport({
         dts: "src/auto-imports.d.ts",
-        imports: ["vue", "pinia", "vue-router", "@vueuse/core"],
+        imports: ["vue", "pinia", "vue-router"],
         resolvers: [ArcoResolver({ exclude: ["AMap"] })]
-    });
+    }) as Plugin;
 };

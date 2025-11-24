@@ -1,6 +1,6 @@
 import request from "@/packages/request";
 import router from "@/packages/vue-router";
-import { RequestOption } from "@arco-design/web-vue";
+import type { RequestOption } from "@arco-design/web-vue";
 
 export function testList(params: Record<string, any>): Promise<{ title: string }> {
     return request({

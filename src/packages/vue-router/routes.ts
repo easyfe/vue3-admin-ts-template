@@ -2,9 +2,9 @@
  * @Author: hanxinxin
  * @Date: 2021-04-21 13:00:54
  * @Last Modified by: hanxinxin
- * @Last Modified time: 2025-11-11 15:23:02
+ * @Last Modified time: 2025-11-24 10:22:51
  */
-import { RouteRecordRaw } from "vue-router";
+import type { RouteRecordRaw } from "vue-router";
 import envHelper from "@/utils/helper/env";
 
 const modulesFiles: Record<string, any> = import.meta.glob("/src/config/router/*.ts", { eager: true });

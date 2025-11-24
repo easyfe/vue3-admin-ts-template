@@ -4,7 +4,7 @@
  */
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import path from "path";
-import { Plugin } from "vite";
+import type { Plugin } from "vite";
 
 export const ConfigSvgIconsPlugin = (dir: string): Plugin => {
     return createSvgIconsPlugin({

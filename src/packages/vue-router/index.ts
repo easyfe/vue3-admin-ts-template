@@ -2,7 +2,7 @@ import envHelper from "@/utils/helper/env";
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import piniaRoutes from "@/config/pinia/routes";
-import { RouteConfig } from "types";
+import type { RouteConfig } from "types";
 import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css";
 import typeHelper from "@/utils/helper/type";

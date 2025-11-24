@@ -15,7 +15,7 @@
 <script lang="ts" setup name="AppMenu">
 import MenuItem from "./menu-item.vue";
 import { getRouteParent } from "@/packages/vue-router";
-import { RouteConfig } from "types";
+import type { RouteConfig } from "types";
 
 interface AppMenuProps {
     mode?: "vertical" | "horizontal";

@@ -1,4 +1,4 @@
-import { ObjectDirective } from "vue";
+import type { ObjectDirective } from "vue";
 import { usePermission } from "@/hooks/usePermission";
 
 const PermissionFunction: ObjectDirective = {
