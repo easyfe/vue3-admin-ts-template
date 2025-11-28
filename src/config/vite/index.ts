@@ -10,7 +10,6 @@ import { AutoRegistryComponents } from "./modules/component";
 import { ConfigRestartPlugin } from "./modules/restart";
 import { ConfigVisualizerConfig } from "./modules/visualizer";
 import { ConfigCompressPlugin } from "./modules/compress";
-import VueSetupExtend from "vite-plugin-vue-setup-extend-plus";
 import { vitePluginForArco } from "@arco-plugins/vite-vue";
 import { AliUploadPlugin } from "@easyfe/vite-plugin-upload";
 import versionPlugin from "./modules/version";
@@ -37,11 +36,6 @@ export function createVitePlugins(params: {
         AutoRegistryComponents(),
         // 监听配置文件改动重启
         ConfigRestartPlugin(),
-        /**
-         * 扩展setup插件，支持在script标签中使用name属性
-         * usage: <script setup name="MyComp"></script>
-         */
-        VueSetupExtend(),
         vitePluginForArco({
             // theme: "@arco-themes/vue-easyfe"
         })
