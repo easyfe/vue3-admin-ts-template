@@ -14,6 +14,7 @@ export default defineConfig([
     {
         files: ["**/*.{js,ts,vue}"],
         extends: [
+            "./src/.eslintrc-auto-import.json",
             js.configs.recommended,
             ...tseslint.configs.recommended,
             ...vuePlugin.configs["flat/recommended"],

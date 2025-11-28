@@ -4,6 +4,7 @@ node_modules
 /test
 /src/components.d.ts
 /src/auto-imports.d.ts
+/src/.eslintrc-auto-import.json
 stats.html
 /public/version.json
 

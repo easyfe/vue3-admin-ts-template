@@ -4,8 +4,9 @@
         <a-input v-model="value"></a-input>
     </frame-view>
 </template>
-<script lang="ts" setup name="DevPagesLv3">
+<script lang="ts" setup>
 import { Message } from "@arco-design/web-vue";
+defineOptions({ name: "DevPagesLv3" });
 const value = ref("");
 onActivated(() => {
     Message.success("激活了三级页面onActivated");
