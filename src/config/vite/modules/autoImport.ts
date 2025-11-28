@@ -18,7 +18,7 @@ export const AutoImportDeps = (): Plugin => {
         eslintrc: {
             // 这里先设置成true然后npm run dev 运行之后会生成 .eslintrc-auto-import.json 文件之后，在改为false
             enabled: true,
-            filepath: "src/.eslintrc-auto-import.json", // 生成的文件路径
+            filepath: "src/.eslintrc-auto-import.cjs", // 生成的文件路径
             globalsPropValue: true
         }
     }) as Plugin;
