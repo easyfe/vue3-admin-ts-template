@@ -8,8 +8,8 @@ type RetryData = {
 };
 
 export default function (data: RetryData): Promise<any> {
-    !data.limit && (data.limit = 3);
-    !data.delay && (data.delay = 50);
+    if (!data.limit) data.limit = 3;
+    if (!data.delay) data.delay = 50;
     if (data.immediate === undefined) data.immediate = true;
 
     return new Promise((resolve, reject) => {

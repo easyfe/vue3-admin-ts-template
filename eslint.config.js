@@ -15,7 +15,13 @@ export default defineConfig([
     // 指定全局变量和环境
     {
         languageOptions: {
-            globals: { ...globals.browser, ...eslintAutoImportJson.globals, AMap: "readonly", AMapUI: "readonly" },
+            globals: {
+                ...globals.browser,
+                ...eslintAutoImportJson.globals,
+                AMap: "readonly",
+                AMapUI: "readonly",
+                echarts: "readonly"
+            },
             parser: vueParser,
             ecmaVersion: 12, // 使用最新的 ECMAScript 语法
             sourceType: "module", // 代码是 ECMAScript 模块

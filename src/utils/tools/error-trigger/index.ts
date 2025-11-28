@@ -25,7 +25,7 @@ export function triggError(params: {
         if (!params.scrollOptons) {
             params.scrollOptons = { block: "center", behavior: "smooth" };
         }
-        el && el.scrollIntoView(params.scrollOptons);
+        if (el) el.scrollIntoView(params.scrollOptons);
         const currClass = el?.getAttribute("class") || "";
         if (!currClass?.includes("trigg-error")) el?.setAttribute("class", currClass.concat(" trigg-error"));
         timer = window.setTimeout(() => {
