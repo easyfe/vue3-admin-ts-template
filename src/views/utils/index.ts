@@ -61,6 +61,7 @@ export function initGlobal() {
         try {
             //  global().userInfo = await getUserInfo();
             //  global().userMenu = await getUserMenu();
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             initRoute();
             global().initSuccess = true;
             resolve(true);
@@ -116,6 +117,7 @@ export function recuFind<T>(
     const loop = (data: T[]): T | undefined => {
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
+            if (!item) continue;
             if (fn(item)) {
                 return item;
             } else if (item[childrenKey] && Array.isArray(item[childrenKey])) {
@@ -226,20 +228,28 @@ export function arrayToTree<T>(
 
         map[id] = {
             ...item,
-            [childrenKey]: getHasOwnProperty(map, id) ? map[id][childrenKey] : []
-        };
+            [childrenKey]: getHasOwnProperty(map, id) ? (map[id]?.[childrenKey] ?? []) : []
+        } as T & { [key: string]: any[] };
 
         const newItem = map[id];
 
         if (pid === "0") {
-            res.push(newItem);
+            if (newItem) {
+                res.push(newItem);
+            }
         } else {
             if (!getHasOwnProperty(map, pid)) {
                 map[pid] = {
                     [childrenKey]: []
                 } as T & { [key: string]: any[] };
             }
-            map[pid][childrenKey].push(newItem);
+            const parentNode = map[pid];
+            if (parentNode && newItem) {
+                const children = parentNode[childrenKey];
+                if (children) {
+                    children.push(newItem);
+                }
+            }
         }
     }
     return res;
