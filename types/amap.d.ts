@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable max-classes-per-file */
 import "@amap/amap-jsapi-types";
 // import "amap-jsapi-v2-types";
 

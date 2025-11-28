@@ -6,7 +6,6 @@ export const baseRouter = [
             title: "找不到页面",
             hidden: true
         },
-        // eslint-disable-next-line @syyfe/validate-router
         component: (): any => import("@/views/404/index.vue")
     },
     {
