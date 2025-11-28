@@ -30,8 +30,8 @@ export default defineConfig([
     },
     // 使用的扩展配置 解析器选项
     pluginJs.configs.recommended,
-    ...tseslint.configs.recommended,
-    ...pluginVue.configs["flat/essential"],
+    tseslint.configs.recommended,
+    pluginVue.configs["flat/essential"],
     prettier,
     {
         rules: {
