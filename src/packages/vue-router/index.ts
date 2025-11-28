@@ -7,9 +7,7 @@ import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css";
 import typeHelper from "@/utils/helper/type";
 import global from "@/config/pinia/global";
-import { initGlobal, versionCheck } from "@/views/utils";
-import { getVersion } from "@/config/apis/common";
-import { Message } from "@arco-design/web-vue";
+import { initGlobal } from "@/views/utils";
 import { baseRouter } from "./base";
 import { cloneDeep } from "lodash-es";
 
@@ -33,6 +31,7 @@ const formatMenuShow = (routes: RouteConfig[]) => {
     routes.sort((a, b) => (b.meta?.sort || 1) - (a.meta?.sort || 1));
     for (let i = 0; i < routes.length; i++) {
         const item = routes[i];
+        if (!item) continue;
         //处理一级路由，从/释放出来
         if (!item.meta?.title && item.children?.length) {
             cloneData.push(...formatMenuShow(item.children));
@@ -54,7 +53,7 @@ const formatMenuShow = (routes: RouteConfig[]) => {
             cloneData.push({
                 ...item,
                 children: formatMenuShow(item.children)
-            });
+            } as RouteConfig);
         } else {
             cloneData.push(item);
         }
@@ -73,7 +72,7 @@ const initRoute = (): void => {
         data.forEach((item) => {
             if (item.children?.length) {
                 if (typeof item.component !== "function") {
-                    item.redirect = item.children[0].path;
+                    item.redirect = item.children[0]?.path;
                 }
                 loop(item.children);
             }
@@ -156,7 +155,7 @@ router.beforeEach(async (to: RouteConfig, from, next) => {
     //     return;
     // }
     // console.log("路由前置守卫：", to, from);
-    document.title = <string>to.meta?.title || "";
+    document.title = (to.meta?.title as string) || "";
     if (to.name === "login") {
         next();
         return;

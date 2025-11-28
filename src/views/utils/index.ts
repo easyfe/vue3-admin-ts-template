@@ -51,24 +51,17 @@ export function errorLogout() {
  * 全局初始化
  * @returns
  */
-export function initGlobal() {
-    return new Promise(async (resolve, reject) => {
-        // if (!storage.getToken()) {
-        //     reject();
-        //     errorLogout();
-        //     return;
-        // }
-        try {
-            //  global().userInfo = await getUserInfo();
-            //  global().userMenu = await getUserMenu();
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            initRoute();
-            global().initSuccess = true;
-            resolve(true);
-        } catch (err) {
-            reject(err);
-        }
-    });
+export async function initGlobal() {
+    // if (!storage.getToken()) {
+    //     errorLogout();
+    //     throw new Error('No token');
+    // }
+    //  global().userInfo = await getUserInfo();
+    //  global().userMenu = await getUserMenu();
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    initRoute();
+    global().initSuccess = true;
+    return true;
 }
 
 /**

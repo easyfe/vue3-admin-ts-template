@@ -18,7 +18,7 @@
 </template>
 <script lang="ts" setup>
 import echartsHelper from "@/utils/helper/echarts";
-import { EChartsOption, LineSeriesOption } from "echarts";
+import type { EChartsOption, LineSeriesOption } from "echarts";
 
 const props = withDefaults(
     defineProps<{

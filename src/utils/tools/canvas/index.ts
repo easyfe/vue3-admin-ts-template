@@ -100,7 +100,7 @@ export function drawImagedWithRound(
                     // 裁剪
                     ctx.clip();
                     // 绘制图片
-                    ctx.drawImage(res as HTMLImageElement, x, y, width, height);
+                    ctx.drawImage(res, x, y, width, height);
                     // 恢复之前保存的绘图上下文
                     ctx.restore();
                     resolve("success");

@@ -197,7 +197,7 @@ watch(
 );
 
 function ondragstart(event: DragEvent) {
-    var img = new Image();
+    let img = new Image();
     img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' %3E%3Cpath /%3E%3C/svg%3E";
     event?.dataTransfer?.setDragImage(img, 0, 0);
 }
