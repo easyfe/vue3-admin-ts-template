@@ -35,7 +35,7 @@
 </template>
 <script lang="ts" setup name="TheDraggableContainer">
 import { computed } from "vue";
-import { MatchedLine, Position, SetMatchedLine } from "./type";
+import type { MatchedLine, Position, SetMatchedLine } from "./type";
 
 const list = ref<Position[]>([]);
 

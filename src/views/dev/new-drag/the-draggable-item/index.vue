@@ -25,7 +25,7 @@
     </div>
 </template>
 <script lang="ts" setup name="TheDraggableItem">
-import { MatchedLine, Position, SetMatchedLine } from "../the-draggable-container/type";
+import type { MatchedLine, Position, SetMatchedLine } from "../the-draggable-container/type";
 
 //吸附阈值
 const adsorbValue = 10;

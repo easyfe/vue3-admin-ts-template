@@ -103,7 +103,8 @@
 import { Svg as BaseSvg } from "@easyfe/admin-component";
 import location1 from "./images/location1.png";
 import location2 from "./images/location2.png";
-import { MapContainer, MapMarker, MapText, MapInfoWindow, MapType } from "@/views/components/the-amap";
+import { MapContainer, MapMarker, MapText, MapInfoWindow } from "@/views/components/the-amap";
+import type { MapType } from "@/views/components/the-amap";
 import envHelper from "@/utils/helper/env";
 
 const props = withDefaults(

@@ -5,7 +5,7 @@
 </template>
 <script lang="ts" setup>
 import AMapLoader from "@amap/amap-jsapi-loader";
-import { MapType } from "./index";
+import type { MapType } from "./index";
 
 const props = withDefaults(
     defineProps<{

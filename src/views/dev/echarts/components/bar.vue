@@ -7,7 +7,7 @@
 </template>
 <script lang="ts" setup>
 import echartsHelper from "@/utils/helper/echarts";
-import { EChartsOption } from "echarts";
+import type { EChartsOption } from "echarts";
 
 const props = withDefaults(
     defineProps<{

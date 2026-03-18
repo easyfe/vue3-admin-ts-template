@@ -1,4 +1,4 @@
-import { EChartsOption } from "echarts";
+import type { EChartsOption } from "echarts";
 import { isArray, merge } from "lodash-es";
 
 const echartsHelper = {

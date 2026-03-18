@@ -76,7 +76,7 @@
     </div>
 </template>
 <script lang="ts" setup name="AppHeaderRight">
-import { RouteLocationMatched } from "vue-router";
+import type { RouteLocationMatched } from "vue-router";
 import { ArcoModalFormShow, Svg, formHelper } from "@easyfe/admin-component";
 import { LOCALE_OPTIONS } from "@/locales";
 import { useLocale } from "@/hooks/useLocale";
