@@ -1,0 +1,1 @@
+var r=()=>((r,t=21)=>(a=t)=>{let e="",n=a;for(;n--;)e+=r[Math.random()*r.length|0];return e})("ABCDEFGabcdefgHIJKLMNhijklmnOPQRSTUopqrstuVWXYZvwxyz",10)(20);export{r as t};
