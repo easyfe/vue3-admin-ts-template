@@ -84,10 +84,12 @@ export default ({ mode }: ConfigEnv): UserConfig => {
                 external: [],
                 // https://rollupjs.org/guide/en/#big-list-of-options
                 output: {
-                    manualChunks: {
-                        echart: ["echarts"],
-                        ui: ["@arco-design/web-vue", "@arco-plugins/vite-vue"],
-                        core: ["vue", "vue-router"]
+                    manualChunks(moduleId, meta) {
+                        if (moduleId.includes("echarts")) return "echart";
+                        if (moduleId.includes("@arco-design/web-vue") || moduleId.includes("@arco-plugins/vite-vue"))
+                            return "ui";
+                        if (moduleId.includes("vue-router")) return "core";
+                        if (moduleId.includes("/node_modules/vue/")) return "core";
                     }
                 }
             },
